@@ -5,17 +5,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.loginandregister.login_register.service.CustomSuccessHandler;
 import com.loginandregister.login_register.service.CustomUserDetailsService;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
     @Autowired
+    CustomSuccessHandler customSuccessHandler;
+
+    @Autowired
 	CustomUserDetailsService customUserDetailsService;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(c -> c.disable())
@@ -26,7 +33,7 @@ public class SecurityConfig {
 				.anyRequest().authenticated())
 		
 		.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
-				.defaultSuccessUrl("/").permitAll())
+				.successHandler(customSuccessHandler).permitAll())
 		
 		.logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
