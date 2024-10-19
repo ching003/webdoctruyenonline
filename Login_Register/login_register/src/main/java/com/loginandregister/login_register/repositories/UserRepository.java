@@ -7,5 +7,5 @@ import com.loginandregister.login_register.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-
+    User findByEmail (String email);
 }
