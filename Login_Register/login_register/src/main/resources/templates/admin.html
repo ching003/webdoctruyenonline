@@ -4,40 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0e2433;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header {
-            background-color: #45b6fe;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            margin: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #0e2433;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        h2 {
-            color: #45b6fe;
-        }
-
-        /* Add more styles and components for your dashboard here */
-    </style>
+    <link rel="stylesheet" th:href="@{../css/admin_styles.css}">
 </head>
 <body>
     <div class="header">
@@ -47,13 +14,25 @@
         <h2>Welcome, [[${user.getFullname()}]]</h2>
         
         <span sec:authorize="isAuthenticated">
-        <a th:href="@{/logout}">
-         Logout
-        
-        </a>
-        
+            <a th:href="@{/logout}">Logout</a>            
         </span>
+        <!--Up truyen-->
+        <h3>Add</h3>
+        <form action="#" th:action="@{/stories/add}" method="post">
+            <label for="title">Name:</label>
+            <input type="text" id="title" name="title" required><br>
 
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required><br>
+
+            <label for="category">Categories:</label>
+            <input type="text" id="category" name="category" required><br>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required></textarea><br>
+
+            <button type="submit">Add</button>
+        </form>
     </div>
 </body>
 </html>
