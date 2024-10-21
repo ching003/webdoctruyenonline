@@ -13,15 +13,15 @@ public class StoryService {
     @Autowired
     private StoryRepository storyRepository;
 
-    public List<Story> getAllStories(){
-        return storyRepository.findAll();
-    }
-
-    public void addStory(Story story){
+    public void save(Story story){
         storyRepository.save(story);
     }
 
+    public List<Story> findAll(){
+        return storyRepository.findAll();
+    }
+
     public List<Story> searchStories(String keyword){
-        return storyRepository.findByTittleContaining(keyword);
+        return storyRepository.findByTitleContaining(keyword);
     }
 }

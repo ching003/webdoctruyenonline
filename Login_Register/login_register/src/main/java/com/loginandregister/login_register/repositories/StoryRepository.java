@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.loginandregister.login_register.model.Story;
 
 public interface StoryRepository extends JpaRepository<Story, Long>{
-    List<Story> findByTittleContaining(String keyword);
+    List<Story> findByTitleContaining(String keyword);
 }

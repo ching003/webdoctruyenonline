@@ -10,10 +10,7 @@ public class Story {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String author;
-    private String category;
-    private String description;
+    private String title, author, category, description, coverImage;
 
     public Story(){
         super();
@@ -54,5 +51,11 @@ public class Story {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getCoverImage() {
+        return coverImage;
+    }
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 }

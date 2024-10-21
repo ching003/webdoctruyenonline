@@ -16,23 +16,15 @@
         <span sec:authorize="isAuthenticated">
             <a th:href="@{/logout}">Logout</a>            
         </span>
-        <!--Up truyen-->
-        <h3>Add</h3>
-        <form action="#" th:action="@{/stories/add}" method="post">
-            <label for="title">Name:</label>
-            <input type="text" id="title" name="title" required><br>
-
-            <label for="author">Author:</label>
-            <input type="text" id="author" name="author" required><br>
-
-            <label for="category">Categories:</label>
-            <input type="text" id="category" name="category" required><br>
-
-            <label for="description">Description</label>
-            <textarea id="description" name="description" required></textarea><br>
-
-            <button type="submit">Add</button>
-        </form>
+        
+        <!-- Quản lý Truyện -->
+        <div class="admin-options">
+            <h3>Quản lý Truyện</h3>
+            <ul>
+                <li><a th:href="@{/admin/stories}">Xem danh sách truyện</a></li>
+                <li><a th:href="@{/admin/story/new}">Thêm truyện mới</a></li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

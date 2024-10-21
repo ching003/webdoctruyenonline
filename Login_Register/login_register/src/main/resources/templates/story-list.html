@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách truyện</title>
+    <link rel="stylesheet" th:href="@{../css/admin_styles.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Danh sách truyện</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên truyện</th>
+                    <th>Tác giả</th>
+                    <th>Thể loại</th>
+                    <th>Mô tả</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="story : ${stories}">
+                    <img th:src="@{/${story.coverImage}}" alt="Ảnh bìa" width="200px"><br><br>
+                    <td th:text="${story.title}"></td>
+                    <td th:text="${story.author}"></td>
+                    <td th:text="${story.category}"></td>
+                    <td th:text="${story.description}"></td>                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
