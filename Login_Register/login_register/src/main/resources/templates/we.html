@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{../css/we_style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Truyện hay - Đọc truyện online</title>
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href=""><img style="width:120px; height:40px;" src="image\logo.png" alt="Logo"></a></li>
+            <li><input type="text" placeholder="Tìm truyện hoặc tên tác giả"><i class="fas fa-search"></i></li>
+            <li>
+                <a href="#" class="nav-link" tabindex="0">Lọc truyện<i class="fas fa-sort-down"></i></a>
+                <div class="filter-group">
+                    <h3>Trạng Thái:</h3>
+                    <label><input type="checkbox"> Tất cả</label>
+                    <label><input type="checkbox"> Full</label>
+                    <label><input type="checkbox"> Đang ra</label>
+            
+                    <h3>Số Chương:</h3>
+                    <label><input type="checkbox"> Tất cả</label>
+                    <label><input type="checkbox"> &lt;50</label>
+                    <label><input type="checkbox"> &lt;100</label>
+                    <label><input type="checkbox"> 100-200</label>
+                    <label><input type="checkbox"> 200-500</label>
+                    <label><input type="checkbox"> 500-1000</label>
+                    <label><input type="checkbox"> &gt;1000</label>
+            
+                    <h3>Sắp Xếp:</h3>
+                    <label><input type="checkbox"> Cập nhật</label>
+                    <label><input type="checkbox"> Mới đăng</label>
+                    <label><input type="checkbox"> Xem nhiều</label>
+                    <label><input type="checkbox"> Yêu thích</label>
+                    <label><input type="checkbox"> Số chương</label>
+                    <label><input type="checkbox"> Đánh giá</label>
+                    <label><input type="checkbox"> Toàn bộ</label>
+            
+                    <h3>Thể Loại:</h3>
+                    <label><input type="checkbox"> Ngôn Tình</label>
+                    <label><input type="checkbox"> Ngược</label>
+                    <label><input type="checkbox"> Đam Mỹ</label>
+                    <label><input type="checkbox"> Hài Hước</label>
+                    <label><input type="checkbox"> Đô Thị</label>
+                    <label><input type="checkbox"> Hiện Đại</label>
+                    <label><input type="checkbox"> Xuyên Không</label>
+                    <label><input type="checkbox"> Xuyên Nhanh</label>
+                    <label><input type="checkbox"> Tổng Tài</label>
+                    <label><input type="checkbox"> Kiếm Hiệp</label>
+                    <label><input type="checkbox"> Tiên Hiệp</label>
+                    <label><input type="checkbox"> Sắc</label>
+                    <label><input type="checkbox"> Sủng</label>
+                    <label><input type="checkbox"> Mạt Thế</label>
+                    <label><input type="checkbox"> Bách Hợp</label>
+                    <label><input type="checkbox"> Đông Phương</label>
+                    <label><input type="checkbox"> Cung Đấu</label>
+                    <label><input type="checkbox"> Gia Đấu</label>
+                    <label><input type="checkbox"> Cổ Đại</label>
+                    <label><input type="checkbox"> Điền Văn</label>
+                    <label><input type="checkbox"> Nữ Cường</label>
+                    <label><input type="checkbox"> Nữ Phụ</label>
+                    <label><input type="checkbox"> Trinh Thám</label>
+                    <label><input type="checkbox"> Quan Trường</label>
+                    <label><input type="checkbox"> Dị Năng</label>
+                    <label><input type="checkbox"> Dị Giới</label>
+                    <label><input type="checkbox"> Linh Dị</label>
+                    <label><input type="checkbox"> Trọng Sinh</label>
+                    <label><input type="checkbox"> Quân Sự</label>
+                    <label><input type="checkbox"> Lịch Sử</label>
+                    <label><input type="checkbox"> Thám Hiểm</label>
+                    <label><input type="checkbox"> Huyền Huyễn</label>
+                    <label><input type="checkbox"> Khoa Huyễn</label>
+                    <label><input type="checkbox"> Hệ Thống</label>
+                    <label><input type="checkbox"> Phương Tây</label>
+                    <label><input type="checkbox"> Việt Nam</label>
+                    <label><input type="checkbox"> Đoản Văn</label>
+                    <label><input type="checkbox"> Khác</label>
+            
+                    <h3>Loại Bỏ:</h3>
+                    <label><input type="checkbox"> Ngôn Tình</label>
+                    <label><input type="checkbox"> Ngược</label>
+                    <label><input type="checkbox"> Đam Mỹ</label>
+                    <label><input type="checkbox"> Hài Hước</label>
+                    <label><input type="checkbox"> Đô Thị</label>
+                    <label><input type="checkbox"> Hiện Đại</label>
+                    <label><input type="checkbox"> Xuyên Không</label>
+                    <label><input type="checkbox"> Xuyên Nhanh</label>
+                    <label><input type="checkbox"> Tổng Tài</label>
+                    <label><input type="checkbox"> Kiếm Hiệp</label>
+                    <label><input type="checkbox"> Tiên Hiệp</label>
+                    <label><input type="checkbox"> Sắc</label>
+                    <label><input type="checkbox"> Sủng</label>
+                    <label><input type="checkbox"> Mạt Thế</label>
+                    <label><input type="checkbox"> Bách Hợp</label>
+                    <label><input type="checkbox"> Đông Phương</label>
+                    <label><input type="checkbox"> Cung Đấu</label>
+                    <label><input type="checkbox"> Gia Đấu</label>
+                    <label><input type="checkbox"> Cổ Đại</label>
+                    <label><input type="checkbox"> Điền Văn</label>
+                    <label><input type="checkbox"> Nữ Cường</label>
+                    <label><input type="checkbox"> Nữ Phụ</label>
+                    <label><input type="checkbox"> Trinh Thám</label>
+                    <label><input type="checkbox"> Quan Trường</label>
+                    <label><input type="checkbox"> Dị Năng</label>
+                    <label><input type="checkbox"> Dị Giới</label>
+                    <label><input type="checkbox"> Linh Dị</label>
+                    <label><input type="checkbox"> Trọng Sinh</label>
+                    <label><input type="checkbox"> Quân Sự</label>
+                    <label><input type="checkbox"> Lịch Sử</label>
+                    <label><input type="checkbox"> Thám Hiểm</label>
+                    <label><input type="checkbox"> Huyền Huyễn</label>
+                    <label><input type="checkbox"> Khoa Huyễn</label>
+                    <label><input type="checkbox"> Hệ Thống</label>
+                    <label><input type="checkbox"> Phương Tây</label>
+                    <label><input type="checkbox"> Việt Nam</label>
+                    <label><input type="checkbox"> Đoản Văn</label>
+                    <label><input type="checkbox"> Khác</label>
+            
+                   <br> <button class="filter-button">Lọc Truyện</button></div></li>
+                </div>
+            </li>
+            
+            <li>
+                <a href="#" class="nav-link" tabindex="0">Thể loại<i class="fas fa-sort-down"></i></a>
+                <div class="submenu">
+                    <ul>
+                        <li><a href="">Tiên Hiệp</a></li>
+                        <li><a href="">Kiếm Hiệp</a></li>
+                        <li><a href="">Ngôn Tình</a></li>
+                        <li><a href="">Đam Mỹ</a></li>
+                        <li><a href="">Võng Du</a></li>
+                        <li><a href="">Khoa Huyễn</a></li>
+                        <li><a href="">Hệ Thống</a></li>
+                        <li><a href="">Huyền Huyễn</a></li>
+                        <li><a href="">Dị Giới</a></li>
+                        <li><a href="">Dị Năng</a></li>
+                        <li><a href="">Quân Sự</a></li>
+                        <li><a href="">Lịch Sử</a></li>
+                        <li><a href="">Xuyên Không</a></li>
+                        <li><a href="">Xuyên Nhanh</a></li>
+                        <li><a href="">Trọng Sinh</a></li>
+                        <li><a href="">Trinh Thám</a></li>
+                        <li><a href="">Thám Hiểm</a></li>
+                        <li><a href="">Linh Dị</a></li>
+                        <li><a href="">Sắc</a></li>
+                        <li><a href="">Ngược</a></li>
+                        <li><a href="">Sủng</a></li>
+                        <li><a href="">Cung Đấu</a></li>
+                        <li><a href="">Nữ Cường</a></li>
+                        <li><a href="">Gia Đấu</a></li>
+                        <li><a href="">Đông Phương</a></li>
+                        <li><a href="">Đô Thị</a></li>
+                        <li><a href="">Bách Hợp</a></li>
+                        <li><a href="">Hài Hước</a></li>
+                        <li><a href="">Điền Văn</a></li>
+                        <li><a href="">Cổ Đại</a></li>
+                        <li><a href="">Mạt Thế</a></li>
+                        <li><a href="">Phương Tây</a></li>
+                        <li><a href="">Nữ Phụ</a></li>
+                        <li><a href="">Light Novel</a></li>
+                        <li><a href="">Việt Nam</a></li>
+                        <li><a href="">Khác</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="nav-link" tabindex="0">Danh sách<i class="fas fa-sort-down"></i></a>
+                <div class="submenu">
+                    <ul>
+                        <li><a href="">Truyện mới cập nhật</a></li>
+                        <li><a href="">Truyện Hot</a></li>
+                        <li><a href="">Truyện Full</a></li>
+                        <li><a href="">Tiên Hiệp Hay</a></li>
+                        <li><a href="">Kiếm Hiệp Hay</a></li>
+                        <li><a href="">Ngôn Tình Hay</a></li>
+                        <li><a href="">Ngôn Tình Ngược</a></li>
+                        <li><a href="">Đam Mỹ Hot</a></li>
+                        <li><a href="">Truyện hay</a></li>
+                    </ul>
+                </div>
+            </li>
+            
+            <li><a href="login.html" id="login-register-btn">Đăng nhập/Đăng ký</a></li>
+        </ul>
+    </nav>
+
+    
+    <div id="content">
+    </div>
+    <section class="slider-product-one">
+        <div class="container">
+            <div class="one-content">
+                <div class="one-content-title">
+                    <h2>TRUYỆN HOT</h2>
+                </div>
+                <div class="one-content-items">
+                    <ul class="slider-product-one-content">
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Đích-nữ.jpg" alt="">
+                            <p>Đích Nữ</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Ngoi-nha-di-dong-cua-Howl.png" alt="">
+                            <p>Ngôi nhà di động của Howl</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/6cab5e4cab737f5c6c6aa79294c71043.jpg" alt="">
+                            <p>Tìm nhầm người rồi</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Ngoai-Tinh.jpg" alt="">
+                            <p>Ngoại tình</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Picture1585469732771.png" alt="">
+                            <p>Ngày xưa, câu chuyện thanh xuân còn dang dở</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Bút-kí-1.jpg" alt="">
+                            <p>Bút ký phản công của pháo hôi</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image\1A.jpg" alt="">
+                            <p>Vì em gặp anh</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Bút-kí-1.jpg" alt="">
+                            <p>Bút ký phản công của pháo hôi</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image\Beyond the cover Ngôn tình  (17).jpg" alt="">
+                            <p>Thiên mộ sơn tuyết</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image\FB_IMG_1611366921959-1.jpg" alt="">
+                            <p>Bảy bước yêu đương cùng nam thần</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    
+    <section class="new-updates">
+        <h2>TRUYỆN MỚI CẬP NHẬT</h2>
+        <table>
+            <tr>
+                <td>Đóng Vai Tình Địch, Tôi Bị Nam Chủ Coi Trọng!</td>
+                <td>Ngôn Tình, Hệ Thống</td>
+                <td>Chương 62</td>
+                <td>7 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Mỹ Nhân Và Nô Lệ - Ly Đình Nghê Diễm</td>
+                <td>Đam Mỹ, Ngược</td>
+                <td>Chương 16</td>
+                <td>7 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Vương Gia Công Thị Vệ Thụ Chi Sủng Ngươi Nhất Thế</td>
+                <td>Đam Mỹ, Sủng</td>
+                <td>Chương 20</td>
+                <td>7 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Hoắc Tổng Truy Thê</td>
+                <td>Ngôn Tình, Sắc</td>
+                <td>Chương 1200</td>
+                <td>8 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Cưa Đổ Đội Trưởng Hứa - Toto</td>
+                <td>Ngôn Tình, Sắc</td>
+                <td>Chương 57</td>
+                <td>8 giờ trước</td>
+            </tr>
+            <tr>
+                <td>[Xuyên Sách] Bị Đại Phản Diện Ráo Riết Nhắm Đến!</td>
+                <td>Ngôn Tình, Hệ Thống</td>
+                <td>Chương 12</td>
+                <td>58 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Núi Lửa Ngủ Đông - Nhân Hình Tịnh Lưu Ly</td>
+                <td>Đô Thị, Đam Mỹ</td>
+                <td>Chương 26</td>
+                <td>09 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Nam Chính Hắc Hóa Lại Trùng Sinh</td>
+                <td>Ngôn Tình, Xuyên Không</td>
+                <td>Chương 76</td>
+                <td>09 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Tối Nay Người Sẽ Rời Đi</td>
+                <td>Ngôn Tình, Đô Thị</td>
+                <td>Chương 46</td>
+                <td>09 giờ trước</td>
+            </tr>
+            <tr>
+                <td>365 Cách Sống Sót Với Độ Khó Cao</td>
+                <td>Đô Thị, Bách Hợp</td>
+                <td>Chương 18</td>
+                <td>11 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Có hai con mèo ngồi bên cửa sổ</td>
+                <td>Review sách</td>
+                <td>Chưa có</td>
+                <td>11 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Vật Rơi Tự Do - Một Hữu Giác</td>
+                <td>Ngôn Tình, Sắc</td>
+                <td>Chương 53</td>
+                <td>11 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Châm Biếm - Đại Bao Tử</td>
+                <td>Ngôn Tình, Sắc</td>
+                <td>Chương 72</td>
+                <td>12 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Tô Tô</td>
+                <td>Ngôn Tình, Đô Thị</td>
+                <td>Chương 88</td>
+                <td>12 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Trò Chơi Bách Quỷ - Tấn Yên</td>
+                <td>Huyền Huyễn, Linh Dị</td>
+                <td>Chương 24</td>
+                <td>12 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Xuyên Nhanh: Ký Chủ Cô Ấy Một Lòng Muốn Chết</td>
+                <td>Ngôn Tình, Hệ Thống</td>
+                <td>Chương 55</td>
+                <td>12 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Thập Lục Nương - Minh Nguyệt Điều Điều</td>
+                <td>Ngôn Tình, Sủng</td>
+                <td>Chương 18</td>
+                <td>12 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Thanh Bình Nhạc - Nhược Hoa Từ Thụ</td>
+                <td>Trọng Sinh, Ngược</td>
+                <td>Chương 100</td>
+                <td>13 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Chào Mừng Đến Với Địa Ngục Của Ta</td>
+                <td>Trinh Thám, Xuyên Nhanh</td>
+                <td>Chương 46</td>
+                <td>13 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Mẹ Kế Đanh Đá Nuôi Con Trong Nhà Nông</td>
+                <td>Ngôn Tình, Sủng</td>
+                <td>Chương 88</td>
+                <td>14 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Đèn Neon Thời Tiết</td>
+                <td>Ngôn Tình, Đô Thị</td>
+                <td>Chương 61</td>
+                <td>15 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Thần Giao Cách Cảm - Phong Lương Minh Nguyệt</td>
+                <td>Ngôn Tình, Đô Thị</td>
+                <td>Chương 82</td>
+                <td>21 giờ trước</td>
+            </tr>
+            <tr>
+                <td>Cúc Chỉ - Mộ Vũ</td>
+                <td>Đô Thị, Xuyên Nhanh</td>
+                <td>Chương 10</td>
+                <td>22 giờ trước</td>
+            </tr>
+            
+        </table>
+    </section>
+    
+    <section class="slider-product-one">
+        <div class="container">
+            <div class="one-content">
+                <div class="one-content-title">
+                    <h2>TRUYỆN MỚI HOÀN THÀNH</h2>
+                </div>
+                <div class="one-content-items">
+                    <ul class="slider-product-one-content">
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Đích-nữ.jpg" alt="">
+                            <p>Đích Nữ</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Ngoi-nha-di-dong-cua-Howl.png" alt="">
+                            <p>Ngôi nhà di động của Howl</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/6cab5e4cab737f5c6c6aa79294c71043.jpg" alt="">
+                            <p>Tìm nhầm người rồi</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Ngoai-Tinh.jpg" alt="">
+                            <p>Ngoại tình</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Picture1585469732771.png" alt="">
+                            <p>Ngày xưa, câu chuyện thanh xuân còn dang dở</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Bút-kí-1.jpg" alt="">
+                            <p>Bút ký phản công của pháo hôi</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image\1A.jpg" alt="">
+                            <p>Vì em gặp anh</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image/Bút-kí-1.jpg" alt="">
+                            <p>Bút ký phản công của pháo hôi</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image\Beyond the cover Ngôn tình  (17).jpg" alt="">
+                            <p>Thiên mộ sơn tuyết</p>
+                        </li>
+                        <li class="slider-product-one-content-item">
+                            <img src="image\FB_IMG_1611366921959-1.jpg" alt="">
+                            <p>Bảy bước yêu đương cùng nam thần</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+    
+</body>
+</html>
