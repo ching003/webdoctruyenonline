@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Trang Cá Nhân</h1>
+        
+        <div class="profile">
+            <div class="profile-image">
+                <img src="image/c6e56503cfdd87da299f72dc416023d4.jpg" alt="Ảnh đại diện" id="avatar" style="width: 200px; height: 200px; border-radius: 50%;">
+                <br>
+                <label for="upload" class="upload-label">Đổi ảnh đại diện</label>
+                <input type="file" id="upload" accept="image/*" onchange="previewImage(event)" style="display:none;">
+            </div>
+            <div class="profile-info">
+                <h2 id="display-name">Tên Người Dùng</h2>
+                <p><strong>Số truyện yêu thích:</strong> <span id="favorite-count">10</span></p>
+                <p><strong>Số truyện đang đọc:</strong> <span id="reading-count">5</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const img = document.getElementById('avatar');
+            img.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>
