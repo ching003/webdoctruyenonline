@@ -4,26 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{../css/we_style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" th:href="@{../css/admin_styles.css}">
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
 </head>
 <body>
     <div class="header">
-        <h1>ADMIN Dashboard</h1>
-    </div>
-    <div class="container">
-        <h2>Welcome, [[${user.getFullname()}]]</h2>
-        
-        <span sec:authorize="isAuthenticated">
-            <a th:href="@{/logout}">Logout</a>            
-        </span>
-        
-        <!-- Quản lý Truyện -->
-        <div class="admin-options">
-            <h3>Quản lý Truyện</h3>
+        <nav>
             <ul>
-                <li><a th:href="@{/admin/stories}">Xem danh sách truyện</a></li>
-                <li><a th:href="@{/admin/story/new}">Thêm truyện mới</a></li>
+                <li><a href="/home"><img style="width:120px; height:40px;" src="image\logo.png" alt="Logo"></a></li>
             </ul>
+        </nav>        
+    </div>
+    
+    <div class="profile-container">
+        <div class="left-section">
+            <div class="avatar-section">
+                <img src="image\c6e56503cfdd87da299f72dc416023d4.jpg" alt="Avatar" class="avatar-img">
+                <h2>Admin Profile</h2>
+            </div>
+            <div class="profile-info">                
+                <div class="info-item">
+                    <span>Tên:</span>
+                    <span>Admin</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="info-content">
+                        <p>Name: Admin</p>
+                        <p>Role: Administrator</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span>Số truyện:</span>
+                    <span>10</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="info-content">
+                        <p>Stories: 10</p>
+                        <p>Last updated: 2023-02-20</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span>Lượt thích:</span>
+                    <span>10</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="info-content">
+                        <p>Likes: 10</p>
+                        <p>Last updated: 2023-02-20</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="admin-options">
+                <h3>Quản lý Truyện</h3>
+                <ul>
+                    <li><a href="#" onclick="toggleAddStoryForm()">Thêm truyện mới</a></li>
+                </ul>
+            </div>
+            <!-- Phần thêm truyện mới -->
+            <div id="add-story-section" class="add-story-section">
+                <table>
+                    <tr>
+                        <td>Tên truyện:</td>
+                        <td><input type="text" name="title " required></td>
+                    </tr>
+                    <tr>
+                        <td>Tác giả:</td>
+                        <td><input type="text" name="author" required></td>
+                    </tr>
+                    <tr>
+                        <td>Thể loại:</td>
+                        <td><input type="text" name="category" required></td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả:</td>
+                        <td><textarea name="description" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Ảnh bìa:</td>
+                        <td><input type="file" name="coverImage" accept="image/*" required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button class="submit-btn">Thêm</button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Phần danh sách truyện -->
+            <div class="story-table">
+                <ul>
+                    <li><a>Danh sách truyện đã đăng</a></li>
+                </ul>
+                <table>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên truyện</th>
+                        <th>Tác giả</th>
+                        <th>Ngày đăng</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Truyện 1</td>
+                        <td>Tác giả 1</td>
+                        <td>2023-02-15</td>
+                        <td>
+                            <a href="#" class="edit-btn">Sửa</a>
+                            <a href="#" class="delete-btn">Xóa</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- JavaScript để ẩn/hiện form thêm truyện -->
+        <script>
+            function toggleAddStoryForm() {
+                document.getElementById('add-story-section').style.display = 'block';
+            }
+        </script>
         </div>
     </div>
 </body>

@@ -32,12 +32,16 @@ public class SecurityConfig {
 				.requestMatchers("/registration", "/css/**", "/home", "/", "/static/**", "/image/**").permitAll()
 				.anyRequest().authenticated())
 		
-		.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
-				.successHandler(customSuccessHandler).permitAll())
+		.formLogin(form -> form.loginPage("/login")
+				.loginProcessingUrl("/login")
+				.defaultSuccessUrl("/home", true)
+				//.successHandler(customSuccessHandler)
+				.permitAll())
 		
-		.logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
+		.logout(form -> form.invalidateHttpSession(true)
+				.logoutUrl("/logout").clearAuthentication(true)
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login?logout").permitAll());
+				.logoutSuccessUrl("/home").permitAll());
 		
 		return http.build();
     }

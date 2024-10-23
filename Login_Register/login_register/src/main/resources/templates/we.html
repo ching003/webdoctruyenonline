@@ -28,7 +28,7 @@
 <body>
     <nav>
         <ul>
-            <li><a href=""><img style="width:120px; height:40px;" src="image\logo.png" alt="Logo"></a></li>
+            <li><a href="/home"><img style="width:120px; height:40px;" src="image\logo.png" alt="Logo"></a></li>
             <li><input type="text" placeholder="Tìm truyện hoặc tên tác giả"><i class="fas fa-search"></i></li>
             <li>
                 <a href="#" class="nav-link" tabindex="0">Lọc truyện<i class="fas fa-sort-down"></i></a>
@@ -199,8 +199,26 @@
                     </ul>
                 </div>
             </li>
+            <!--<li><a href="login.html" id="login-register-btn">Đăng nhập/Đăng ký</a></li>-->
             
-            <li><a href="login.html" id="login-register-btn">Đăng nhập/Đăng ký</a></li>
+            <li th:if="${#authentication.principal != 'anonymousUser'}" class="dropdown">
+                <div class="user-info">
+                    <img class="avatar" src="image\c6e56503cfdd87da299f72dc416023d4.jpg" alt="avatar">
+                    <span th:text="${#strings.arraySplit(fullname,' ')[0]}">Tên</span>
+                </div>
+                <div class="dropdown-content">
+                    <!-- Link tới trang profile dựa theo role -->
+                    <a th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" 
+                       th:href="@{/admin-page}">Profile</a>
+                    <a th:if="${#authorization.expression('hasAuthority(''USER'')')}" 
+                       th:href="@{/user-page}">Profile</a>
+                    <a th:href="@{/logout}">Logout</a>
+                </div>
+            </li>
+            <li th:unless="${#authentication.principal != 'anonymousUser'}">
+                <a th:href="@{/login}" id="login-register-btn">Đăng nhập/Đăng ký</a>
+            </li>
+
         </ul>
     </nav>
 
