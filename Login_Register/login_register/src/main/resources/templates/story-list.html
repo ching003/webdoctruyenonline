@@ -3,31 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách truyện</title>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{../css/we_style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" th:href="@{../css/admin_styles.css}">
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Danh sách truyện</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Tên truyện</th>
-                    <th>Tác giả</th>
-                    <th>Thể loại</th>
-                    <th>Mô tả</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="story : ${stories}">
-                    <img th:src="@{/${story.coverImage}}" alt="Ảnh bìa" width="200px"><br><br>
-                    <td th:text="${story.title}"></td>
-                    <td th:text="${story.author}"></td>
-                    <td th:text="${story.category}"></td>
-                    <td th:text="${story.description}"></td>                    
-                </tr>
-            </tbody>
-        </table>
+    <div class="header">
+        <nav>
+            <ul>
+                <li><a href="/home"><img style="width:120px; height:40px;" src="\image\logo.png" alt="Logo"></a></li>
+            </ul>
+        </nav>        
     </div>
+    
+    <div class="profile-container">
+        <div th:replace="left-section :: left-section"></div>
+        <div class="right-section">
+            <h1>Danh sách truyện</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ảnh bìa</th>
+                        <th>Tên truyện</th>
+                        <th>Tác giả</th>
+                        <th>Thể loại</th>
+                        <th>Mô tả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="story : ${stories}">
+                        <td>
+                            <img th:src="@{${story.coverImage}}" alt="Ảnh bìa" width="200px"><br><br>
+                        </td>
+                        <td th:text="${story.title}"></td>
+                        <td th:text="${story.author}"></td>
+                        <td th:text="${story.category}"></td>
+                        <td th:text="${story.description}"></td>                    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
 </body>
 </html>

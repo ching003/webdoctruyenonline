@@ -1,5 +1,7 @@
 package com.loginandregister.login_register.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +11,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String email, password, role, fullname;
+
+    @OneToMany(mappedBy = "user")
+    private List<Story> stories;
 
     public User() {
         super();
@@ -51,4 +56,10 @@ public class User {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }    
+    public List<Story> getStories() {
+        return stories;
+    }
+    public void setStories(List<Story> stories) {
+        this.stories = stories;
+    }
 }

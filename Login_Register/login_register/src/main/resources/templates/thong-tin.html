@@ -1,0 +1,21 @@
+<div th:fragment="thong-tin">
+    <div class="right-section">
+        <div class="profile-container">
+            <h3 class="profile-header">Thông tin người dùng</h3>            
+        </div>
+        <table class="profile-info">
+            <tr>
+                <th>Họ và Tên</th>
+                <td th:text="${fullName}">John Doe</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:text="${obfuscatedEmail}">t****m@example.com</td>
+            </tr>
+            <tr>
+                <th>Mật khẩu</th>
+                <td th:text="${obfuscatedPassword}">****</td>
+            </tr>
+        </table>
+    </div>
+</div>

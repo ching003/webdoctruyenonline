@@ -1,16 +1,27 @@
 package com.loginandregister.login_register.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "stories")
 public class Story {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title, author, category, description, coverImage;
+    private LocalDateTime createdDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Story(){
         super();
@@ -20,6 +31,7 @@ public class Story {
         this.title = title;
         this.author = author;
         this.category = category;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -57,5 +69,17 @@ public class Story {
     }
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
+    }  
+    public String getCreatedDate(){
+        return createdDate.toString();
+    }
+    public void setCreatedDate(LocalDateTime localDate){
+        this.createdDate = localDate;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }

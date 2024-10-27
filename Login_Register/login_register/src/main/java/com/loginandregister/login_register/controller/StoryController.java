@@ -1,10 +1,14 @@
 package com.loginandregister.login_register.controller;
 
-import java.io.*;
-import java.nio.file.Path;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.loginandregister.login_register.model.Story;
+import com.loginandregister.login_register.model.User;
+import com.loginandregister.login_register.repositories.StoryRepository;
+import com.loginandregister.login_register.repositories.UserRepository;
 import com.loginandregister.login_register.service.StoryService;
 
 
@@ -20,30 +27,36 @@ import com.loginandregister.login_register.service.StoryService;
 public class StoryController {
     @Autowired
     private StoryService storyService;
+    @Autowired
+    private StoryRepository storyRepository;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private UserRepository userRepository;
+    private final String UPLOAD_DIR = "src/main/resources/static/image/";
 
-    @GetMapping("/admin/story/new")
+    @GetMapping("/admin/new-story")
     public String showAddStoryForm(Model model) {
         model.addAttribute("story", new Story());
         return "add-story";
     }
-    
-    @PostMapping("/stories/add")
+
+    @PostMapping("/admin/new-story")
     public String saveStory(@RequestParam("title") String title,
                             @RequestParam("author") String author,
                             @RequestParam("category") String category,
                             @RequestParam("description") String description,
                             @RequestParam("coverImage") MultipartFile coverImage, 
-                            Model model) {        
+                            Model model, Principal principal) {        
         if (coverImage.isEmpty()) {
             model.addAttribute("message", "Chưa chọn ảnh để tải lên!");
             model.addAttribute("story", new Story());
             return "add-story";
         }
-
+        
         String fileName = coverImage.getOriginalFilename();
         //String upDir = "uploads/";
-        String upDir = Paths.get("uploads").toAbsolutePath().toString();
-        Path upPath = Paths.get(upDir);
+        String upDir = Paths.get("Login_Register/login_register/src/main/resources/static/image").toAbsolutePath().toString();
         File dir = new File(upDir);
         if (!dir.exists()) {
             dir.mkdir();
@@ -61,15 +74,27 @@ public class StoryController {
         story.setAuthor(author);
         story.setCategory(category);
         story.setDescription(description);
-        story.setCoverImage(upDir + '/' + fileName);
+        story.setCreatedDate(LocalDateTime.now());
+        story.setCoverImage("/image/" + fileName);
+        String userEmail = principal.getName();
+        User user = userRepository.findByEmail(userEmail);
+        if (user != null) {
+            story.setUser(user);
+        }
         storyService.save(story);
         return "redirect:/admin-page";
     }
+       
 
     @GetMapping("/admin/stories")
-    public String viewStories(Model model) {
-        model.addAttribute("stories", storyService.findAll());
+    public String viewStories(Model model, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName());
+        if (user!= null) {
+            model.addAttribute("stories", storyService.getStoriesByUser(user));
+        } else {
+            model.addAttribute("stories", List.of());
+        }
         return "story-list";
     }
-    
+
 }
