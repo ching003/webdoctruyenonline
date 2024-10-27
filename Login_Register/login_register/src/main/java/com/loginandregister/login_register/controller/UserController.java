@@ -41,15 +41,7 @@ public class UserController {
     @GetMapping("/login")
 	public String login() {
 		return "login";
-	}
-
-    @GetMapping("user-page")
-	public String userPage (Model model, Principal principal) {
-		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-		model.addAttribute("user", userDetails);
-		return "user";
-	}
-	
+	}	
     
 	@GetMapping("admin-page")
 	public String adminPage (Model model, Principal principal) {
@@ -64,6 +56,21 @@ public class UserController {
         model.addAttribute("obfuscatedPassword", obfuscatedPassword);
 
 		return "admin";
+	}
+
+    @GetMapping("user-page")
+	public String userPage (Model model, Principal principal) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
+        
+        CustomUserDetail customUserDetail = (CustomUserDetail) userDetailsService.loadUserByUsername(principal.getName());
+        String obfuscatedEmail = obfuscateEmail(customUserDetail.getUsername());
+        String obfuscatedPassword = obfuscatePassword(customUserDetail.getPassword());
+        model.addAttribute("fullName", customUserDetail.getFullname());
+        model.addAttribute("obfuscatedEmail", obfuscatedEmail);
+        model.addAttribute("obfuscatedPassword", obfuscatedPassword);
+
+		return "user";
 	}
     private String obfuscateEmail(String email) {
         int atIndex = email.indexOf('@');

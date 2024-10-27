@@ -4,23 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{../css/we_style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" th:href="@{../css/user_styles.css}">
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
 </head>
 <body>
     <div class="header">
-        <h1>USER Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="/home"><img style="width:120px; height:40px;" src="image\logo.png" alt="Logo"></a></li>
+            </ul>
+        </nav>        
     </div>
-    <div class="container">
-        <h2>Welcome, [[${user.getFullname()}]]</h2>
-        
-        <span sec:authorize="isAuthenticated">
-        <a th:href="@{/logout}">
-         Logout
-        
-        </a>
-        
-        </span>
-
+    
+    <div class="profile-container">
+        <div th:replace="left-section-user :: left-section-user"></div>
+        <div class="profile-info" th:replace="thong-tin :: thong-tin"></div>
     </div>
 </body>
 </html>

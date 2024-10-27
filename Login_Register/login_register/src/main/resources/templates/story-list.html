@@ -56,7 +56,10 @@
                         <td th:text="${story.title}"></td>
                         <td th:text="${story.author}"></td>
                         <td th:text="${story.category}"></td>
-                        <td th:text="${story.description}"></td>                    
+                        <td th:text="${story.description}"></td>  
+                        <td>
+                            <a th:href="@{/story-info/{id}(id=${story.id})}" th:onclick="'loadContent(\'' + @{/story-info/{id}(id=${story.id})} + '\')'">Cập nhật</a>
+                        </td>                                          
                     </tr>
                 </tbody>
             </table>

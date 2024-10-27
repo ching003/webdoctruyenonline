@@ -12,14 +12,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.loginandregister.login_register.model.Chapter;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.model.User;
 import com.loginandregister.login_register.repositories.StoryRepository;
 import com.loginandregister.login_register.repositories.UserRepository;
+import com.loginandregister.login_register.service.ChapterService;
 import com.loginandregister.login_register.service.StoryService;
 
 
@@ -33,6 +37,8 @@ public class StoryController {
     private UserDetailsService userDetailsService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ChapterService chapterService;
     private final String UPLOAD_DIR = "src/main/resources/static/image/";
 
     @GetMapping("/admin/new-story")
@@ -97,4 +103,25 @@ public class StoryController {
         return "story-list";
     }
 
+    @GetMapping("/story-info/{id}")
+    public String getStoryInfo(@PathVariable Long id, Model model) {
+        Story story = storyService.findById(id); 
+        model.addAttribute("story", story); 
+        return "story-info"; 
+    }
+
+    @PostMapping("/addChapter")
+    public ModelAndView addChapter(@RequestParam Long storyId, @RequestParam String title, @RequestParam String content) {
+        Story story = storyService.findById(storyId); 
+        if (story != null) {
+            Chapter chapter = new Chapter();
+            chapter.setTitle(title);
+            chapter.setContent(content);
+            chapter.setStory(story); 
+            chapterService.save(chapter);
+        }
+        
+        ModelAndView modelAndView = new ModelAndView("redirect:/story-info/" + storyId);
+        return modelAndView;
+    }
 }

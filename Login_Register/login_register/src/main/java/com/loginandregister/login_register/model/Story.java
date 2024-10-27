@@ -1,13 +1,16 @@
 package com.loginandregister.login_register.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,8 +19,12 @@ public class Story {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title, author, category, description, coverImage;
-    private LocalDateTime createdDate;
+    private String title, author, category, description, coverImage, status; // "completed" hoặc "in-progress"
+    private LocalDateTime createdDate, completedDate;
+    private int views;
+
+    @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
+    private List<Chapter> chapters;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -81,5 +88,29 @@ public class Story {
     }
     public void setUser(User user) {
         this.user = user;
+    }
+    public int getViews() {
+        return views;
+    }
+    public void setViews(int views) {
+        this.views = views;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public LocalDateTime getCompletedDate() {
+        return completedDate;
+    }
+    public void setCompletedDate(LocalDateTime completedDate) {
+        this.completedDate = completedDate;
+    }
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
     }
 }

@@ -3,6 +3,7 @@ package com.loginandregister.login_register.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.loginandregister.login_register.model.Story;
@@ -59,5 +60,19 @@ public class StoryService {
 
     public List<Story> searchStories(String keyword){
         return storyRepository.findByTitleContaining(keyword);
+    }
+
+    //bonus
+    public List<Story> findHotStories() {
+        return storyRepository.findByOrderByViewsDesc(PageRequest.of(0, 10));
+    }
+
+    public List<Story> findRecentlyCompletedStories() {
+        return storyRepository.findByStatusOrderByCompletedDateDesc("completed", PageRequest.of(0, 10));
+    }
+
+    public Story findById(Long id) {
+        return storyRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Story not found"));
     }
 }

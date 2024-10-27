@@ -233,45 +233,9 @@
                 </div>
                 <div class="one-content-items">
                     <ul class="slider-product-one-content">
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Đích-nữ.jpg" alt="">
-                            <p>Đích Nữ</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Ngoi-nha-di-dong-cua-Howl.png" alt="">
-                            <p>Ngôi nhà di động của Howl</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/6cab5e4cab737f5c6c6aa79294c71043.jpg" alt="">
-                            <p>Tìm nhầm người rồi</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Ngoai-Tinh.jpg" alt="">
-                            <p>Ngoại tình</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Picture1585469732771.png" alt="">
-                            <p>Ngày xưa, câu chuyện thanh xuân còn dang dở</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Bút-kí-1.jpg" alt="">
-                            <p>Bút ký phản công của pháo hôi</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image\1A.jpg" alt="">
-                            <p>Vì em gặp anh</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Bút-kí-1.jpg" alt="">
-                            <p>Bút ký phản công của pháo hôi</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image\Beyond the cover Ngôn tình  (17).jpg" alt="">
-                            <p>Thiên mộ sơn tuyết</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image\FB_IMG_1611366921959-1.jpg" alt="">
-                            <p>Bảy bước yêu đương cùng nam thần</p>
+                        <li class="slider-product-one-content-item" th:each="story : ${hotStories}">
+                            <img th:src="@{${story.coverImage}}" alt="" width="200px">
+                            <p th:text="${story.title}"></p>
                         </li>
                     </ul>
                 </div>
@@ -435,45 +399,9 @@
                 </div>
                 <div class="one-content-items">
                     <ul class="slider-product-one-content">
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Đích-nữ.jpg" alt="">
-                            <p>Đích Nữ</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Ngoi-nha-di-dong-cua-Howl.png" alt="">
-                            <p>Ngôi nhà di động của Howl</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/6cab5e4cab737f5c6c6aa79294c71043.jpg" alt="">
-                            <p>Tìm nhầm người rồi</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Ngoai-Tinh.jpg" alt="">
-                            <p>Ngoại tình</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Picture1585469732771.png" alt="">
-                            <p>Ngày xưa, câu chuyện thanh xuân còn dang dở</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Bút-kí-1.jpg" alt="">
-                            <p>Bút ký phản công của pháo hôi</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image\1A.jpg" alt="">
-                            <p>Vì em gặp anh</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image/Bút-kí-1.jpg" alt="">
-                            <p>Bút ký phản công của pháo hôi</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image\Beyond the cover Ngôn tình  (17).jpg" alt="">
-                            <p>Thiên mộ sơn tuyết</p>
-                        </li>
-                        <li class="slider-product-one-content-item">
-                            <img src="image\FB_IMG_1611366921959-1.jpg" alt="">
-                            <p>Bảy bước yêu đương cùng nam thần</p>
+                        <li class="slider-product-one-content-item" th:each="story : ${completedStories}">
+                            <img th:src="@{${story.coverImage}}" alt="" width="200px">
+                            <p th:text="${story.title}"></p>
                         </li>
                     </ul>
                 </div>

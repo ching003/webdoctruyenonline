@@ -1,5 +1,6 @@
 package com.loginandregister.login_register.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -7,10 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.loginandregister.login_register.service.CustomUserDetail;
+import com.loginandregister.login_register.service.StoryService;
 
 
 @Controller
 public class HomeController {
+    @Autowired
+    private StoryService storyService;
+    
     @GetMapping("/")
     public String redirectToHome() {
         return "redirect:/home"; 
@@ -29,6 +34,8 @@ public class HomeController {
                 model.addAttribute("fullname", userDetails.getFullname());
             }
         }
+        model.addAttribute("hotStories", storyService.findHotStories());
+        model.addAttribute("completedStories", storyService.findRecentlyCompletedStories());
         return "we";
     }
 

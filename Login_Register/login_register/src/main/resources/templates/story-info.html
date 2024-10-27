@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{../css/story-info-style.css}">
+    <title>Thông Tin Truyện</title>
+</head>
+<body>
+
+<section class="story-info">
+    <h2>Thông Tin Truyện</h2>
+    <div class="story-details">
+        <img th:src="@{${story.coverImage}}" alt="Ảnh bìa" class="story-image">
+        <div class="info">
+            <p><strong>Tên truyện:</strong> <span th:text="${story.title}"></span></p>
+            <p><strong>Tác giả:</strong> <span th:text="${story.author}"></span></p>
+            <p><strong>Thể loại:</strong> <span th:text="${story.category}"></span></p>
+            
+        </div>
+    </div>
+    <h3>Văn Án</h3>
+    <p class="story-description" th:text="${story.description}"></p>
+</section>
+
+<h2>Thêm Chương Mới</h2>
+<form action="/addChapter" method="post">
+    <input type="hidden" name="storyId" th:value="${story.id}"/>
+    <div>
+        <label>Tiêu Đề:</label>
+        <input type="text" name="title" required/>
+    </div>
+    <div>
+        <label>Nội Dung:</label>
+        <textarea name="content" required></textarea>
+    </div>
+    <button type="submit">Thêm Chương</button>
+</form>
+
+
+<section class="chapter-list">
+    <h2>Danh Sách Chương</h2>
+    <ul>
+        <li th:each="chapter : ${story.chapters}">
+            <span th:text="${chapter.title}"></span>: <span th:text="${chapter.content}"></span>
+        </li>
+    </ul>
+</section>
+
+</body>
+</html>
