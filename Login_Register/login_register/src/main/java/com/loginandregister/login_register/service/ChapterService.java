@@ -13,4 +13,9 @@ public class ChapterService {
     public void save(Chapter chapter){
         chapterRepository.save(chapter);
     }
+
+    public Chapter getChapterById(Long id) {
+        return chapterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Chapter not found"));
+    }
 }

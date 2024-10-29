@@ -27,12 +27,16 @@
 <form action="/addChapter" method="post">
     <input type="hidden" name="storyId" th:value="${story.id}"/>
     <div>
-        <label>Tiêu Đề:</label>
+        <label>Tiêu đề:</label>
         <input type="text" name="title" required/>
     </div>
     <div>
-        <label>Nội Dung:</label>
+        <label>Nội dung ngắn:</label>
         <textarea name="content" required></textarea>
+    </div>
+    <div>
+        <label>Nội dung dài:</label>
+        <textarea name="longContent" required></textarea>
     </div>
     <button type="submit">Thêm Chương</button>
 </form>
@@ -42,7 +46,10 @@
     <h2>Danh Sách Chương</h2>
     <ul>
         <li th:each="chapter : ${story.chapters}">
-            <span th:text="${chapter.title}"></span>: <span th:text="${chapter.content}"></span>
+            <a th:href="@{/chapter/{id}(id=${chapter.id})}">
+                <span th:text="${chapter.title}"></span>
+            </a>: 
+            <span th:text="${chapter.content}"></span>
         </li>
     </ul>
 </section>

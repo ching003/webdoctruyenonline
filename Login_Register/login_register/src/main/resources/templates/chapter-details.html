@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/chapter-details.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title th:text="${chapter.title}"></title>
+</head>
+<body>
+    <div class="header">
+        <li>
+            <a th:href="@{/}" class="nav-link" tabindex="0">
+                <i class="fas fa-house"></i> Home
+            </a>
+        </li>
+        <a th:href="@{/story-info/{storyId}(storyId=${storyId})}" class="story-title" th:text="'/ ' + ${storyTitle}"></a>
+        <span>/</span>
+        <a href="#" class="chapter-title" th:text="${chapter.title}"></a>
+    </div>
+
+    <div class="navigation">
+        <button class="prev-chapter">Chương trước</button>
+        <span class="toc-icon"><i class="fa-solid fa-list"></i></span>
+        <button class="next-chapter">Chương tiếp</button>
+    </div>
+
+    <div class="chapter-content">
+        <h1 class="story-title" th:text="${storyTitle}"></h1>
+        <h2 class="chapter-title">
+            <span th:text="${chapter.title}"></span>: <span th:text="${chapter.content}"></span>
+        </h2>
+        <p th:utext="${formattedContent}"></p>
+    </div>
+
+    <div class="navigation">
+        <button class="prev-chapter">Chương trước</button>
+        <span class="toc-icon"><i class="fa-solid fa-list"></i></span>
+        <button class="next-chapter">Chương tiếp</button>
+    </div>
+
+    <div class="messages-container">
+        <div class="error-message">
+            <h3>Báo lỗi</h3>
+        </div>
+
+        <div class="comment-section">
+            <h3>Bình luận</h3>
+        </div>
+    </div>
+
+    <a th:href="@{/story-info/{storyId}(storyId=${storyId})}" class="back-link">Quay lại danh sách chương</a>
+
+</body>
+</html>

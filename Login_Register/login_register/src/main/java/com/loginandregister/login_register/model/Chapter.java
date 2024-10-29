@@ -1,5 +1,6 @@
 package com.loginandregister.login_register.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,8 @@ public class Chapter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title, content;
+    @Column(columnDefinition = "LONGTEXT")
+    private String longContent;
 
     @ManyToOne
     @JoinColumn(name = "story_id") 
@@ -29,7 +32,6 @@ public class Chapter {
         this.content = content;
     }
     
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -53,5 +55,11 @@ public class Chapter {
     }
     public void setStory(Story story) {
         this.story = story;
+    }
+    public String getLongContent() {
+        return longContent;
+    }
+    public void setLongContent(String longContent) {
+        this.longContent = longContent;
     }
 }

@@ -111,17 +111,30 @@ public class StoryController {
     }
 
     @PostMapping("/addChapter")
-    public ModelAndView addChapter(@RequestParam Long storyId, @RequestParam String title, @RequestParam String content) {
+    public ModelAndView addChapter(@RequestParam Long storyId, @RequestParam String title, @RequestParam String content, @RequestParam String longContent) {
         Story story = storyService.findById(storyId); 
         if (story != null) {
             Chapter chapter = new Chapter();
             chapter.setTitle(title);
             chapter.setContent(content);
+            chapter.setLongContent(longContent);
             chapter.setStory(story); 
             chapterService.save(chapter);
         }
         
         ModelAndView modelAndView = new ModelAndView("redirect:/story-info/" + storyId);
         return modelAndView;
+    }
+
+    @GetMapping("/chapter/{id}")
+    public String viewChapter(@PathVariable Long id, Model model) {
+        Chapter chapter = chapterService.getChapterById(id);
+        String formattedContent = chapter.getLongContent().replace("\n", "<br>");
+        model.addAttribute("formattedContent", formattedContent);
+        Story story = chapter.getStory();
+        model.addAttribute("storyId", story.getId());
+        model.addAttribute("storyTitle", story.getTitle());
+        model.addAttribute("chapter", chapter);
+        return "chapter-details";
     }
 }
