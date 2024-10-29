@@ -135,6 +135,13 @@ public class StoryController {
         model.addAttribute("storyId", story.getId());
         model.addAttribute("storyTitle", story.getTitle());
         model.addAttribute("chapter", chapter);
+
+        Chapter prevChapter = chapterService.findPrevChapter(id);
+        Chapter nextChapter = chapterService.findNextChapter(id);
+        List<Chapter> chapterList = chapterService.findChaptersByStoryId(story.getId());
+        model.addAttribute("prevChapterId", (prevChapter != null) ? prevChapter.getId() : null);
+        model.addAttribute("nextChapterId", (nextChapter != null) ? nextChapter.getId() : null);
+        model.addAttribute("chapterList", chapterList);
         return "chapter-details";
     }
 }

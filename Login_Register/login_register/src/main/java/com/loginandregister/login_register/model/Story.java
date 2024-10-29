@@ -1,6 +1,7 @@
 package com.loginandregister.login_register.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class Story {
     private int views;
 
     @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
-    private List<Chapter> chapters;
+    private List<Chapter> chapters = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")

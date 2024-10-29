@@ -20,10 +20,14 @@
     </div>
 
     <div class="navigation">
-        <button class="prev-chapter">Chương trước</button>
-        <span class="toc-icon"><i class="fa-solid fa-list"></i></span>
-        <button class="next-chapter">Chương tiếp</button>
-    </div>
+        <span th:if="${prevChapterId != null}">
+            <a th:href="@{/chapter/{chapterId}(chapterId=${prevChapterId})}" class="prev-chapter">Chương trước</a>
+        </span>
+        <span class="toc-icon" onclick="openModal()"><i class="fa-solid fa-list"></i></span>
+        <span th:if="${nextChapterId != null}">
+            <a th:href="@{/chapter/{chapterId}(chapterId=${nextChapterId})}" class="next-chapter">Chương tiếp</a>
+        </span>
+    </div>    
 
     <div class="chapter-content">
         <h1 class="story-title" th:text="${storyTitle}"></h1>
@@ -34,11 +38,19 @@
     </div>
 
     <div class="navigation">
-        <button class="prev-chapter">Chương trước</button>
-        <span class="toc-icon"><i class="fa-solid fa-list"></i></span>
-        <button class="next-chapter">Chương tiếp</button>
+        <span th:if="${prevChapterId != null}">
+            <a th:href="@{/chapter/{chapterId}(chapterId=${prevChapterId})}" class="prev-chapter">Chương trước</a>
+        </span>
+        <span class="toc-icon" onclick="openModal()"><i class="fa-solid fa-list"></i></span>
+        <span th:if="${nextChapterId != null}">
+            <a th:href="@{/chapter/{chapterId}(chapterId=${nextChapterId})}" class="next-chapter">Chương tiếp</a>
+        </span>
+    </div>    
+    
+    <div class="back-link-container">
+        <a th:href="@{/story-info/{storyId}(storyId=${storyId})}" class="back-link">Quay lại danh sách chương</a>
     </div>
-
+    
     <div class="messages-container">
         <div class="error-message">
             <h3>Báo lỗi</h3>
@@ -49,7 +61,35 @@
         </div>
     </div>
 
-    <a th:href="@{/story-info/{storyId}(storyId=${storyId})}" class="back-link">Quay lại danh sách chương</a>
+    <!-- Modal -->
+    <div id="chapterModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <ul>
+                <li th:each="chapter : ${chapterList}">
+                    <a th:href="@{/chapter/{id}(id=${chapter.id})}" th:text="${chapter.title}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('chapterModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('chapterModal').style.display = "none";
+        }
+
+        // Đóng modal nếu nhấn ngoài modal
+        window.onclick = function(event) {
+            var modal = document.getElementById('chapterModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>
