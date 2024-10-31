@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,47 @@
                     console.error('There has been a problem with your fetch operation:', error);
                 });
         }
+
+        // Hàm thêm thể loại đã chọn vào ô input ẩn
+        function updateCategories() {
+            const selectedCategories = Array.from(document.querySelectorAll('.category-checkbox:checked'))
+                .map(checkbox => checkbox.value);
+            document.getElementById('category').value = selectedCategories.join(', ');
+        }
+
+        // Hàm hiển thị danh sách thể loại
+        function toggleCategoryList() {
+            const categoryList = document.getElementById('category-list');
+            categoryList.style.display = 'block'; // Hiển thị danh sách ngay lập tức
+        }
+
+        // Đóng danh sách khi bấm ra ngoài
+        document.addEventListener('click', function(event) {
+            const categoryList = document.getElementById('category-list');
+            if (!categoryList.contains(event.target) && event.target.id !== 'category') {
+                categoryList.style.display = 'none';
+            }
+        });
     </script>
+    <style>
+        #category-list {
+            display: none; 
+            position: absolute;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            z-index: 1000;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .category-checkbox {
+            margin: 5px;
+        }
+        .category-container {
+            position: relative;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -46,7 +86,47 @@
                 <input type="text" id="author" name="author"><br>
 
                 <label for="category">Category:</label>
-                <input type="text" id="category" name="category"><br>
+                <div class="category-container">
+                    <input type="text" id="category" name="category" readonly onclick="toggleCategoryList()" placeholder="Chọn thể loại" />
+                    <div id="category-list">
+                        <label><input type="checkbox" class="category-checkbox" value="Bách Hợp" onchange="updateCategories()"> Bách Hợp</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Cổ Đại" onchange="updateCategories()"> Cổ Đại</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Cung Đấu" onchange="updateCategories()"> Cung Đấu</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Đam Mỹ" onchange="updateCategories()"> Đam Mỹ</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Đông Phương" onchange="updateCategories()"> Đông Phương</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Dị Giới" onchange="updateCategories()"> Dị Giới</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Dị Năng" onchange="updateCategories()"> Dị Năng</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Hài Hước" onchange="updateCategories()"> Hài Hước</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Hệ Thống" onchange="updateCategories()"> Hệ Thống</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Hiện Đại" onchange="updateCategories()"> Hiện Đại</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Huyền Huyễn" onchange="updateCategories()"> Huyền Huyễn</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Kiếm Hiệp" onchange="updateCategories()"> Kiếm Hiệp</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Khoa Huyễn" onchange="updateCategories()"> Khoa Huyễn</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Lịch Sử" onchange="updateCategories()"> Lịch Sử</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Linh Dị" onchange="updateCategories()"> Linh Dị</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Light Novel" onchange="updateCategories()"> Light Novel</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Mạt Thế" onchange="updateCategories()"> Mạt Thế</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Ngôn Tình" onchange="updateCategories()"> Ngôn Tình</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Ngược" onchange="updateCategories()"> Ngược</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Nữ Cường" onchange="updateCategories()"> Nữ Cường</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Nữ Phụ" onchange="updateCategories()"> Nữ Phụ</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Phương Tây" onchange="updateCategories()"> Phương Tây</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Quân Sự" onchange="updateCategories()"> Quân Sự</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Sắc" onchange="updateCategories()"> Sắc</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Sủng" onchange="updateCategories()"> Sủng</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Thám Hiểm" onchange="updateCategories()"> Thám Hiểm</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Trọng Sinh" onchange="updateCategories()"> Trọng Sinh</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Trinh Thám" onchange="updateCategories()"> Trinh Thám</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Tiên Hiệp" onchange="updateCategories()"> Tiên Hiệp</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Võng Du" onchange="updateCategories()"> Võng Du</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Việt Nam" onchange="updateCategories()"> Việt Nam</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Xuyên Không" onchange="updateCategories()"> Xuyên Không</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Xuyên Nhanh" onchange="updateCategories()"> Xuyên Nhanh</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Đô Thị" onchange="updateCategories()"> Đô Thị</label><br>
+                        <label><input type="checkbox" class="category-checkbox" value="Gia Đấu" onchange="updateCategories()"> Gia Đấu</label><br>
+                    </div>
+                </div>
+                <br>
 
                 <label for="description">Description:</label>
                 <textarea id="description" name="description"></textarea><br>
@@ -54,9 +134,9 @@
                 <label for="coverImage">Cover Image:</label>
                 <input type="file" id="coverImage" name="coverImage"><br>
 
-                <button type="submit">Create Story</button>
+                <button type="submit">Thêm</button>
             </form>
         </div>
-    </div>    
+    </div>
 </body>
 </html>

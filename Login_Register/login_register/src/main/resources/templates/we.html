@@ -24,12 +24,34 @@
                 });
         }
     </script>
+    <style>
+        #suggestions {
+            list-style-type: none;
+            padding: 0;
+            position: absolute;
+            background: white;
+            width: 200px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+        }
+        #suggestions li {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #suggestions li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
     <nav>
         <ul>
             <li><a href="/home"><img style="width:120px; height:40px;" src="image\logo.png" alt="Logo"></a></li>
-            <li><input type="text" placeholder="Tìm truyện hoặc tên tác giả"><i class="fas fa-search"></i></li>
+            <li>
+                <input type="text" placeholder="Tìm truyện hoặc tên tác giả" id="search-box">
+                <i class="fas fa-search"></i>
+                <ul id="suggestions" style="list-style-type: none; padding: 0; position: absolute; background: white; width: 200px;"></ul>
+            </li>
             <li>
                 <a href="#" class="nav-link" tabindex="0">Lọc truyện<i class="fas fa-sort-down"></i></a>
                 <div class="filter-group">
@@ -234,8 +256,10 @@
                 <div class="one-content-items">
                     <ul class="slider-product-one-content">
                         <li class="slider-product-one-content-item" th:each="story : ${hotStories}">
-                            <img th:src="@{${story.coverImage}}" alt="" width="200px">
-                            <p th:text="${story.title}"></p>
+                            <a th:href="@{/story-info/{id}(id=${story.id})}" class="story-link">
+                                <img th:src="@{${story.coverImage}}" alt="" width="200px">
+                                <p th:text="${story.title}"></p>
+                            </a>                            
                         </li>
                     </ul>
                 </div>
@@ -410,7 +434,39 @@
     </section>
     
     
-    
+    <script>
+        document.getElementById('search-box').addEventListener('input', function() {
+            const query = this.value;
+
+            // Nếu ô tìm kiếm rỗng, xóa gợi ý
+            if (query.length === 0) {
+                document.getElementById('suggestions').innerHTML = '';
+                return;
+            }
+
+            // Gửi yêu cầu đến API
+            fetch(`http://localhost:8080/search?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const suggestionsList = document.getElementById('suggestions');
+                    suggestionsList.innerHTML = ''; // Xóa gợi ý trước đó
+
+                    // Hiển thị gợi ý
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = `${item.title} - ${item.author}`; // Hiển thị tiêu đề và tác giả
+                        li.onclick = function() {
+                            document.getElementById('search-box').value = item.title; // Điền vào ô tìm kiếm
+                            suggestionsList.innerHTML = ''; // Xóa gợi ý
+                        };
+                        suggestionsList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+        
+        
     
     
 </body>

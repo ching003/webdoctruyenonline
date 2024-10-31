@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,12 @@ public class Story {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title, author, category, description, coverImage, status; // "completed" hoặc "in-progress"
+    
+    private String title, author, category, coverImage, status; // "completed" hoặc "in-progress"
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String description;
+
     private LocalDateTime createdDate, completedDate;
     private int views;
 

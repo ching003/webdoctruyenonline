@@ -21,11 +21,11 @@
 
     <div class="navigation">
         <span th:if="${prevChapterId != null}">
-            <a th:href="@{/chapter/{chapterId}(chapterId=${prevChapterId})}" class="prev-chapter">Chương trước</a>
+            <a th:href="@{/chapter/{id}(id=${prevChapterId})}" class="prev-chapter">Chương trước</a>
         </span>
         <span class="toc-icon" onclick="openModal()"><i class="fa-solid fa-list"></i></span>
         <span th:if="${nextChapterId != null}">
-            <a th:href="@{/chapter/{chapterId}(chapterId=${nextChapterId})}" class="next-chapter">Chương tiếp</a>
+            <a th:href="@{/chapter/{id}(id=${nextChapterId})}" class="next-chapter">Chương tiếp</a>
         </span>
     </div>    
 
@@ -39,11 +39,11 @@
 
     <div class="navigation">
         <span th:if="${prevChapterId != null}">
-            <a th:href="@{/chapter/{chapterId}(chapterId=${prevChapterId})}" class="prev-chapter">Chương trước</a>
+            <a th:href="@{/chapter/{id}(id=${prevChapterId})}" class="prev-chapter">Chương trước</a>
         </span>
         <span class="toc-icon" onclick="openModal()"><i class="fa-solid fa-list"></i></span>
         <span th:if="${nextChapterId != null}">
-            <a th:href="@{/chapter/{chapterId}(chapterId=${nextChapterId})}" class="next-chapter">Chương tiếp</a>
+            <a th:href="@{/chapter/{id}(id=${nextChapterId})}" class="next-chapter">Chương tiếp</a>
         </span>
     </div>    
     

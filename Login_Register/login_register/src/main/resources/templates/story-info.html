@@ -20,26 +20,28 @@
         </div>
     </div>
     <h3>Văn Án</h3>
-    <p class="story-description" th:text="${story.description}"></p>
+    <p class="formattedDescription" th:utext="${formattedDescription}"></p>
 </section>
 
-<h2>Thêm Chương Mới</h2>
-<form action="/addChapter" method="post">
-    <input type="hidden" name="storyId" th:value="${story.id}"/>
-    <div>
-        <label>Tiêu đề:</label>
-        <input type="text" name="title" required/>
-    </div>
-    <div>
-        <label>Nội dung ngắn:</label>
-        <input type="text" name="content"/>
-    </div>
-    <div>
-        <label>Nội dung dài:</label>
-        <textarea name="longContent" required></textarea>
-    </div>
-    <button type="submit">Thêm Chương</button>
-</form>
+<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+    <h2>Thêm Chương Mới</h2>
+    <form action="/addChapter" method="post">
+        <input type="hidden" name="storyId" th:value="${story.id}"/>
+        <div>
+            <label>Tiêu đề:</label>
+            <input type="text" name="title" required/>
+        </div>
+        <div>
+            <label>Nội dung ngắn:</label>
+            <input type="text" name="content"/>
+        </div>
+        <div>
+            <label>Nội dung dài:</label>
+            <textarea name="longContent" required></textarea>
+        </div>
+        <button type="submit">Thêm Chương</button>
+    </form>
+</div>
 
 
 <section class="chapter-list">

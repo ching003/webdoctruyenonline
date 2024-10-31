@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,7 +51,7 @@ public class StoryController {
     @PostMapping("/admin/new-story")
     public String saveStory(@RequestParam("title") String title,
                             @RequestParam("author") String author,
-                            @RequestParam("category") String category,
+                            @RequestParam("category") List<String> category,
                             @RequestParam("description") String description,
                             @RequestParam("coverImage") MultipartFile coverImage, 
                             Model model, Principal principal) {        
@@ -78,7 +79,8 @@ public class StoryController {
         Story story = new Story();
         story.setTitle(title);
         story.setAuthor(author);
-        story.setCategory(category);
+        String formattedCategory = String.join(", ", category);
+        story.setCategory(formattedCategory);
         story.setDescription(description);
         story.setCreatedDate(LocalDateTime.now());
         story.setCoverImage("/image/" + fileName);
@@ -106,6 +108,8 @@ public class StoryController {
     @GetMapping("/story-info/{id}")
     public String getStoryInfo(@PathVariable Long id, Model model) {
         Story story = storyService.findById(id); 
+        String formattedDescription = story.getDescription().replace("\n", "<br>");
+        model.addAttribute("formattedDescription", formattedDescription);
         model.addAttribute("story", story); 
         return "story-info"; 
     }
@@ -131,17 +135,27 @@ public class StoryController {
         Chapter chapter = chapterService.getChapterById(id);
         String formattedContent = chapter.getLongContent().replace("\n", "<br>");
         model.addAttribute("formattedContent", formattedContent);
+
         Story story = chapter.getStory();
-        model.addAttribute("storyId", story.getId());
+        Long storyId = story.getId();
+        
+        model.addAttribute("storyId", storyId);
         model.addAttribute("storyTitle", story.getTitle());
         model.addAttribute("chapter", chapter);
 
-        Chapter prevChapter = chapterService.findPrevChapter(id);
-        Chapter nextChapter = chapterService.findNextChapter(id);
-        List<Chapter> chapterList = chapterService.findChaptersByStoryId(story.getId());
+        Chapter prevChapter = chapterService.findPrevChapter(storyId, id);
+        Chapter nextChapter = chapterService.findNextChapter(storyId, id);
+        List<Chapter> chapterList = chapterService.findChaptersByStoryId(storyId);
         model.addAttribute("prevChapterId", (prevChapter != null) ? prevChapter.getId() : null);
         model.addAttribute("nextChapterId", (nextChapter != null) ? nextChapter.getId() : null);
         model.addAttribute("chapterList", chapterList);
+
         return "chapter-details";
+    }
+
+    @GetMapping("/api/search")
+    @ResponseBody
+    public List<Story> findStories(@RequestParam("query") String query) {
+        return storyService.findStories(query);
     }
 }

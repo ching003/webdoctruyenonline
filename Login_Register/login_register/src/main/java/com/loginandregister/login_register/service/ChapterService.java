@@ -21,13 +21,13 @@ public class ChapterService {
                 .orElseThrow(() -> new RuntimeException("Chapter not found"));
     }
 
-    public Chapter findPrevChapter(Long chapterId) {
-        List<Chapter> chapters = chapterRepository.findPrevChapterById(chapterId);
+    public Chapter findPrevChapter(Long storyId, Long chapterId) {
+        List<Chapter> chapters = chapterRepository.findPrevChapter(storyId, chapterId);
         return (chapters.isEmpty()) ? null : chapters.get(0);
     }
 
-    public Chapter findNextChapter(Long chapterId) {
-        List<Chapter> chapters = chapterRepository.findNextChapterById(chapterId);
+    public Chapter findNextChapter(Long storyId, Long chapterId) {
+        List<Chapter> chapters = chapterRepository.findNextChapter(storyId, chapterId);
         return (chapters.isEmpty()) ? null : chapters.get(0);
     }
 
