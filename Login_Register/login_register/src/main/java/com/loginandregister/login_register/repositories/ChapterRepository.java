@@ -2,7 +2,6 @@ package com.loginandregister.login_register.repositories;
 
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +20,9 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
     @Query("SELECT c FROM Chapter c WHERE c.story.id = :storyId AND c.id > :chapterId ORDER BY c.id ASC")
     List<Chapter> findNextChapter(@Param("storyId") Long storyId, @Param("chapterId") Long chapterId);
 
+    // Lấy 10 chương mới nhất theo ngày tạo
+    List<Chapter> findTop10ByOrderByCreatedDateDesc();
+
+    // Nếu bạn muốn lấy tất cả chương của một truyện cụ thể và sắp xếp theo ngày tạo
+    List<Chapter> findByStoryIdOrderByCreatedDateDesc(Long storyId);
 }

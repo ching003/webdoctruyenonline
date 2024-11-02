@@ -158,4 +158,5 @@ public class StoryController {
     public List<Story> findStories(@RequestParam("query") String query) {
         return storyService.findStories(query);
     }
+
 }

@@ -1,5 +1,7 @@
 package com.loginandregister.login_register.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.loginandregister.login_register.dto.ChapterDto;
+import com.loginandregister.login_register.service.ChapterService;
 import com.loginandregister.login_register.service.CustomUserDetail;
 import com.loginandregister.login_register.service.StoryService;
 
@@ -15,6 +19,8 @@ import com.loginandregister.login_register.service.StoryService;
 public class HomeController {
     @Autowired
     private StoryService storyService;
+    @Autowired
+    private ChapterService chapterService;
     
     @GetMapping("/")
     public String redirectToHome() {
@@ -36,6 +42,9 @@ public class HomeController {
         }
         model.addAttribute("hotStories", storyService.findHotStories());
         model.addAttribute("completedStories", storyService.findRecentlyCompletedStories());
+
+        List<ChapterDto> recentChapters = chapterService.getRecentChaptersWithElapsedTime();
+        model.addAttribute("recentChapters", recentChapters);
         return "we";
     }
 
