@@ -22,4 +22,7 @@ public interface StoryRepository extends JpaRepository<Story, Long>{
     //tìm kiếm theo tên 
     @Query("SELECT s FROM Story s WHERE s.title LIKE %:query% OR s.author LIKE %:query%")
     List<Story> searchStories(@Param("query") String query);
+
+    //chọn thể loại
+    List<Story> findByCategoryContainingIgnoreCase(String category);
 }

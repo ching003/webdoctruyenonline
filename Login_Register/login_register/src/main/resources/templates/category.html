@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thể Loại: <span th:text="${categoryName}"></span></title>
+</head>
+<body>
+
+<h2>Thể Loại: <span th:text="${categoryName}"></span></h2>
+
+<section class="story-list">
+    <ul>
+        <li th:each="story : ${stories}">
+            <a th:href="@{/story-info/{id}(id=${story.id})}">
+                <span th:text="${story.title}">Tên truyện</span>
+            </a> - <span th:text="${story.category}">Thể loại</span>
+        </li>
+    </ul>
+</section>
+
+</body>
+</html>

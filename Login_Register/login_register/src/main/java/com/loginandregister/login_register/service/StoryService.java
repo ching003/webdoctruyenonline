@@ -77,9 +77,13 @@ public class StoryService {
         return storyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Story not found"));
     }
-
+//????
     @GetMapping("/search")
     public List<Story> findStories(@RequestParam String q) {
         return storyRepository.searchStories(q);
+    }
+
+    public List<Story> getStoriesByCategory(String name){
+        return storyRepository.findByCategoryContainingIgnoreCase(name);
     }
 }
