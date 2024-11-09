@@ -22,7 +22,7 @@ public class Story {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String title, author, category, coverImage, status; // "completed" hoặc "in-progress"
+    private String title, author, category, coverImage, status, latestChapterTitle; // "completed" hoặc "in-progress"
 
     @Column(columnDefinition = "LONGTEXT")
     private String description;
@@ -119,5 +119,11 @@ public class Story {
     }
     public void setChapters(List<Chapter> chapters) {
         this.chapters = chapters;
+    }
+    public String getLatestChapterTitle() {
+        return latestChapterTitle;
+    }
+    public void setLatestChapterTitle(String latestChapterTitle) {
+        this.latestChapterTitle = latestChapterTitle;
     }
 }
