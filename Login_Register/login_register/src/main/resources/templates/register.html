@@ -2,39 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Register</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-     <link rel="stylesheet" th:href="@{../css/styles.css}">
+    <link rel="stylesheet" th:href="@{../css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background-color: #303641;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <a href="/home" class="back-to-home"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
+    <div id="container-register">
         <div class="message" th:if="${message != null}">
            [[${message}]]
         </div>
-        <h2>Registration Form</h2>
+        <div id="title">
+            <i class="material-icons lock">lock</i> Đăng ký
+        </div>
         <form 
          th:action="@{/registration}"
          method="post"
          role="form"
          th:object="${user}"
         >
-            <div class="form-group">
-                <label for="fullname">Fullname:</label>
-                <input th:field="*{fullname}" type="text" id="fullname" name="fullname" placeholder="Enter your fullname" required>
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">face</i>
+                </div>
+                <input th:field="*{fullname}" type="text" id="fullname" name="fullname" placeholder="Tên của bạn" required>
             </div>
-            
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input th:field="*{email}" type="email" id="email" name="email" placeholder="Enter your email" required>
+            <div class="clearfix"></div>
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">email</i>
+                </div>
+                <input th:field="*{email}" type="email" id="email" name="email" placeholder="Email" required>
             </div>
-            
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input th:field="*{password}" type="password" id="password" name="password" placeholder="Enter your password" required>
+            <div class="clearfix"></div>
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">vpn_key</i>
+                </div>
+                <input th:field="*{password}" type="password" id="password" name="password" placeholder="Password" required>
             </div>
-            <input type="submit" value="Register">
+            <div class="remember-me">
+                <input type="checkbox" id="terms">
+                <span style="color: #DDD">Tôi đồng ý với Điều khoản dịch vụ</span>
+            </div>
+            <input type="submit" value="Đăng ký" disabled>
         </form>
-        
+        <div class="privacy">
+            <a href="#">Chính sách bảo mật</a>
+        </div>
+
+        <div class="register">
+            Bạn đã có tài khoản?
+            <a href="/login"><button id="register-link">Đăng nhập tại đây</button></a>
+        </div>
     </div>
+    <script>        
+        const termsCheckbox = document.getElementById("terms");
+        const registerButton = document.querySelector("input[type='submit']");
+
+        termsCheckbox.addEventListener("change", function() {
+            registerButton.disabled = !this.checked;
+        });
+    </script>
 </body>
 </html>

@@ -72,7 +72,10 @@ nav ul, li {
     background-color: #FFB6C1; 
 }
 .slider-product-one {
-    background-color: #f9f9f9;
+    background-image: url('/image/1905_hoang-hon-tren-sa-mac-cuc-dep-danh-cho-may-tinh-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 20px 0;
 }
 .slider-product-one-content {

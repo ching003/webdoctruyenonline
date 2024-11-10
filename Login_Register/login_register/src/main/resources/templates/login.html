@@ -2,37 +2,184 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" th:href="@{../css/styles.css}">
+    <style>
+        body {
+            background-color: #303641;
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            margin-top: 100px;
+            padding: 15px; 
+            border: 1px solid #888;
+            width: 40%; 
+            max-width: 500px;
+            max-height: 50vh;
+            overflow-y: auto; 
+            color: #333;
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 20px; 
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <a href="/home" class="back-to-home"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
+    <div id="container-login">
         <div class="message" th:if="${param.error}">
-           Invalid Username or Password
+           Sai email hoặc mật khẩu!
         </div>
         <div class="message" th:if="${param.logout}">
-           Logout Successfuly
+           Đăng xuất thành công!
         </div>
         
-        <h2>Admin and User Login Page</h2>
+        <div id="title">
+            <i class="material-icons lock">lock</i> Đăng nhập
+        </div>
+
         <form 
          th:action="@{/login}"
          method="post"
          
         >                       
-            <div class="form-group">
-                <label for="username">Email:</label>
-                <input  type="email" id="username" name="username" placeholder="Enter your email" required>
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">email</i>
+                </div>
+                <input  type="email" id="username" name="username" placeholder="Email" required>
             </div>
-            
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input  type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">vpn_key</i>
+                </div>
+                <input  type="password" id="password" name="password" placeholder="Password" required>
             </div>
-            <input type="submit" value="Login">
+            <input type="submit" value="Đăng nhập">
         </form>
-        
+
+        <div class="privacy">
+            <a href="#" id="privacy-policy-link">Chính sách bảo mật</a>
+        </div>
+
+        <div class="register">
+            Bạn chưa có tài khoản?
+            <a href="/registration"><button id="register-link">Đăng ký ngay</button></a>
+        </div>
     </div>
+
+    <div id="privacy-policy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Chính sách bảo mật</h2>
+            <p>
+                Chúng tôi cam kết bảo vệ quyền riêng tư của bạn và đảm bảo rằng thông tin cá nhân của bạn được bảo mật tuyệt đối. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn khi truy cập và sử dụng dịch vụ của chúng tôi.
+            </p>
+            
+            <h3>1. Thông Tin Chúng Tôi Thu Thập</h3>
+            <p>
+                Chúng tôi có thể thu thập và lưu trữ các loại thông tin sau đây:
+            </p>
+            <ul>
+                <li>
+                    <strong>Thông tin cá nhân:</strong> như họ tên, địa chỉ email, số điện thoại, v.v., khi bạn đăng ký hoặc sử dụng các dịch vụ của chúng tôi.
+                </li>
+                <li>
+                    <strong>Dữ liệu sử dụng:</strong> như địa chỉ IP, loại trình duyệt, thời gian truy cập, các trang đã truy cập và các thông tin khác liên quan đến việc bạn sử dụng dịch vụ.
+                </li>
+            </ul>
+            
+            <h3>2. Mục Đích Sử Dụng Thông Tin</h3>
+            <p>
+                Chúng tôi sử dụng thông tin cá nhân của bạn cho các mục đích sau:
+            </p>
+            <ul>
+                <li>Cung cấp và quản lý các dịch vụ bạn yêu cầu.</li>
+                <li>Cải thiện chất lượng dịch vụ và trải nghiệm người dùng.</li>
+                <li>Liên hệ và gửi thông báo về các thay đổi dịch vụ, các chương trình khuyến mãi hoặc các thông tin quan trọng khác.</li>
+            </ul>
+            
+            <h3>3. Chia Sẻ Thông Tin</h3>
+            <p>
+                Chúng tôi không bán, trao đổi hoặc chia sẻ thông tin cá nhân của bạn với bên thứ ba trừ các trường hợp:
+            </p>
+            <ul>
+                <li>Khi có sự đồng ý của bạn.</li>
+                <li>Theo yêu cầu của pháp luật hoặc cơ quan nhà nước có thẩm quyền.</li>
+                <li>Khi cần thiết để bảo vệ quyền lợi hợp pháp của chúng tôi.</li>
+            </ul>
+            
+            <h3>4. Bảo Mật Thông Tin</h3>
+            <p>
+                Chúng tôi áp dụng các biện pháp kỹ thuật và tổ chức để bảo vệ thông tin cá nhân của bạn khỏi mất mát, sử dụng sai mục đích, truy cập trái phép, tiết lộ, thay đổi và phá hủy.
+            </p>
+            
+            <h3>5. Quyền Của Bạn</h3>
+            <p>
+                Bạn có quyền truy cập, cập nhật, hoặc yêu cầu xóa thông tin cá nhân của mình bằng cách liên hệ với chúng tôi qua thông tin liên lạc bên dưới.
+            </p>
+            
+            <h3>6. Thay Đổi Chính Sách Bảo Mật</h3>
+            <p>
+                Chúng tôi có thể cập nhật chính sách bảo mật này để phản ánh các thay đổi trong thực tiễn của chúng tôi. Nếu có thay đổi đáng kể, chúng tôi sẽ thông báo cho bạn qua email hoặc thông báo trên trang web.
+            </p>
+            
+            <h3>7. Liên Hệ</h3>
+            <p>
+                Nếu bạn có bất kỳ câu hỏi nào về chính sách bảo mật của chúng tôi, vui lòng liên hệ qua địa chỉ email: <a href="mailto:email@example.com">email@example.com</a>.
+            </p>
+        </div>
+    </div>
+    <script>
+        const modal = document.getElementById("privacy-policy-modal");
+        const link = document.getElementById("privacy-policy-link");
+        const closeBtn = document.querySelector(".close");
+        link.addEventListener("click", function(event) {
+            event.preventDefault();
+            modal.style.display = "block";
+        });
+        closeBtn.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+        window.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
