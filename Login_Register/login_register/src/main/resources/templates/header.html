@@ -1,0 +1,199 @@
+<nav th:fragment="header">
+    <ul>
+        <li><a href="/home"><img style="width:120px; height:40px;" src="\image\logo.png" alt="Logo"></a></li>
+        <li>
+            <input type="text" placeholder="Tìm truyện hoặc tên tác giả" id="search-box">
+            <i class="fas fa-search"></i>
+            <ul id="suggestions" style="list-style-type: none; padding: 0; position: absolute; background: white; width: 200px;"></ul>
+        </li>
+        <li>
+            <a href="#" class="nav-link" tabindex="0">Lọc truyện<i class="fas fa-sort-down"></i></a>
+            <div class="filter-group">
+                <h3>Trạng Thái:</h3>
+                <label><input type="checkbox"> Tất cả</label>
+                <label><input type="checkbox"> Full</label>
+                <label><input type="checkbox"> Đang ra</label>
+        
+                <h3>Số Chương:</h3>
+                <label><input type="checkbox"> Tất cả</label>
+                <label><input type="checkbox"> &lt;50</label>
+                <label><input type="checkbox"> &lt;100</label>
+                <label><input type="checkbox"> 100-200</label>
+                <label><input type="checkbox"> 200-500</label>
+                <label><input type="checkbox"> 500-1000</label>
+                <label><input type="checkbox"> &gt;1000</label>
+        
+                <h3>Sắp Xếp:</h3>
+                <label><input type="checkbox"> Cập nhật</label>
+                <label><input type="checkbox"> Mới đăng</label>
+                <label><input type="checkbox"> Xem nhiều</label>
+                <label><input type="checkbox"> Yêu thích</label>
+                <label><input type="checkbox"> Số chương</label>
+                <label><input type="checkbox"> Đánh giá</label>
+                <label><input type="checkbox"> Toàn bộ</label>
+        
+                <h3>Thể Loại:</h3>
+                <label><input type="checkbox"> Ngôn Tình</label>
+                <label><input type="checkbox"> Ngược</label>
+                <label><input type="checkbox"> Đam Mỹ</label>
+                <label><input type="checkbox"> Hài Hước</label>
+                <label><input type="checkbox"> Đô Thị</label>
+                <label><input type="checkbox"> Hiện Đại</label>
+                <label><input type="checkbox"> Xuyên Không</label>
+                <label><input type="checkbox"> Xuyên Nhanh</label>
+                <label><input type="checkbox"> Tổng Tài</label>
+                <label><input type="checkbox"> Kiếm Hiệp</label>
+                <label><input type="checkbox"> Tiên Hiệp</label>
+                <label><input type="checkbox"> Sắc</label>
+                <label><input type="checkbox"> Sủng</label>
+                <label><input type="checkbox"> Mạt Thế</label>
+                <label><input type="checkbox"> Bách Hợp</label>
+                <label><input type="checkbox"> Đông Phương</label>
+                <label><input type="checkbox"> Cung Đấu</label>
+                <label><input type="checkbox"> Gia Đấu</label>
+                <label><input type="checkbox"> Cổ Đại</label>
+                <label><input type="checkbox"> Điền Văn</label>
+                <label><input type="checkbox"> Nữ Cường</label>
+                <label><input type="checkbox"> Nữ Phụ</label>
+                <label><input type="checkbox"> Trinh Thám</label>
+                <label><input type="checkbox"> Quan Trường</label>
+                <label><input type="checkbox"> Dị Năng</label>
+                <label><input type="checkbox"> Dị Giới</label>
+                <label><input type="checkbox"> Linh Dị</label>
+                <label><input type="checkbox"> Trọng Sinh</label>
+                <label><input type="checkbox"> Quân Sự</label>
+                <label><input type="checkbox"> Lịch Sử</label>
+                <label><input type="checkbox"> Thám Hiểm</label>
+                <label><input type="checkbox"> Huyền Huyễn</label>
+                <label><input type="checkbox"> Khoa Huyễn</label>
+                <label><input type="checkbox"> Hệ Thống</label>
+                <label><input type="checkbox"> Phương Tây</label>
+                <label><input type="checkbox"> Việt Nam</label>
+                <label><input type="checkbox"> Đoản Văn</label>
+                <label><input type="checkbox"> Khác</label>
+        
+                <h3>Loại Bỏ:</h3>
+                <label><input type="checkbox"> Ngôn Tình</label>
+                <label><input type="checkbox"> Ngược</label>
+                <label><input type="checkbox"> Đam Mỹ</label>
+                <label><input type="checkbox"> Hài Hước</label>
+                <label><input type="checkbox"> Đô Thị</label>
+                <label><input type="checkbox"> Hiện Đại</label>
+                <label><input type="checkbox"> Xuyên Không</label>
+                <label><input type="checkbox"> Xuyên Nhanh</label>
+                <label><input type="checkbox"> Tổng Tài</label>
+                <label><input type="checkbox"> Kiếm Hiệp</label>
+                <label><input type="checkbox"> Tiên Hiệp</label>
+                <label><input type="checkbox"> Sắc</label>
+                <label><input type="checkbox"> Sủng</label>
+                <label><input type="checkbox"> Mạt Thế</label>
+                <label><input type="checkbox"> Bách Hợp</label>
+                <label><input type="checkbox"> Đông Phương</label>
+                <label><input type="checkbox"> Cung Đấu</label>
+                <label><input type="checkbox"> Gia Đấu</label>
+                <label><input type="checkbox"> Cổ Đại</label>
+                <label><input type="checkbox"> Điền Văn</label>
+                <label><input type="checkbox"> Nữ Cường</label>
+                <label><input type="checkbox"> Nữ Phụ</label>
+                <label><input type="checkbox"> Trinh Thám</label>
+                <label><input type="checkbox"> Quan Trường</label>
+                <label><input type="checkbox"> Dị Năng</label>
+                <label><input type="checkbox"> Dị Giới</label>
+                <label><input type="checkbox"> Linh Dị</label>
+                <label><input type="checkbox"> Trọng Sinh</label>
+                <label><input type="checkbox"> Quân Sự</label>
+                <label><input type="checkbox"> Lịch Sử</label>
+                <label><input type="checkbox"> Thám Hiểm</label>
+                <label><input type="checkbox"> Huyền Huyễn</label>
+                <label><input type="checkbox"> Khoa Huyễn</label>
+                <label><input type="checkbox"> Hệ Thống</label>
+                <label><input type="checkbox"> Phương Tây</label>
+                <label><input type="checkbox"> Việt Nam</label>
+                <label><input type="checkbox"> Đoản Văn</label>
+                <label><input type="checkbox"> Khác</label>
+        
+               <br> <button class="filter-button">Lọc Truyện</button></div></li>
+            </div>
+        </li>
+        
+        <li>
+            <a href="#" class="nav-link" tabindex="0">Thể loại<i class="fas fa-sort-down"></i></a>
+            <div class="submenu">
+                <ul>
+                    <li><a th:href="@{/category/Tiên Hiệp}">Tiên Hiệp</a></li>
+                    <li><a th:href="@{/category/Kiếm Hiệp}">Kiếm Hiệp</a></li>
+                    <li><a th:href="@{/category/Ngôn Tình}">Ngôn Tình</a></li>
+                    <li><a th:href="@{/category/Đam Mỹ}">Đam Mỹ</a></li>
+                    <li><a th:href="@{/category/Võng du}">Võng du</a></li>
+                    <li><a th:href="@{/category/Khoa Huyễn}">Khoa Huyễn</a></li>
+                    <li><a th:href="@{/category/Hệ Thống}">Hệ Thống</a></li>
+                    <li><a th:href="@{/category/Huyền Huyễn}">Huyền Huyễn</a></li>
+                    <li><a th:href="@{/category/Dị Giới}">Dị Giới</a></li>
+                    <li><a th:href="@{/category/Dị Năng}">Dị Năng</a></li>
+                    <li><a th:href="@{/category/Quân Sự}">Quân Sự</a></li>
+                    <li><a th:href="@{/category/Lịch Sử}">Lịch Sử</a></li>
+                    <li><a th:href="@{/category/Xuyên Không}">Xuyên Không</a></li>
+                    <li><a th:href="@{/category/Xuyên Nhanh}">Xuyên Nhanh</a></li>
+                    <li><a th:href="@{/category/Trọng Sinh}">Trọng Sinh</a></li>
+                    <li><a th:href="@{/category/Trinh Thám}">Trinh Thám</a></li>
+                    <li><a th:href="@{/category/Thám Hiểm}">Thám Hiểm</a></li>
+                    <li><a th:href="@{/category/Linh dị}">Linh dị</a></li>
+                    <li><a th:href="@{/category/Sắc}">Sắc</a></li>
+                    <li><a th:href="@{/category/Ngược}">Ngược</a></li>
+                    <li><a th:href="@{/category/Sủng}">Sủng</a></li>
+                    <li><a th:href="@{/category/Cung đấu}">Cung đấu</a></li>
+                    <li><a th:href="@{/category/Nữ Cường}">Nữ Cường</a></li>
+                    <li><a th:href="@{/category/Gia Đấu}">Gia Đấu</a></li>
+                    <li><a th:href="@{/category/Đông Phương}">Đông Phương</a></li>
+                    <li><a th:href="@{/category/Đô Thị}">Đô Thị</a></li>
+                    <li><a th:href="@{/category/Bách Hợp}">Bách Hợp</a></li>
+                    <li><a th:href="@{/category/Hài Hước}">Hài Hước</a></li>
+                    <li><a th:href="@{/category/Điền Văn}">Điền Văn</a></li>
+                    <li><a th:href="@{/category/Cổ Đại}">Cổ Đại</a></li>
+                    <li><a th:href="@{/category/Mạt Thế}">Mạt Thế</a></li>
+                    <li><a th:href="@{/category/Phương Tây}">Phương Tây</a></li>
+                    <li><a th:href="@{/category/Nữ Phụ}">Nữ Phụ</a></li>
+                    <li><a th:href="@{/category/Light Novel}">Light Novel</a></li>
+                    <li><a th:href="@{/category/Việt Nam}">Việt Nam</a></li>
+                    <li><a th:href="@{/category/Khác}">Khác</a></li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <a href="#" class="nav-link" tabindex="0">Danh sách<i class="fas fa-sort-down"></i></a>
+            <div class="submenu">
+                <ul>
+                    <li><a href="">Truyện mới cập nhật</a></li>
+                    <li><a href="">Truyện Hot</a></li>
+                    <li><a href="">Truyện Full</a></li>
+                    <li><a href="">Tiên Hiệp Hay</a></li>
+                    <li><a href="">Kiếm Hiệp Hay</a></li>
+                    <li><a href="">Ngôn Tình Hay</a></li>
+                    <li><a href="">Ngôn Tình Ngược</a></li>
+                    <li><a href="">Đam Mỹ Hot</a></li>
+                    <li><a href="">Truyện hay</a></li>
+                </ul>
+            </div>
+        </li>
+        <!--<li><a href="login.html" id="login-register-btn">Đăng nhập/Đăng ký</a></li>-->
+        
+        <li th:if="${#authentication.principal != 'anonymousUser'}" class="dropdown">
+            <div class="user-info">
+                <img class="avatar" src="\image\c6e56503cfdd87da299f72dc416023d4.jpg" alt="avatar">
+                <span th:text="${#strings.arraySplit(fullname,' ')[0]}">Tên</span>
+            </div>
+            <div class="dropdown-content">
+                <!-- Link tới trang profile dựa theo role -->
+                <a th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" 
+                   th:href="@{/admin-page}">Profile</a>
+                <a th:if="${#authorization.expression('hasAuthority(''USER'')')}" 
+                   th:href="@{/user-page}">Profile</a>
+                <a th:href="@{/logout}">Logout</a>
+            </div>
+        </li>
+        <li th:unless="${#authentication.principal != 'anonymousUser'}">
+            <a th:href="@{/login}" id="login-register-btn">Đăng nhập/Đăng ký</a>
+        </li>
+
+    </ul>
+</nav>

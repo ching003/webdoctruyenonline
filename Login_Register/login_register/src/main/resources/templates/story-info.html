@@ -3,58 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{../css/header.css}">
     <link rel="stylesheet" th:href="@{../css/story-info-style.css}">
-    <title>Thông Tin Truyện</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Truyện hay - Đọc truyện online</title>
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
 </head>
 <body>
-
-<section class="story-info">
-    <h2>Thông Tin Truyện</h2>
-    <div class="story-details">
-        <img th:src="@{${story.coverImage}}" alt="Ảnh bìa" class="story-image">
-        <div class="info">
-            <p><strong>Tên truyện:</strong> <span th:text="${story.title}"></span></p>
-            <p><strong>Tác giả:</strong> <span th:text="${story.author}"></span></p>
-            <p><strong>Thể loại:</strong> <span th:text="${story.category}"></span></p>
-            
+    <div th:replace="header :: header"></div>
+    <section class="story-info">
+        <h2>Thông Tin Truyện</h2>
+        <div class="story-details">
+            <img th:src="@{${story.coverImage}}" alt="Ảnh bìa" class="story-image">
+            <div class="info">
+                <p><strong>Tên truyện:</strong> <span th:text="${story.title}"></span></p>
+                <p><strong>Tác giả:</strong> <span th:text="${story.author}"></span></p>
+                <p><strong>Thể loại:</strong> <span th:text="${story.category}"></span></p>
+                
+            </div>
         </div>
+        <h3>Văn Án</h3>
+        <p class="formattedDescription" th:utext="${formattedDescription}"></p>
+    </section>
+
+    <div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="add-chapter">
+        <h2>Thêm Chương Mới</h2>
+        <form action="/addChapter" method="post">
+            <input type="hidden" name="storyId" th:value="${story.id}"/>
+            <div>
+                <label>Tiêu đề:</label>
+                <input type="text" name="title" required/>
+            </div>
+            <div>
+                <label>Nội dung ngắn:</label>
+                <input type="text" name="content"/>
+            </div>
+            <div>
+                <label>Nội dung dài:</label>
+                <textarea name="longContent" required></textarea>
+            </div>
+            <button type="submit">Thêm Chương</button>
+        </form>
     </div>
-    <h3>Văn Án</h3>
-    <p class="formattedDescription" th:utext="${formattedDescription}"></p>
-</section>
-
-<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-    <h2>Thêm Chương Mới</h2>
-    <form action="/addChapter" method="post">
-        <input type="hidden" name="storyId" th:value="${story.id}"/>
-        <div>
-            <label>Tiêu đề:</label>
-            <input type="text" name="title" required/>
-        </div>
-        <div>
-            <label>Nội dung ngắn:</label>
-            <input type="text" name="content"/>
-        </div>
-        <div>
-            <label>Nội dung dài:</label>
-            <textarea name="longContent" required></textarea>
-        </div>
-        <button type="submit">Thêm Chương</button>
-    </form>
-</div>
 
 
-<section class="chapter-list">
-    <h2>Danh Sách Chương</h2>
-    <ul>
-        <li th:each="chapter : ${story.chapters}">
-            <a th:href="@{/chapter/{id}(id=${chapter.id})}">
-                <span th:text="${chapter.title}"></span>
-            </a>: 
-            <span th:text="${chapter.content}"></span>
-        </li>
-    </ul>
-</section>
+    <section class="chapter-list">
+        <h2>Danh Sách Chương</h2>
+        <ul>
+            <li th:each="chapter : ${story.chapters}">
+                <a th:href="@{/chapter/{id}(id=${chapter.id})}">
+                    <span th:text="${chapter.title}"></span>
+                </a>: 
+                <span th:text="${chapter.content}"></span>
+            </li>
+        </ul>
+    </section>
 
 </body>
 </html>

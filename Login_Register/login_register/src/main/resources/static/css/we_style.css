@@ -7,75 +7,9 @@ body{
     background-color:	#FFB6C1;
     font-family: Arial, sans-serif;
 }
-nav{
-    background-color:black;
-}
-nav ul{
-    display:flex;
 
-    align-items: center;
-    gap: 30px;
-}
-.nav ul,li,a{
-    color:pink;
-}
-nav ul, li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: relative;
-}
-
-.submenu {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 320px; 
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    right: 0;
-}
-
-.nav-link:hover + .submenu,
-.submenu:hover {
-    display: block;
-}
-
-.submenu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 0.5px;
-}
-
-.submenu ul li {
-    padding: 0;
-    margin: 0;
-}
-
-.submenu ul li a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    white-space: nowrap;
-    font-size: 14px; 
-}
-
-.submenu ul li a:hover {
-    background-color: #f1f1f1;
-}
-
-.submenu ul li a:hover {
-    background-color: #FFB6C1; 
-}
 .slider-product-one {
-    background-image: url('/image/1905_hoang-hon-tren-sa-mac-cuc-dep-danh-cho-may-tinh-1.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #f9e3e6;
     padding: 20px 0;
 }
 .slider-product-one-content {
@@ -83,6 +17,7 @@ nav ul, li {
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
+    gap: 10px;
 }
 .slider-product-one-content-item {
     width: 19%;
@@ -155,84 +90,4 @@ nav ul, li {
 }
 .new-updates tr:hover {
     background-color: #f9f9f9;
-}
-.nav-link {
-    position: relative;
-}
-.filter-group {
-    color:black;
-    background-color: rgb(238, 210, 210);
-    border: 1px solid #ddd;
-    padding: 20px;
-    display: none;
-    position: absolute;
-    z-index: 999;
-    width: 720px;
-    height:720px;
-    margin-top: 5px;
-    line-height:2;
-}
-.nav-link:hover + .filter-group,
-.filter-group:hover {
-    display: block;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #FFB6C1;
-}
-
-.avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    margin-right: 8px;
-    vertical-align: middle;
-}
-
-.user-info {
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
 }

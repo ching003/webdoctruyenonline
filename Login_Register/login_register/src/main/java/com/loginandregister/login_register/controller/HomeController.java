@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.loginandregister.login_register.dto.ChapterDto;
 import com.loginandregister.login_register.service.ChapterService;
@@ -21,13 +22,9 @@ public class HomeController {
     private StoryService storyService;
     @Autowired
     private ChapterService chapterService;
-    
-    @GetMapping("/")
-    public String redirectToHome() {
-        return "redirect:/home"; 
-    }
-    @GetMapping("/home")
-    public String home(Model model) {
+
+    @ModelAttribute("fullname")
+    public String addUserFullname() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
         if (authentication != null && 
@@ -37,9 +34,19 @@ public class HomeController {
             Object principal = authentication.getPrincipal();
             if (principal instanceof CustomUserDetail) {
                 CustomUserDetail userDetails = (CustomUserDetail) principal;
-                model.addAttribute("fullname", userDetails.getFullname());
+                return userDetails.getFullname();
             }
         }
+        return null;
+    }
+
+    @GetMapping("/")
+    public String redirectToHome() {
+        return "redirect:/home"; 
+    }
+    @GetMapping("/home")
+    public String home(Model model) {
+        
         model.addAttribute("hotStories", storyService.findHotStories());
         model.addAttribute("completedStories", storyService.findRecentlyCompletedStories());
 

@@ -5,3 +5,5 @@
 2. Xong up truyện cho admin (21/10/2024)
 3. Xong up chương truyện và hiện truyện ở home (27/10/2024)
 - Cách up truyện: vô profile của tài khoản, có thêm truyện và danh sách truyện. Trong danh sách truyện có chữ cập nhật để đăng chap truyện lên
+4. Xong list thể loại
+5. Tái sử dụng header (11/11)
