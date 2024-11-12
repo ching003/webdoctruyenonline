@@ -25,24 +25,7 @@
                 });
         }
     </script>
-    <style>
-        #suggestions {
-            list-style-type: none;
-            padding: 0;
-            position: absolute;
-            background: white;
-            width: 200px;
-            border: 1px solid #ccc;
-            z-index: 1000;
-        }
-        #suggestions li {
-            padding: 8px;
-            cursor: pointer;
-        }
-        #suggestions li:hover {
-            background-color: #f0f0f0;
-        }
-    </style>
+    
 </head>
 <body>
     <div th:replace="header :: header"></div>
@@ -104,40 +87,8 @@
         </div>
     </section>
     
-    
-    <script>
-        document.getElementById('search-box').addEventListener('input', function() {
-            const query = this.value;
-
-            // Nếu ô tìm kiếm rỗng, xóa gợi ý
-            if (query.length === 0) {
-                document.getElementById('suggestions').innerHTML = '';
-                return;
-            }
-
-            // Gửi yêu cầu đến API
-            fetch(`http://localhost:8080/search?q=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(data => {
-                    const suggestionsList = document.getElementById('suggestions');
-                    suggestionsList.innerHTML = ''; // Xóa gợi ý trước đó
-
-                    // Hiển thị gợi ý
-                    data.forEach(item => {
-                        const li = document.createElement('li');
-                        li.textContent = `${item.title} - ${item.author}`; // Hiển thị tiêu đề và tác giả
-                        li.onclick = function() {
-                            document.getElementById('search-box').value = item.title; // Điền vào ô tìm kiếm
-                            suggestionsList.innerHTML = ''; // Xóa gợi ý
-                        };
-                        suggestionsList.appendChild(li);
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    </script>
-        
-        
+    <!--search-box-->
+    <script th:src="@{../js/search.js}"></script>
     
     
 </body>

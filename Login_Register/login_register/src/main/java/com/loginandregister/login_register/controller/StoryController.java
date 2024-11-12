@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.loginandregister.login_register.dto.StoryTitleProjection;
 import com.loginandregister.login_register.model.Chapter;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.model.User;
@@ -153,10 +154,10 @@ public class StoryController {
         return "chapter-details";
     }
 
-    @GetMapping("/api/search")
+    @GetMapping("/search")
     @ResponseBody
-    public List<Story> findStories(@RequestParam("query") String query) {
-        return storyService.findStories(query);
+    public List<StoryTitleProjection> searchStoriesByTitle(@RequestParam("query") String query) {
+        return storyService.findTitlesByKeyword(query);
     }
 
 }

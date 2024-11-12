@@ -7,3 +7,4 @@
 - Cách up truyện: vô profile của tài khoản, có thêm truyện và danh sách truyện. Trong danh sách truyện có chữ cập nhật để đăng chap truyện lên
 4. Xong list thể loại
 5. Tái sử dụng header (11/11)
+6. Xong box search

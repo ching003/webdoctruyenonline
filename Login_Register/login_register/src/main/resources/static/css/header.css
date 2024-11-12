@@ -141,3 +141,37 @@ nav ul, li {
     display: flex;
     align-items: center;
 }
+
+
+/* style box search */
+#suggestions {
+    list-style-type: none; 
+    padding: 0;
+    margin: 5px 0 0;
+    position: absolute;
+    background-color: white;
+    max-height: 300px;       
+    overflow-y: auto;       
+    z-index: 10;         
+}
+
+#suggestions li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f1f1f1;
+    display: block;       
+}
+
+#suggestions li:last-child {
+    border-bottom: none;    
+}
+
+#suggestions li a {
+    text-decoration: none;  
+    color: #333;
+    display: block;         
+    width: 100%;             
+}
+
+#suggestions li:hover {
+    background-color: #FFB6C1; 
+}

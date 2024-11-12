@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.loginandregister.login_register.dto.StoryTitleProjection;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.model.User;
 import com.loginandregister.login_register.repositories.StoryRepository;
@@ -77,10 +76,9 @@ public class StoryService {
         return storyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Story not found"));
     }
-//????
-    @GetMapping("/search")
-    public List<Story> findStories(@RequestParam String q) {
-        return storyRepository.searchStories(q);
+
+    public List<StoryTitleProjection> findTitlesByKeyword(String keyword) {
+        return storyRepository.findTitlesByKeyword("%" + keyword + "%");
     }
 
     public List<Story> getStoriesByCategory(String name){
