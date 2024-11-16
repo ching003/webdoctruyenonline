@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.loginandregister.login_register.model.Chapter;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.service.StoryService;
+
 
 @Controller
 public class CategoryController {
@@ -22,12 +22,7 @@ public class CategoryController {
         List<Story> stories = storyService.getStoriesByCategory(categoryName);
         if(stories.isEmpty()) model.addAttribute("message", "Chưa có truyện thuộc thể loại này!");
         else{
-            for(Story story : stories) {
-                if(!story.getChapters().isEmpty()) {
-                    Chapter latestChapter = story.getChapters().get(story.getChapters().size()-1);
-                    story.setLatestChapterTitle(latestChapter.getTitle());
-                }
-            }
+            storyService.setLatestChapterForStories(stories);
         }
         model.addAttribute("stories", stories);
         model.addAttribute("categoryName", categoryName);

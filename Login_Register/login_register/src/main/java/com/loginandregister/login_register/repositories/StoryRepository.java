@@ -16,9 +16,11 @@ public interface StoryRepository extends JpaRepository<Story, Long>{
     List<Story> findByUser(User user);
     long countByUser(User user);
 
-    //bonus
+    //list
     List<Story> findByOrderByViewsDesc(Pageable pageable);
     List<Story> findByStatusOrderByCompletedDateDesc(String status, Pageable pageable);
+    List<Story> findByOrderByCreatedDateDesc(Pageable pageable);
+    List<Story> findByCategoryContainingIgnoreCaseOrderByViewsDesc(String category, Pageable pageable);
 
     //tìm kiếm theo tên 
     @Query("SELECT s.id AS id, s.title AS title FROM Story s WHERE s.title LIKE :keyword")

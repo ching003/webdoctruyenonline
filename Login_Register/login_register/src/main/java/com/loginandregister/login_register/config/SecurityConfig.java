@@ -31,7 +31,7 @@ public class SecurityConfig {
 				.requestMatchers("/admin-page").hasAuthority("ADMIN")
 				.requestMatchers("/addChapter").hasAuthority("ADMIN")
 				.requestMatchers("/user-page").hasAuthority("USER")
-				.requestMatchers("/registration", "/css/**", "/home", "/", "/static/**", "/image/**", "/js/**", "/story-info/**", "/chapter/**", "/search", "/category/**").permitAll()
+				.requestMatchers("/registration", "/css/**", "/home", "/", "/static/**", "/image/**", "/js/**", "/story-info/**", "/chapter/**", "/search", "/category/**", "/list/**").permitAll()
 				.anyRequest().authenticated())
 		
 		.formLogin(form -> form.loginPage("/login")

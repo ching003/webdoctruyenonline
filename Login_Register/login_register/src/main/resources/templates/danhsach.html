@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{../css/category.css}">
+    <link rel="stylesheet" th:href="@{../css/header.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Truyện hay - Đọc truyện online</title>
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+    <main>
+        <h1 class="title"><span th:text="${listname}"></span></h1>
+        <ul class="story-list">
+            <li th:each="story : ${stories}" class="story-item">
+                <img th:src="${story.coverImage}" class="story-image">
+                <a class="story-details" th:href="@{/story-info/{id}(id=${story.id})}">
+                    <span class="story-title" th:text="${story.title}">Tên truyện</span>
+                    <span class="author" th:text="${story.author}">Tên tác giả</span>
+                    <div class="tags">
+                        <span class="tag new-tag">New</span>
+                        <span class="tag full-tag">Full</span>
+                    </div>
+                    <div class="chapter" th:text="${story.latestChapterTitle}">Chương mới nhất</div>
+                </a>
+            </li>
+        </ul>
+    </main>
+    <script th:src="@{../js/search.js}"></script>
+</body>
+</html>

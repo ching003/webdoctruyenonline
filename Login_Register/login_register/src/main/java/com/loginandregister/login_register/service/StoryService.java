@@ -1,12 +1,14 @@
 package com.loginandregister.login_register.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.loginandregister.login_register.dto.StoryTitleProjection;
+import com.loginandregister.login_register.model.Chapter;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.model.User;
 import com.loginandregister.login_register.repositories.StoryRepository;
@@ -63,7 +65,16 @@ public class StoryService {
         return storyRepository.findByTitleContaining(keyword);
     }
 
-    //bonus
+    public Story incrementViews(Long id) {
+        Optional<Story> storyOpt = storyRepository.findById(id);
+        if (storyOpt.isPresent()) {
+            Story story = storyOpt.get();
+            story.setViews(story.getViews() + 1); 
+            return storyRepository.save(story); 
+        }
+        throw new RuntimeException("Story not found");
+    }
+
     public List<Story> findHotStories() {
         return storyRepository.findByOrderByViewsDesc(PageRequest.of(0, 10));
     }
@@ -83,5 +94,22 @@ public class StoryService {
 
     public List<Story> getStoriesByCategory(String name){
         return storyRepository.findByCategoryContainingIgnoreCase(name);
+    }
+
+    public List<Story> findByOrderByCreatedDateDesc() {
+        return storyRepository.findByOrderByCreatedDateDesc(PageRequest.of(0, 10));
+    }
+
+    public List<Story> findTopByCategory(String category) {
+        return storyRepository.findByCategoryContainingIgnoreCaseOrderByViewsDesc(category, PageRequest.of(0, 10));
+    }
+
+    public void setLatestChapterForStories(List<Story> stories) {
+        for (Story story : stories) {
+            if (!story.getChapters().isEmpty()) {
+                Chapter latestChapter = story.getChapters().get(story.getChapters().size() - 1);
+                story.setLatestChapterTitle(latestChapter.getTitle());
+            }
+        }
     }
 }

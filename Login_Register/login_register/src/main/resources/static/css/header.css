@@ -16,6 +16,22 @@ nav ul, li {
     position: relative;
 }
 
+#search-box {
+    width: 100%; 
+    height: 30px; 
+    padding: 10px; 
+    font-size: 14px;
+    border-radius: 5px; 
+    box-sizing: border-box;
+}
+#search-box + i {
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
 .submenu {
     display: none;
     position: absolute;
@@ -37,7 +53,7 @@ nav ul, li {
     margin: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
-    gap: 0.5px;
+    gap: 1.5px;
 }
 
 .submenu ul li {

@@ -108,7 +108,7 @@ public class StoryController {
 
     @GetMapping("/story-info/{id}")
     public String getStoryInfo(@PathVariable Long id, Model model) {
-        Story story = storyService.findById(id); 
+        Story story = storyService.incrementViews(id); 
         String formattedDescription = story.getDescription().replace("\n", "<br>");
         model.addAttribute("formattedDescription", formattedDescription);
         model.addAttribute("story", story); 
