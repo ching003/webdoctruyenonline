@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.service.StoryService;
@@ -69,6 +70,20 @@ public class ListController {
         storyService.setLatestChapterForStories(stories); 
         model.addAttribute("stories", stories);
         model.addAttribute("listname", "Bình luận nhiều nhất");
+        return "danhsach";
+    }
+
+    @GetMapping("/filter")
+    public String filterStories(@RequestParam(value = "status", required = false) List<String> status,
+                                @RequestParam(value = "chapters", required = false) List<String> chapters,
+                                @RequestParam(value = "sort", required = false) String sort,
+                                @RequestParam(value = "categories", required = false) List<String> categories,
+                                Model model) {
+
+        List<Story> filteredStories = storyService.filterStories(status, chapters, sort, categories);
+        if(filteredStories.isEmpty()) model.addAttribute("message", "Không có truyện thỏa mãn yêu cầu!");
+        model.addAttribute("stories", filteredStories);
+        model.addAttribute("listname", "Danh sách truyện đã lọc");
         return "danhsach";
     }
 }

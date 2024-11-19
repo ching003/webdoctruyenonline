@@ -80,23 +80,117 @@ nav ul, li {
 .nav-link {
     position: relative;
 }
+
 .filter-group {
-    color:black;
-    background-color: rgb(238, 210, 210);
-    border: 1px solid #ddd;
-    padding: 20px;
     display: none;
     position: absolute;
-    z-index: 999;
-    width: 720px;
-    height:720px;
-    margin-top: 5px;
-    line-height:2;
+    padding: 10px;
+    background-color: #f9f9f9;
+    min-width: 420px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
 }
+
 .nav-link:hover + .filter-group,
 .filter-group:hover {
     display: block;
 }
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkbox-group label {
+    display: inline-block;
+    width: 33%; 
+    margin: 5px 0;
+    color: black;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #FFB6C1;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.filter-button:hover {
+    background-color: #fe8e9f;
+}
+
+/* Định dạng cho radio button */
+input[type=radio] {
+    --s: 1em; 
+    --c: #FFB6C1; 
+    
+    height: var(--s);
+    width: var(--s); 
+    border: calc(var(--s)/8) solid #939393; 
+    padding: calc(var(--s)/8);
+    background: radial-gradient(farthest-side, var(--c) 94%, #0000) 50%/0 0 no-repeat content-box; 
+    border-radius: 50%; 
+    outline-offset: calc(var(--s)/10); 
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    font-size: inherit;
+    transition: .3s; 
+  }
+  
+  input[type=radio]:checked {
+    border-color: var(--c);
+    background-size: 90% 90%; 
+  }
+  
+  input[type=radio]:disabled {
+    background: linear-gradient(#939393 0 0) 50%/100% 20% no-repeat content-box;
+    opacity: .5;
+    cursor: not-allowed;
+  }
+  
+
+  input[type=checkbox] {
+    --s: 1em; 
+    --c: #FFB6C1;
+    height: var(--s);
+    width: var(--s); 
+    border: calc(var(--s)/8) solid #939393; 
+    padding: calc(var(--s)/8); 
+    background: radial-gradient(farthest-side, var(--c) 94%, #0000) 50%/0 0 no-repeat content-box;
+    border-radius: 50%; 
+    outline-offset: calc(var(--s)/10); 
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    font-size: inherit;
+    transition: .3s; 
+  }
+  
+  input[type=checkbox]:checked {
+    border-color: var(--c);
+    background-size: 90% 90%; 
+  }
+  
+  input[type=checkbox]:disabled {
+    background: linear-gradient(#939393 0 0) 50%/100% 20% no-repeat content-box;
+    opacity: .5;
+    cursor: not-allowed;
+  }
+  
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  
 
 .dropdown {
     position: relative;

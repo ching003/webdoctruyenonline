@@ -1,7 +1,9 @@
 package com.loginandregister.login_register.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -110,6 +112,56 @@ public class StoryService {
                 Chapter latestChapter = story.getChapters().get(story.getChapters().size() - 1);
                 story.setLatestChapterTitle(latestChapter.getTitle());
             }
+        }
+    }
+
+    public List<Story> filterStories(List<String> status, List<String> chapters, String sort, List<String> categories) {
+        List<Story> stories = storyRepository.findAll(); // Bắt đầu với tất cả truyện
+
+        if (categories != null && !categories.isEmpty()) {
+            for (String category : categories) {
+                List<Story> categoryStories = getStoriesByCategory(category);
+                stories = stories.stream()
+                    .filter(categoryStories::contains) // Chỉ giữ lại truyện có trong danh sách thể loại này
+                    .collect(Collectors.toList());
+            }
+        }
+
+        if (status != null && !status.isEmpty()) {
+            stories = stories.stream()
+                .filter(story -> status.contains(story.getStatus())) 
+                .collect(Collectors.toList());
+        }
+
+        if (chapters != null && !chapters.isEmpty()) {
+            stories = stories.stream()
+                .filter(story -> {
+                    int chapterCount = story.getChapters().size();
+                    return chapters.stream().anyMatch(chapterRange -> isInRange(chapterCount, chapterRange));
+                })
+                .collect(Collectors.toList());
+        }
+
+        if ("old".equals(sort)) {
+            stories.sort(Comparator.comparing(Story::getCreatedDate));
+        } else if ("views".equals(sort)) {
+            stories.sort(Comparator.comparing(Story::getViews).reversed());
+        } else if ("new".equals(sort)) {
+            stories.sort(Comparator.comparing(Story::getCreatedDate).reversed());
+        }
+
+        return stories;
+    }
+
+    private boolean isInRange(int chapterCount, String range) {
+        switch (range) {
+            case "<50": return chapterCount < 50;
+            case "50-100": return chapterCount >= 50 && chapterCount <= 100;
+            case "100-200": return chapterCount >= 100 && chapterCount <= 200;
+            case "200-500": return chapterCount >= 200 && chapterCount <= 500;
+            case "500-1000": return chapterCount >= 500 && chapterCount <= 1000;
+            case ">1000": return chapterCount > 1000;
+            default: return true;
         }
     }
 }

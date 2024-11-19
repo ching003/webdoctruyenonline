@@ -30,7 +30,10 @@
     <div th:replace="header :: header"></div>
     <main>
         <h1 class="title"><span th:text="${listname}"></span></h1>
-        <ul class="story-list">
+        <div th:if="${message}" class="no-story-message">
+            <p th:text="${message}">No available story</p>
+        </div>
+        <ul class="story-list" th:if="${not #lists.isEmpty(stories)}">
             <li th:each="story : ${stories}" class="story-item">
                 <img th:src="${story.coverImage}" class="story-image">
                 <a class="story-details" th:href="@{/story-info/{id}(id=${story.id})}">

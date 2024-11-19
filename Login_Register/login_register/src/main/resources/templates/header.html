@@ -8,112 +8,68 @@
         </li>
         <li>
             <a href="#" class="nav-link" tabindex="0">Lọc truyện<i class="fas fa-sort-down"></i></a>
-            <div class="filter-group">
+            <form class="filter-group" method="get" action="/list/filter">
                 <h3>Trạng Thái:</h3>
-                <label><input type="checkbox"> Tất cả</label>
-                <label><input type="checkbox"> Full</label>
-                <label><input type="checkbox"> Đang ra</label>
-        
+                <div class="checkbox-group">
+                    <label><input type="radio" name="status" value="completed"> Full</label>
+                    <label><input type="radio" name="status" value="in-progress"> Đang ra</label>
+                </div>
                 <h3>Số Chương:</h3>
-                <label><input type="checkbox"> Tất cả</label>
-                <label><input type="checkbox"> &lt;50</label>
-                <label><input type="checkbox"> &lt;100</label>
-                <label><input type="checkbox"> 100-200</label>
-                <label><input type="checkbox"> 200-500</label>
-                <label><input type="checkbox"> 500-1000</label>
-                <label><input type="checkbox"> &gt;1000</label>
-        
+                <div class="checkbox-group">
+                    <label><input type="radio" name="chapters" value="<50"> &lt;50</label>
+                    <label><input type="radio" name="chapters" value="50-100"> 50-100</label>
+                    <label><input type="radio" name="chapters" value="100-200"> 100-200</label>
+                    <label><input type="radio" name="chapters" value="200-500"> 200-500</label>
+                    <label><input type="radio" name="chapters" value="500-1000"> 500-1000</label>
+                    <label><input type="radio" name="chapters" value=">1000"> &gt;1000</label>
+                </div>
                 <h3>Sắp Xếp:</h3>
-                <label><input type="checkbox"> Cập nhật</label>
-                <label><input type="checkbox"> Mới đăng</label>
-                <label><input type="checkbox"> Xem nhiều</label>
-                <label><input type="checkbox"> Yêu thích</label>
-                <label><input type="checkbox"> Số chương</label>
-                <label><input type="checkbox"> Đánh giá</label>
-                <label><input type="checkbox"> Toàn bộ</label>
-        
+                <div class="checkbox-group">
+                    <label><input type="radio" name="sort" value="old"> Cũ nhất</label>
+                    <label><input type="radio" name="sort" value="new"> Mới nhất</label>
+                    <label><input type="radio" name="sort" value="views"> Xem nhiều</label>
+                </div>
                 <h3>Thể Loại:</h3>
-                <label><input type="checkbox"> Ngôn Tình</label>
-                <label><input type="checkbox"> Ngược</label>
-                <label><input type="checkbox"> Đam Mỹ</label>
-                <label><input type="checkbox"> Hài Hước</label>
-                <label><input type="checkbox"> Đô Thị</label>
-                <label><input type="checkbox"> Hiện Đại</label>
-                <label><input type="checkbox"> Xuyên Không</label>
-                <label><input type="checkbox"> Xuyên Nhanh</label>
-                <label><input type="checkbox"> Tổng Tài</label>
-                <label><input type="checkbox"> Kiếm Hiệp</label>
-                <label><input type="checkbox"> Tiên Hiệp</label>
-                <label><input type="checkbox"> Sắc</label>
-                <label><input type="checkbox"> Sủng</label>
-                <label><input type="checkbox"> Mạt Thế</label>
-                <label><input type="checkbox"> Bách Hợp</label>
-                <label><input type="checkbox"> Đông Phương</label>
-                <label><input type="checkbox"> Cung Đấu</label>
-                <label><input type="checkbox"> Gia Đấu</label>
-                <label><input type="checkbox"> Cổ Đại</label>
-                <label><input type="checkbox"> Điền Văn</label>
-                <label><input type="checkbox"> Nữ Cường</label>
-                <label><input type="checkbox"> Nữ Phụ</label>
-                <label><input type="checkbox"> Trinh Thám</label>
-                <label><input type="checkbox"> Quan Trường</label>
-                <label><input type="checkbox"> Dị Năng</label>
-                <label><input type="checkbox"> Dị Giới</label>
-                <label><input type="checkbox"> Linh Dị</label>
-                <label><input type="checkbox"> Trọng Sinh</label>
-                <label><input type="checkbox"> Quân Sự</label>
-                <label><input type="checkbox"> Lịch Sử</label>
-                <label><input type="checkbox"> Thám Hiểm</label>
-                <label><input type="checkbox"> Huyền Huyễn</label>
-                <label><input type="checkbox"> Khoa Huyễn</label>
-                <label><input type="checkbox"> Hệ Thống</label>
-                <label><input type="checkbox"> Phương Tây</label>
-                <label><input type="checkbox"> Việt Nam</label>
-                <label><input type="checkbox"> Đoản Văn</label>
-                <label><input type="checkbox"> Khác</label>
-        
-                <h3>Loại Bỏ:</h3>
-                <label><input type="checkbox"> Ngôn Tình</label>
-                <label><input type="checkbox"> Ngược</label>
-                <label><input type="checkbox"> Đam Mỹ</label>
-                <label><input type="checkbox"> Hài Hước</label>
-                <label><input type="checkbox"> Đô Thị</label>
-                <label><input type="checkbox"> Hiện Đại</label>
-                <label><input type="checkbox"> Xuyên Không</label>
-                <label><input type="checkbox"> Xuyên Nhanh</label>
-                <label><input type="checkbox"> Tổng Tài</label>
-                <label><input type="checkbox"> Kiếm Hiệp</label>
-                <label><input type="checkbox"> Tiên Hiệp</label>
-                <label><input type="checkbox"> Sắc</label>
-                <label><input type="checkbox"> Sủng</label>
-                <label><input type="checkbox"> Mạt Thế</label>
-                <label><input type="checkbox"> Bách Hợp</label>
-                <label><input type="checkbox"> Đông Phương</label>
-                <label><input type="checkbox"> Cung Đấu</label>
-                <label><input type="checkbox"> Gia Đấu</label>
-                <label><input type="checkbox"> Cổ Đại</label>
-                <label><input type="checkbox"> Điền Văn</label>
-                <label><input type="checkbox"> Nữ Cường</label>
-                <label><input type="checkbox"> Nữ Phụ</label>
-                <label><input type="checkbox"> Trinh Thám</label>
-                <label><input type="checkbox"> Quan Trường</label>
-                <label><input type="checkbox"> Dị Năng</label>
-                <label><input type="checkbox"> Dị Giới</label>
-                <label><input type="checkbox"> Linh Dị</label>
-                <label><input type="checkbox"> Trọng Sinh</label>
-                <label><input type="checkbox"> Quân Sự</label>
-                <label><input type="checkbox"> Lịch Sử</label>
-                <label><input type="checkbox"> Thám Hiểm</label>
-                <label><input type="checkbox"> Huyền Huyễn</label>
-                <label><input type="checkbox"> Khoa Huyễn</label>
-                <label><input type="checkbox"> Hệ Thống</label>
-                <label><input type="checkbox"> Phương Tây</label>
-                <label><input type="checkbox"> Việt Nam</label>
-                <label><input type="checkbox"> Đoản Văn</label>
-                <label><input type="checkbox"> Khác</label>
-        
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="categories" value="Bách Hợp"> Bách Hợp</label>
+                    <label><input type="checkbox" name="categories" value="Cổ Đại"> Cổ Đại</label>
+                    <label><input type="checkbox" name="categories" value="Cung Đấu"> Cung Đấu</label>
+                    <label><input type="checkbox" name="categories" value="Đam Mỹ"> Đam Mỹ</label>
+                    <label><input type="checkbox" name="categories" value="Điền Văn"> Điền Văn</label>
+                    <label><input type="checkbox" name="categories" value="Đô Thị"> Đô Thị</label>
+                    <label><input type="checkbox" name="categories" value="Đông Phương"> Đông Phương</label>
+                    <label><input type="checkbox" name="categories" value="Dị Giới"> Dị Giới</label>
+                    <label><input type="checkbox" name="categories" value="Dị Năng"> Dị Năng</label>
+                    <label><input type="checkbox" name="categories" value="Gia Đấu"> Gia Đấu</label>
+                    <label><input type="checkbox" name="categories" value="Hài Hước"> Hài Hước</label>
+                    <label><input type="checkbox" name="categories" value="Hiện Đại"> Hiện Đại</label>
+                    <label><input type="checkbox" name="categories" value="Huyền Huyễn"> Huyền Huyễn</label>
+                    <label><input type="checkbox" name="categories" value="Khoa Huyễn"> Khoa Huyễn</label>
+                    <label><input type="checkbox" name="categories" value="Kiếm Hiệp"> Kiếm Hiệp</label>
+                    <label><input type="checkbox" name="categories" value="Lịch Sử"> Lịch Sử</label>
+                    <label><input type="checkbox" name="categories" value="Linh Dị"> Linh Dị</label>
+                    <label><input type="checkbox" name="categories" value="Mạt Thế"> Mạt Thế</label>
+                    <label><input type="checkbox" name="categories" value="Ngôn Tình"> Ngôn Tình</label>
+                    <label><input type="checkbox" name="categories" value="Nữ Cường"> Nữ Cường</label>
+                    <label><input type="checkbox" name="categories" value="Nữ Phụ"> Nữ Phụ</label>
+                    <label><input type="checkbox" name="categories" value="Phương Tây"> Phương Tây</label>
+                    <label><input type="checkbox" name="categories" value="Quân Sự"> Quân Sự</label>
+                    <label><input type="checkbox" name="categories" value="Quan Trường"> Quan Trường</label>
+                    <label><input type="checkbox" name="categories" value="Sắc"> Sắc</label>
+                    <label><input type="checkbox" name="categories" value="Sủng"> Sủng</label>
+                    <label><input type="checkbox" name="categories" value="Thám Hiểm"> Thám Hiểm</label>
+                    <label><input type="checkbox" name="categories" value="Tiên Hiệp"> Tiên Hiệp</label>
+                    <label><input type="checkbox" name="categories" value="Tổng Tài"> Tổng Tài</label>
+                    <label><input type="checkbox" name="categories" value="Trinh Thám"> Trinh Thám</label>
+                    <label><input type="checkbox" name="categories" value="Trọng Sinh"> Trọng Sinh</label>
+                    <label><input type="checkbox" name="categories" value="Xuyên Không"> Xuyên Không</label>
+                    <label><input type="checkbox" name="categories" value="Xuyên Nhanh"> Xuyên Nhanh</label>
+                    <label><input type="checkbox" name="categories" value="Việt Nam"> Việt Nam</label>
+                    <label><input type="checkbox" name="categories" value="Đoản Văn"> Đoản Văn</label>
+                    <label><input type="checkbox" name="categories" value="Khác"> Khác</label>
+                </div>
                <br> <button class="filter-button">Lọc Truyện</button></div></li>
-            </div>
+            </form>
         </li>
         
         <li>
