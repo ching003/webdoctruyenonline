@@ -33,9 +33,19 @@
             <img th:src="@{${story.coverImage}}" alt="Ảnh bìa" class="story-image">
             <div class="info">
                 <p><strong>Tên truyện:</strong> <span th:text="${story.title}"></span></p>
-                <p><strong>Tác giả:</strong> <span th:text="${story.author}"></span></p>
-                <p><strong>Thể loại:</strong> <span th:text="${story.category}"></span></p>
-                
+                <p>
+                    <strong>Tác giả:</strong>
+                    <a class="author-link" th:href="@{/author/{authorName}(authorName=${story.author})}" th:text="${story.author}"></a>
+                </p>
+                <p>
+                    <strong>Thể loại:</strong> 
+                    <span>
+                        <th:block th:each="category, iterStat : ${categoryList}">
+                            <a class="author-link" th:href="@{/category/{categoryName}(categoryName=${category})}" th:text="${category}"></a>
+                            <span th:if="${iterStat.index < categoryList.size() - 1}">, </span>
+                        </th:block>
+                    </span>
+                </p>   
             </div>
         </div>
         <h3>Văn Án</h3>

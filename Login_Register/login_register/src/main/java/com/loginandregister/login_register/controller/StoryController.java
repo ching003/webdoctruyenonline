@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,9 @@ public class StoryController {
         String formattedDescription = story.getDescription().replace("\n", "<br>");
         model.addAttribute("formattedDescription", formattedDescription);
         model.addAttribute("story", story); 
+        String categories = story.getCategory();
+        List<String> categoryList = Arrays.asList(categories.split(",\\s*"));
+        model.addAttribute("categoryList", categoryList);
         return "story-info"; 
     }
 

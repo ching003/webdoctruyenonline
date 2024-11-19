@@ -28,4 +28,6 @@ public interface StoryRepository extends JpaRepository<Story, Long>{
 
     //chọn thể loại
     List<Story> findByCategoryContainingIgnoreCase(String category);
+    //tìm tác giả
+    List<Story> findByAuthor(String author);
 }

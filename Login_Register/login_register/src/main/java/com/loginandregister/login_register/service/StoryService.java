@@ -164,4 +164,10 @@ public class StoryService {
             default: return true;
         }
     }
+
+    //tìm tác giả
+    public List<Story> findStoriesByAuthor(String authorName) {
+        return storyRepository.findByAuthor(authorName);
+    }
+    
 }
