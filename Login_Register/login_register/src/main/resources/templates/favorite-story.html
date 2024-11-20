@@ -34,13 +34,16 @@
         
         <div class="right-section">
             <h2>Danh Sách Truyện Yêu Thích</h2>
-            <div th:if="${#lists.isEmpty(favoriteStoryIds)}">
+            <div th:if="${#lists.isEmpty(favoriteStories)}">
                 <p>Không có truyện yêu thích nào!</p>
             </div>
-            <div th:each="storyId : ${favoriteStoryIds}">
+            <div th:each="story : ${favoriteStories}">
                 <div class="story-item">
-                    <p>Truyện yêu thích ID: <span th:text="${storyId}"></span></p>
-                    <a th:href="@{/story-info/{storyId}(storyId=${storyId})}">Xem chi tiết</a>
+                    <img th:src="@{${story.coverImage}}" alt="Ảnh bìa của truyện" class="story-image"/>
+                    <p><strong>Tên truyện:</strong> <span th:text="${story.title}"></span></p>
+                    <p><strong>Tác giả:</strong> <span th:text="${story.author}"></span></p>
+                    <p><strong>Thể loại:</strong> <span th:text="${story.category}"></span></p>
+                    <a th:href="@{/story-info/{storyId}(storyId=${story.id})}">Xem chi tiết</a>
                 </div>
             </div>
         </div>
