@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ import com.loginandregister.login_register.model.User;
 import com.loginandregister.login_register.repositories.StoryRepository;
 import com.loginandregister.login_register.repositories.UserRepository;
 import com.loginandregister.login_register.service.ChapterService;
+import com.loginandregister.login_register.service.CustomUserDetail;
+import com.loginandregister.login_register.service.FavoriteService;
 import com.loginandregister.login_register.service.StoryService;
 
 
@@ -40,6 +44,8 @@ public class StoryController {
     private UserDetailsService userDetailsService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private FavoriteService favoriteService;
     @Autowired
     private ChapterService chapterService;
     private final String UPLOAD_DIR = "src/main/resources/static/image/";
@@ -108,7 +114,7 @@ public class StoryController {
     }
 
     @GetMapping("/story-info/{id}")
-    public String getStoryInfo(@PathVariable Long id, Model model) {
+    public String getStoryInfo(@PathVariable Long id, Model model, Authentication authentication) {
         Story story = storyService.incrementViews(id); 
         String formattedDescription = story.getDescription().replace("\n", "<br>");
         model.addAttribute("formattedDescription", formattedDescription);
@@ -116,6 +122,16 @@ public class StoryController {
         String categories = story.getCategory();
         List<String> categoryList = Arrays.asList(categories.split(",\\s*"));
         model.addAttribute("categoryList", categoryList);
+
+        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal().toString())) {
+        CustomUserDetail userDetails = (CustomUserDetail) authentication.getPrincipal();
+        List<Long> favoriteStoryIds = favoriteService.getFavoriteStoryIds(userDetails.getId());
+        //List<Long> notificationStoryIds = notificationService.getNotificationStoryIds(userDetails.getId());
+
+        model.addAttribute("favoriteStoryIds", favoriteStoryIds);
+        //model.addAttribute("notificationStoryIds", notificationStoryIds);
+
+    }
         return "story-info"; 
     }
 

@@ -27,6 +27,16 @@
 </head>
 <body>
     <div th:replace="header :: header"></div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h3>Thông báo</h3>
+            <p id="loginMessage">Bạn cần đăng nhập để thực hiện hành động này!</p>
+            <a href="/login" class="login-link">Đăng nhập</a>
+        </div>
+    </div>      
+
     <section class="story-info">
         <h2>Thông Tin Truyện</h2>
         <div class="story-details">
@@ -46,6 +56,35 @@
                         </th:block>
                     </span>
                 </p>   
+
+                <div class="icon-container">
+                    <!-- Biểu tượng tim cho user -->
+                    <div th:if="${#authorization.expression('hasAuthority(''USER'')')}" 
+                         class="icon-circle" 
+                         th:classappend="${favoriteStoryIds.contains(story.id) ? 'heart-active' : ''}" 
+                         th:attr="data-story-id=${story.id}" 
+                         onclick="toggleHeart(this)">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                
+                    <!-- Biểu tượng chuông cho user 
+                    <div th:if="${#authorization.expression('hasAuthority(''USER'')')}" 
+                         class="icon-circle" 
+                         th:classappend="${notificationStoryIds.contains(story.id) ? 'bell-active' : ''}" 
+                         data-story-id="[[${story.id}]]" 
+                         onclick="toggleBell(this)">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>-->
+                
+                    <!-- Hiển thị cho người dùng chưa đăng nhập -->
+                    <div th:if="${#authentication.principal == 'anonymousUser'}" class="icon-circle" onclick="showLoginPrompt()">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div th:if="${#authentication.principal == 'anonymousUser'}" class="icon-circle" onclick="showLoginPrompt()">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                </div>
+
             </div>
         </div>
         <h3>Văn Án</h3>
@@ -87,5 +126,78 @@
 
     <script th:src="@{../js/search.js}"></script>
     
+    <script>
+        function toggleHeart(button) {
+        const storyId = button.getAttribute('data-story-id'); // Lấy ID của truyện
+        if (!storyId) {
+            console.error("Không có ID truyện");
+            return;
+        }
+
+        fetch(`/api/favorites/${storyId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (response.status === 401) {
+                showLoginPrompt();
+                return;
+            }
+            return response.json();
+        })
+        .then(isFavorite => {
+            if (isFavorite) {
+                button.classList.add('heart-active'); // Đã yêu thích
+            } else {
+                button.classList.remove('heart-active'); // Hủy yêu thích
+            }
+        })
+        .catch(error => {
+            console.error('Có lỗi xảy ra:', error);
+        });
+    }
+/*
+    function toggleBell(button) {
+        const storyId = button.getAttribute('data-story-id'); // Lấy ID của truyện
+
+        fetch(`/api/notifications/${storyId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (response.status === 401) {
+                showLoginPrompt();
+                return;
+            }
+            return response.json();
+        })
+        .then(isNotified => {
+            if (isNotified) {
+                button.classList.add('bell-active'); // Đã theo dõi
+            } else {
+                button.classList.remove('bell-active'); // Hủy theo dõi
+            }
+        })
+        .catch(error => {
+            console.error('Có lỗi xảy ra:', error);
+        });
+    }*/
+
+    // Hiển thị thông báo yêu cầu đăng nhập
+    function showLoginPrompt() {
+        document.getElementById('loginModal').style.display = 'block';
+    }
+
+    // Đóng modal thông báo đăng nhập
+    function closeLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+
+
+    </script>
 </body>
 </html>

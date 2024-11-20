@@ -30,7 +30,7 @@ public class SecurityConfig {
 		.authorizeHttpRequests(request -> request
 				.requestMatchers("/admin-page").hasAuthority("ADMIN")
 				.requestMatchers("/addChapter").hasAuthority("ADMIN")
-				.requestMatchers("/user-page").hasAuthority("USER")
+				.requestMatchers("/user-page", "api/favorites/**").hasAuthority("USER")
 				.requestMatchers("/registration", "/css/**", "/home", "/", "/static/**", "/image/**", "/js/**", "/story-info/**", "/chapter/**", "/search", "/category/**", "/list/**", "/author/**").permitAll()
 				.anyRequest().authenticated())
 		

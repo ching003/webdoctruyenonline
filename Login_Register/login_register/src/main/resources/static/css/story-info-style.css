@@ -204,3 +204,94 @@ body {
 .voice-icon.active i {
     color: #FF6347;
 }
+
+
+.icon-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.icon-circle i {
+    font-size: 20px;
+    color: #0f0101;
+}
+
+.icon-circle:hover {
+    background-color: #e0e0e0;
+}
+
+.icon-circle.heart-active {
+    background-color: #ee5d5d; 
+}
+
+.icon-circle.bell-active {
+    background-color: #fdd844; 
+}
+
+/*modal*/
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); 
+    overflow: auto;
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.login-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.login-link:hover {
+    background-color: #45a049;
+}
