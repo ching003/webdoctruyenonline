@@ -41,8 +41,8 @@
                     <strong>Thể loại:</strong> 
                     <span>
                         <th:block th:each="category, iterStat : ${categoryList}">
-                            <a class="author-link" th:href="@{/category/{categoryName}(categoryName=${category})}" th:text="${category}"></a>
-                            <span th:if="${iterStat.index < categoryList.size() - 1}">, </span>
+                            <a class="author-link" th:href="@{/category/{categoryName}(categoryName=${category})}" th:text="${category}"></a
+                                ><span th:if="${iterStat.index < categoryList.size() - 1}">, </span>
                         </th:block>
                     </span>
                 </p>   
@@ -80,11 +80,12 @@
                 <a th:href="@{/chapter/{id}(id=${chapter.id})}">
                     <span th:text="${chapter.title}"></span>
                 </a>: 
-                <span th:text="${chapter.content}"></span>
+                <span th:text="${chapter.content}"></span>           
             </li>
         </ul>
     </section>
 
     <script th:src="@{../js/search.js}"></script>
+    
 </body>
 </html>

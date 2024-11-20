@@ -36,7 +36,21 @@
         <h2 class="chapter-title">
             <span th:text="${chapter.title}"></span>: <span th:text="${chapter.content}"></span>
         </h2>
-        <p th:utext="${formattedContent}"></p>
+        <div class="voice-controls">
+            <button class="tts-button" onclick="speakChapterContent()">
+                <i class="fas fa-volume-up"></i> Đọc nội dung
+            </button>
+            <button class="tts-button" onclick="pauseReading()">
+                <i class="fas fa-pause"></i> Tạm dừng
+            </button>
+            <button class="tts-button" onclick="resumeReading()">
+                <i class="fas fa-play"></i> Tiếp tục
+            </button>
+            <button class="tts-button" onclick="stopReading()">
+                <i class="fas fa-stop"></i> Dừng
+            </button>
+        </div>                      
+        <p th:utext="${formattedContent}" id="format-content"></p>        
     </div>
 
     <div class="navigation">
@@ -94,6 +108,61 @@
     </script>
 
     <script th:src="@{../js/search.js}"></script>
+
+    <script>
+        let utterance = null; 
+        function speakChapterContent() {
+            if (utterance) {
+                speechSynthesis.cancel();
+            }
+
+            const content = document.getElementById("format-content").innerText;
+
+            if ('speechSynthesis' in window) {
+                utterance = new SpeechSynthesisUtterance(content);
+                utterance.lang = 'vi-VN'; 
+                utterance.rate = 0.8; 
+                utterance.pitch = 0.01; 
+
+                window.speechSynthesis.speak(utterance);
+
+                utterance.onend = function () {
+                    console.log("Đọc xong nội dung!");
+                };
+            } else {
+                alert("Trình duyệt của bạn không hỗ trợ đọc văn bản!");
+            }
+        }
+
+        function pauseReading() {
+            if ('speechSynthesis' in window && speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                console.log("Tạm dừng đọc!");
+            }
+        }
+
+        function resumeReading() {
+            if ('speechSynthesis' in window && speechSynthesis.paused) {
+                speechSynthesis.resume();
+                console.log("Tiếp tục đọc!");
+            }
+        }
+
+        function stopReading() {
+            if ('speechSynthesis' in window && speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                console.log("Dừng đọc!");
+            }
+        }
+
+        window.addEventListener("beforeunload", function () {
+            if ('speechSynthesis' in window) {
+                speechSynthesis.cancel();
+                console.log("Đã dừng đọc vì người dùng rời khỏi trang!");
+            }
+        });
+    </script>
+    
 
 </body>
 </html>
