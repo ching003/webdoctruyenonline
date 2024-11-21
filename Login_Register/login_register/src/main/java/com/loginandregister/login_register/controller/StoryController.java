@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -91,6 +93,7 @@ public class StoryController {
         story.setDescription(description);
         story.setCreatedDate(LocalDateTime.now());
         story.setCoverImage("/image/" + fileName);
+        story.setStatus("in-progress");
         String userEmail = principal.getName();
         User user = userRepository.findByEmail(userEmail);
         if (user != null) {
@@ -110,6 +113,17 @@ public class StoryController {
             model.addAttribute("stories", List.of());
         }
         return "story-list";
+    }
+
+    @PostMapping("/updateStoryStatus/{id}")
+    public ResponseEntity<String> updateStoryStatus(@PathVariable Long id, @RequestParam String status) {
+        Story story = storyService.findById(id);
+        if (story != null) {
+            story.setStatus(status); 
+            storyService.save(story); 
+            return ResponseEntity.ok("Cập nhật trạng thái thành công");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Truyện không tìm thấy");
     }
 
     @GetMapping("/story-info/{id}")

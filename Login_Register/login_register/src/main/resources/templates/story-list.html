@@ -40,7 +40,8 @@
                         <th>Tên truyện</th>
                         <th>Tác giả</th>
                         <th>Thể loại</th>
-                        <th>Mô tả</th>
+                        <th>Chỉnh sửa</th>
+                        <th>Hoàn thành</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,15 +52,37 @@
                         <td th:text="${story.title}"></td>
                         <td th:text="${story.author}"></td>
                         <td th:text="${story.category}"></td>
-                        <td th:text="${story.description}"></td>  
                         <td>
                             <a th:href="@{/story-info/{id}(id=${story.id})}" th:onclick="'loadContent(\'' + @{/story-info/{id}(id=${story.id})} + '\')'">Cập nhật</a>
-                        </td>                                          
+                        </td>   
+                        <td>
+                            <input type="checkbox" name="completed" th:checked="${story.status == 'completed'}" 
+                                   th:data-id="${story.id}" 
+                                   th:onclick="|updateStatus(${story.id}, this)|">
+                        </td>                                                              
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>   
     <script th:src="@{../js/search.js}"></script> 
+
+    <script>
+        function updateStatus(storyId, checkbox) {
+            const isCompleted = checkbox.checked; // Kiểm tra xem checkbox có được tích hay không
+
+            // Gửi yêu cầu cập nhật trạng thái truyện
+            fetch(`/updateStoryStatus/${storyId}?status=${isCompleted ? 'completed' : 'in-progress'}`, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Cập nhật trạng thái thành công', data);
+            })
+            .catch(error => {
+                console.error('Có lỗi khi cập nhật trạng thái truyện', error);
+            });
+        }
+    </script>
 </body>
 </html>

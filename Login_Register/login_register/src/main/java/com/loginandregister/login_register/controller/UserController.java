@@ -33,6 +33,7 @@ public class UserController {
     
     @PostMapping("/registration")
     public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
+        userDto.setRole("USER");
         userService.save(userDto);
         model.addAttribute("message", "Đăng ký thành công!");
         return "register";

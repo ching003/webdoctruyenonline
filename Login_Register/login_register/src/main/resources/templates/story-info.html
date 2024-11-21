@@ -55,7 +55,11 @@
                                 ><span th:if="${iterStat.index < categoryList.size() - 1}">, </span>
                         </th:block>
                     </span>
-                </p>   
+                </p>  
+                <p><strong>Trạng thái:</strong> 
+                    <span th:if="${story.status == 'completed'}">Full</span>
+                    <span th:if="${story.status == 'in-progress'}">Đang ra</span>
+                </p> 
 
                 <div class="icon-container">
                     <!-- Biểu tượng tim cho user -->
@@ -118,25 +122,29 @@
         <div class="chapters-container">
             <div class="chapter-column">
                 <ul>
-                    <li th:each="chapter : ${chapters.subList(0, chapters.size() / 2)}">
+                    <li th:each="chapter, iterStat : ${chapters}" 
+                        th:if="${iterStat.index < 20}">
                         <a th:href="@{/chapter/{id}(id=${chapter.id})}">
-                            <span th:text="${chapter.title}"></span><spam th:if="${chapter.content}!=''">:</span>
+                            <span th:text="${chapter.title}"></span><span th:if="${chapter.content != ''}">:</span>
                             <span th:text="${chapter.content}"></span>
                         </a>
                     </li>
                 </ul>
             </div>
+
             <div class="chapter-column">
                 <ul>
-                    <li th:each="chapter : ${chapters.subList(chapters.size() / 2, chapters.size())}">
+                    <li th:each="chapter, iterStat : ${chapters}" 
+                        th:if="${iterStat.index >= 20}">
                         <a th:href="@{/chapter/{id}(id=${chapter.id})}">
-                            <span th:text="${chapter.title}"></span><spam th:if="${chapter.content}!=''">:</span>
+                            <span th:text="${chapter.title}"></span><span th:if="${chapter.content != ''}">:</span>
                             <span th:text="${chapter.content}"></span>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
+        
 
         <div class="pagination">
             <button th:if="${currentPage > 0}" 
