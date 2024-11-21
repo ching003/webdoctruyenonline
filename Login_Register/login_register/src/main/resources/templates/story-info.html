@@ -114,14 +114,56 @@
 
     <section class="chapter-list">
         <h2>Danh Sách Chương</h2>
-        <ul>
-            <li th:each="chapter : ${story.chapters}">
-                <a th:href="@{/chapter/{id}(id=${chapter.id})}">
-                    <span th:text="${chapter.title}"></span>
-                </a>: 
-                <span th:text="${chapter.content}"></span>           
-            </li>
-        </ul>
+
+        <div class="chapters-container">
+            <div class="chapter-column">
+                <ul>
+                    <li th:each="chapter : ${chapters.subList(0, chapters.size() / 2)}">
+                        <a th:href="@{/chapter/{id}(id=${chapter.id})}">
+                            <span th:text="${chapter.title}"></span><spam th:if="${chapter.content}!=''">:</span>
+                            <span th:text="${chapter.content}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="chapter-column">
+                <ul>
+                    <li th:each="chapter : ${chapters.subList(chapters.size() / 2, chapters.size())}">
+                        <a th:href="@{/chapter/{id}(id=${chapter.id})}">
+                            <span th:text="${chapter.title}"></span><spam th:if="${chapter.content}!=''">:</span>
+                            <span th:text="${chapter.content}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button th:if="${currentPage > 0}" 
+                    th:data-story-id="${story.id}" 
+                    th:data-page="${currentPage - 1}" 
+                    onclick="loadPage(this)" 
+                    class="prev-page">
+                Trang trước
+            </button>
+    
+            <span>Trang <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span></span>
+        
+            <button th:if="${currentPage < totalPages - 1}" 
+                    th:data-story-id="${story.id}" 
+                    th:data-page="${currentPage + 1}" 
+                    onclick="loadPage(this)" 
+                    class="next-page">
+                Trang sau
+            </button>
+        </div>          
+
+    </section>
+
+    <section class="comments">
+        <h2>Bình Luận</h2>
+        <textarea placeholder="Nhập bình luận của bạn tại đây..."></textarea>
+        <button class="submit-comment">Gửi Bình Luận</button>
     </section>
 
     <script th:src="@{../js/search.js}"></script>
@@ -187,17 +229,34 @@
         });
     }*/
 
-    // Hiển thị thông báo yêu cầu đăng nhập
-    function showLoginPrompt() {
-        document.getElementById('loginModal').style.display = 'block';
-    }
+        // Hiển thị thông báo yêu cầu đăng nhập
+        function showLoginPrompt() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
 
-    // Đóng modal thông báo đăng nhập
-    function closeLoginModal() {
-        document.getElementById('loginModal').style.display = 'none';
-    }
-
+        // Đóng modal thông báo đăng nhập
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
 
     </script>
+
+    <script>
+        function loadPage(button) {
+            localStorage.setItem('scrollPosition', window.scrollY);
+            const storyId = button.getAttribute('data-story-id');
+            const page = button.getAttribute('data-page');
+            window.location.href = `/story-info/${storyId}?page=${page}`;
+        }
+        window.onload = function() {
+            const savedScrollPosition = localStorage.getItem('scrollPosition');
+            
+            if (savedScrollPosition !== null) {
+                window.scrollTo(0, savedScrollPosition);  
+                localStorage.removeItem('scrollPosition');  
+            }
+        };        
+    </script>
+
 </body>
 </html>

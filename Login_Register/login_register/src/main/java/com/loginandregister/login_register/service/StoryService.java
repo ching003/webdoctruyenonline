@@ -13,6 +13,7 @@ import com.loginandregister.login_register.dto.StoryTitleProjection;
 import com.loginandregister.login_register.model.Chapter;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.model.User;
+import com.loginandregister.login_register.repositories.ChapterRepository;
 import com.loginandregister.login_register.repositories.StoryRepository;
 import com.loginandregister.login_register.repositories.UserRepository;
 
@@ -26,6 +27,9 @@ public class StoryService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ChapterRepository chapterRepository;
     
     public List<Story> getStoriesByUser(User user) {
         return storyRepository.findByUser(user);

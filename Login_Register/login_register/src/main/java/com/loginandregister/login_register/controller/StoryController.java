@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -114,7 +113,7 @@ public class StoryController {
     }
 
     @GetMapping("/story-info/{id}")
-    public String getStoryInfo(@PathVariable Long id, Model model, Authentication authentication) {
+    public String getStoryInfo(@PathVariable Long id, Model model, Authentication authentication, @RequestParam(defaultValue = "0") int page) {
         Story story = storyService.incrementViews(id); 
         String formattedDescription = story.getDescription().replace("\n", "<br>");
         model.addAttribute("formattedDescription", formattedDescription);
@@ -124,14 +123,26 @@ public class StoryController {
         model.addAttribute("categoryList", categoryList);
 
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal().toString())) {
-        CustomUserDetail userDetails = (CustomUserDetail) authentication.getPrincipal();
-        List<Long> favoriteStoryIds = favoriteService.getFavoriteStoryIds(userDetails.getId());
-        //List<Long> notificationStoryIds = notificationService.getNotificationStoryIds(userDetails.getId());
+            CustomUserDetail userDetails = (CustomUserDetail) authentication.getPrincipal();
+            List<Long> favoriteStoryIds = favoriteService.getFavoriteStoryIds(userDetails.getId());
+            //List<Long> notificationStoryIds = notificationService.getNotificationStoryIds(userDetails.getId());
 
-        model.addAttribute("favoriteStoryIds", favoriteStoryIds);
-        //model.addAttribute("notificationStoryIds", notificationStoryIds);
+            model.addAttribute("favoriteStoryIds", favoriteStoryIds);
+            //model.addAttribute("notificationStoryIds", notificationStoryIds);
+        }
 
-    }
+        int pageSize = 40;  // Số chương mỗi trang
+        List<Chapter> allChapters = story.getChapters();  // Lấy tất cả chương từ Story
+        int totalChapters = allChapters.size();  // Tổng số chương
+        int totalPages = (int) Math.ceil((double) totalChapters / pageSize);  // Tổng số trang
+        int start = page * pageSize;  // Vị trí bắt đầu của chương trên trang hiện tại
+        int end = Math.min(start + pageSize, totalChapters);  // Vị trí kết thúc của chương
+
+        List<Chapter> chapters = allChapters.subList(start, end);  // Cắt danh sách chương theo trang hiện tại
+
+        model.addAttribute("chapters", chapters);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         return "story-info"; 
     }
 
