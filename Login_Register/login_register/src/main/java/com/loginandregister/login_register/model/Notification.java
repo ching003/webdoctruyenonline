@@ -1,6 +1,6 @@
 package com.loginandregister.login_register.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,18 +21,26 @@ public class Notification {
     private Long storyId;
     private Long chapterId; 
     private String message; 
+    private String elapsedTime;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     public Notification() {
-        this.createdAt = new Date();
+        this.createdAt = LocalDateTime.now();
     }
 
     public Notification(Long userId, Long storyId) {
         this.userId = userId;
         this.storyId = storyId;
-        this.createdAt = new Date();
+    }
+
+    public Notification(Long storyId, Long userId, Long chapterId, String message) {
+        this.storyId = storyId;
+        this.userId = userId;
+        this.chapterId = chapterId;
+        this.message = message;
+        this.createdAt = LocalDateTime.now(); 
     }
 
     public Long getId() {
@@ -65,10 +73,16 @@ public class Notification {
     public void setChapterId(Long chapterId) {
         this.chapterId = chapterId;
     }
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+    public String getElapsedTime() {
+        return elapsedTime;
+    }
+    public void setElapsedTime(String elapsedTime) {
+        this.elapsedTime = elapsedTime;
     }
 }

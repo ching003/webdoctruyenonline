@@ -25,4 +25,7 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
     // Lấy tất cả chương của một truyện cụ thể và sắp xếp theo ngày tạo
     List<Chapter> findByStoryIdOrderByCreatedDateDesc(Long storyId);
+
+    // Lấy chương mới nhất của một truyện
+    Chapter findTopByStoryIdOrderByCreatedDateDesc(Long storyId);
 }

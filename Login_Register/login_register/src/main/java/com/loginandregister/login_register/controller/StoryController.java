@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.loginandregister.login_register.dto.ChapterDto;
 import com.loginandregister.login_register.dto.StoryTitleProjection;
 import com.loginandregister.login_register.model.Chapter;
+import com.loginandregister.login_register.model.Notification;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.model.User;
 import com.loginandregister.login_register.repositories.StoryRepository;
@@ -146,16 +148,36 @@ public class StoryController {
 
             model.addAttribute("favoriteStoryIds", favoriteStoryIds);
             model.addAttribute("notificationStoryIds", notificationStoryIds);
+
+            ChapterDto latestChapterDto = chapterService.getLatestChapterAndTime(id);
+            List<Long> userIds = notificationService.getUsersFollowingStory(id);
+            if (latestChapterDto != null) {
+                String message = latestChapterDto.getTitle() + " cập nhật chương mới - " + latestChapterDto.getLatestChapter();
+        
+                for (Long userId : userIds) {
+                    Notification notification = new Notification(
+                        id,
+                        userId,
+                        latestChapterDto.getId(),
+                        message
+                    );
+                    notificationService.saveOrUpdate(notification); 
+                }
+        
+                model.addAttribute("message", message);
+                String elapsedTime = latestChapterDto.getElapsedTime();  
+                model.addAttribute("elapsedTime", elapsedTime); 
+            }                      
         }
 
         int pageSize = 40;  // Số chương mỗi trang
-        List<Chapter> allChapters = story.getChapters();  // Lấy tất cả chương từ Story
-        int totalChapters = allChapters.size();  // Tổng số chương
-        int totalPages = (int) Math.ceil((double) totalChapters / pageSize);  // Tổng số trang
-        int start = page * pageSize;  // Vị trí bắt đầu của chương trên trang hiện tại
-        int end = Math.min(start + pageSize, totalChapters);  // Vị trí kết thúc của chương
+        List<Chapter> allChapters = story.getChapters();  
+        int totalChapters = allChapters.size();  
+        int totalPages = (int) Math.ceil((double) totalChapters / pageSize);  
+        int start = page * pageSize;  
+        int end = Math.min(start + pageSize, totalChapters); 
 
-        List<Chapter> chapters = allChapters.subList(start, end);  // Cắt danh sách chương theo trang hiện tại
+        List<Chapter> chapters = allChapters.subList(start, end);  
 
         model.addAttribute("chapters", chapters);
         model.addAttribute("currentPage", page);

@@ -50,7 +50,7 @@ public class ChapterService {
         )).collect(Collectors.toList());
     }
 
-    private String getTimeElapsed(LocalDateTime createdDate) {
+    public String getTimeElapsed(LocalDateTime createdDate) {
         if (createdDate == null) {
             return "Không có thông tin"; 
         }
@@ -66,4 +66,22 @@ public class ChapterService {
             return (duration.toDays() / 30) + " tháng trước";
         }
     }
+
+    public ChapterDto getLatestChapterAndTime(Long storyId) {
+        Chapter latestChapter = chapterRepository.findTopByStoryIdOrderByCreatedDateDesc(storyId);
+        
+        if (latestChapter != null) {
+            String elapsedTime = getTimeElapsed(latestChapter.getCreatedDate());
+            return new ChapterDto(
+                latestChapter.getId(),
+                latestChapter.getStory().getTitle(),
+                latestChapter.getTitle(),
+                elapsedTime,
+                latestChapter.getStory().getCategory()
+            );
+        } else {
+            return null;
+        }
+    }
+    
 }

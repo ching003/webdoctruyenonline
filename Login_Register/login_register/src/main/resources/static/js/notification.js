@@ -23,8 +23,13 @@ function loadNotifications() {
                             const link = document.createElement('a');
                             link.href = `/chapter/${notification.chapterId}`;
                             link.textContent = notification.message;
+
+                            const time = document.createElement('span');
+                            time.textContent = notification.elapsedTime;
+
                             item.appendChild(link);
                             list.appendChild(item);
+                            list.appendChild(time);
                         }
                     });
 
