@@ -31,3 +31,4 @@ document.addEventListener("click", function(event) {
         suggestions.innerHTML = "";
     }
 });
+

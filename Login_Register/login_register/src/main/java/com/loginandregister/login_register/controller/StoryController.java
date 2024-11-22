@@ -32,6 +32,7 @@ import com.loginandregister.login_register.repositories.UserRepository;
 import com.loginandregister.login_register.service.ChapterService;
 import com.loginandregister.login_register.service.CustomUserDetail;
 import com.loginandregister.login_register.service.FavoriteService;
+import com.loginandregister.login_register.service.NotificationService;
 import com.loginandregister.login_register.service.StoryService;
 
 
@@ -47,6 +48,8 @@ public class StoryController {
     private UserRepository userRepository;
     @Autowired
     private FavoriteService favoriteService;
+    @Autowired
+    private NotificationService notificationService;
     @Autowired
     private ChapterService chapterService;
     private final String UPLOAD_DIR = "src/main/resources/static/image/";
@@ -139,10 +142,10 @@ public class StoryController {
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal().toString())) {
             CustomUserDetail userDetails = (CustomUserDetail) authentication.getPrincipal();
             List<Long> favoriteStoryIds = favoriteService.getFavoriteStoryIds(userDetails.getId());
-            //List<Long> notificationStoryIds = notificationService.getNotificationStoryIds(userDetails.getId());
+            List<Long> notificationStoryIds = notificationService.getNotificationStoryIds(userDetails.getId());
 
             model.addAttribute("favoriteStoryIds", favoriteStoryIds);
-            //model.addAttribute("notificationStoryIds", notificationStoryIds);
+            model.addAttribute("notificationStoryIds", notificationStoryIds);
         }
 
         int pageSize = 40;  // Số chương mỗi trang

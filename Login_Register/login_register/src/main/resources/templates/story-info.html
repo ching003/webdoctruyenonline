@@ -24,6 +24,9 @@
                 });
         }
     </script>
+
+    <script th:src="@{../js/notification.js}"></script>
+    
 </head>
 <body>
     <div th:replace="header :: header"></div>
@@ -62,7 +65,7 @@
                 </p> 
 
                 <div class="icon-container">
-                    <!-- Biểu tượng tim cho user -->
+                    <!-- user -->
                     <div th:if="${#authorization.expression('hasAuthority(''USER'')')}" 
                          class="icon-circle" 
                          th:classappend="${favoriteStoryIds.contains(story.id) ? 'heart-active' : ''}" 
@@ -71,16 +74,15 @@
                         <i class="fa-solid fa-heart"></i>
                     </div>
                 
-                    <!-- Biểu tượng chuông cho user 
-                    <div th:if="${#authorization.expression('hasAuthority(''USER'')')}" 
-                         class="icon-circle" 
-                         th:classappend="${notificationStoryIds.contains(story.id) ? 'bell-active' : ''}" 
-                         data-story-id="[[${story.id}]]" 
-                         onclick="toggleBell(this)">
+                    <div class="icon-circle" 
+                        th:if="${#authorization.expression('hasAuthority(''USER'')')}" 
+                        th:classappend="${notificationStoryIds.contains(story.id) ? 'bell-active' : ''}" 
+                        th:attr="data-story-id=${story.id}" 
+                        onclick="toggleBell(this)">
                         <i class="fa-solid fa-bell"></i>
-                    </div>-->
+                    </div>
                 
-                    <!-- Hiển thị cho người dùng chưa đăng nhập -->
+                    <!-- Anonymous user -->
                     <div th:if="${#authentication.principal == 'anonymousUser'}" class="icon-circle" onclick="showLoginPrompt()">
                         <i class="fa-solid fa-heart"></i>
                     </div>
@@ -178,71 +180,73 @@
     
     <script>
         function toggleHeart(button) {
-        const storyId = button.getAttribute('data-story-id'); // Lấy ID của truyện
-        if (!storyId) {
-            console.error("Không có ID truyện");
-            return;
+            const storyId = button.getAttribute('data-story-id'); // Lấy ID của truyện
+            if (!storyId) {
+                console.error("Không có ID truyện");
+                return;
+            }
+
+            fetch(`/api/favorites/${storyId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    showLoginPrompt();
+                    return;
+                }
+                return response.json();
+            })
+            .then(isFavorite => {
+                if (isFavorite) {
+                    button.classList.add('heart-active'); // Đã yêu thích
+                } else {
+                    button.classList.remove('heart-active'); // Hủy yêu thích
+                }
+            })
+            .catch(error => {
+                console.error('Có lỗi xảy ra:', error);
+            });
         }
 
-        fetch(`/api/favorites/${storyId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            if (response.status === 401) {
-                showLoginPrompt();
+        function toggleBell(button) {
+            const storyId = button.getAttribute('data-story-id');
+            if (!storyId) {
+                console.error("Không có ID truyện");
                 return;
             }
-            return response.json();
-        })
-        .then(isFavorite => {
-            if (isFavorite) {
-                button.classList.add('heart-active'); // Đã yêu thích
-            } else {
-                button.classList.remove('heart-active'); // Hủy yêu thích
-            }
-        })
-        .catch(error => {
-            console.error('Có lỗi xảy ra:', error);
-        });
-    }
-/*
-    function toggleBell(button) {
-        const storyId = button.getAttribute('data-story-id'); // Lấy ID của truyện
 
-        fetch(`/api/notifications/${storyId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            if (response.status === 401) {
-                showLoginPrompt();
-                return;
-            }
-            return response.json();
-        })
-        .then(isNotified => {
-            if (isNotified) {
-                button.classList.add('bell-active'); // Đã theo dõi
-            } else {
-                button.classList.remove('bell-active'); // Hủy theo dõi
-            }
-        })
-        .catch(error => {
-            console.error('Có lỗi xảy ra:', error);
-        });
-    }*/
+            fetch(`/api/notifications/${storyId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    showLoginPrompt();
+                    return;
+                }
+                return response.json();
+            })
+            .then(isSubscribed => {
+                if (isSubscribed) {
+                    button.classList.add('bell-active'); // Đã theo dõi
+                } else {
+                    button.classList.remove('bell-active'); // Hủy theo dõi
+                }
+            })
+            .catch(error => {
+                console.error('Có lỗi xảy ra:', error);
+            });
+        }
 
-        // Hiển thị thông báo yêu cầu đăng nhập
         function showLoginPrompt() {
             document.getElementById('loginModal').style.display = 'block';
         }
 
-        // Đóng modal thông báo đăng nhập
         function closeLoginModal() {
             document.getElementById('loginModal').style.display = 'none';
         }
