@@ -1,5 +1,8 @@
 package com.loginandregister.login_register.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -174,4 +177,48 @@ public class StoryService {
         return storyRepository.findByAuthor(authorName);
     }
     
+    
+    public String getStoryTags(Story story) {
+        List<String> tags = new ArrayList<>();
+
+        if (isNew(story.getCreatedDate())) {
+            tags.add("New");
+        }
+        if (isHot(story)) {
+            tags.add("Hot");
+        }
+        if ("completed".equalsIgnoreCase(story.getStatus())) {
+            tags.add("Full");
+        }
+        if(!tags.isEmpty()) {
+            story.setTagList(tags);
+            return String.join(",", tags);
+        }
+        return "";
+    }
+
+    private boolean isNew(String createdDateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"); 
+        LocalDate createdDate = LocalDate.parse(createdDateStr, formatter);
+        
+        LocalDate currentDate = LocalDate.now();
+        return !createdDate.isBefore(currentDate.minusWeeks(1));
+    }
+
+    private boolean isHot(Story story) {
+        return story.getViews() > 100; 
+    }
+
+    public void saveTagsToDatabase(Story story) {
+        String tags = getStoryTags(story);
+        story.setTags(tags);  
+        storyRepository.save(story);  
+    }
+
+    public void updateAllTags() {
+        List<Story> stories = storyRepository.findAll();
+        for (Story story : stories) {
+            saveTagsToDatabase(story);
+        }
+    }
 }

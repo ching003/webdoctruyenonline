@@ -40,10 +40,9 @@
                 <a class="story-details" th:href="@{/story-info/{id}(id=${story.id})}">
                     <span class="story-title" th:text="${story.title}">Tên truyện</span>
                     <span class="author" th:text="${story.author}">Tên tác giả</span>
-                    <div class="tags">
-                        <span class="tag new-tag">New</span>
-                        <span class="tag full-tag">Full</span>
-                    </div>
+                    <div class="tags" th:if="${story.tags != null and story.tags != ''}">
+                        <span th:each="tag : ${story.tagList}" class="tag" th:text="${tag}">Tag</span>
+                    </div>                   
                     <div class="chapter" th:text="${story.latestChapterTitle}">Chương mới nhất</div>
                 </a>
             </li>

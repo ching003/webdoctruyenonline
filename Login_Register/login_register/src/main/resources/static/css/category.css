@@ -87,8 +87,7 @@ nav ul, li {
     margin-top: 0;
 }
 
-.new-tag,
-.full-tag {
+.tag {
     background-color: #4CAF50;
     color: white;
     font-size: 12px;

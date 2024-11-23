@@ -23,6 +23,8 @@ public class Story {
     private Long id;
     
     private String title, author, category, coverImage, status, latestChapterTitle; // "completed" hoặc "in-progress"
+    private String tags;
+    private List<String> tagList;
 
     @Column(columnDefinition = "LONGTEXT")
     private String description;
@@ -125,5 +127,17 @@ public class Story {
     }
     public void setLatestChapterTitle(String latestChapterTitle) {
         this.latestChapterTitle = latestChapterTitle;
+    }
+    public String getTags() {
+        return tags;
+    }
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+    public List<String> getTagList() {
+        return tagList;
+    }
+    public void setTagList(List<String> tagList) {
+        this.tagList = tagList;
     }
 }
