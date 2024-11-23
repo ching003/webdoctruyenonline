@@ -131,7 +131,8 @@
         
         <li th:if="${#authentication.principal != 'anonymousUser'}">
             <div class="notification-icon-container">
-                <i class="fas fa-bell" onclick="loadNotifications()"></i>
+                <i class="fas fa-bell" onclick="loadNotifications()">
+                </i>
                 <div id="notification-panel" class="notification-panel">
                     <ul id="notification-list">
                         <li>Đang tải...</li>

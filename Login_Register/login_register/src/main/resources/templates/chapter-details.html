@@ -50,6 +50,9 @@
             <button class="tts-button" onclick="stopReading()">
                 <i class="fas fa-stop"></i> Dừng
             </button>
+            <button class="tts-button" onclick="changeSpeed()">
+                Tốc độ: <span id="speedLabel">1x</span>
+            </button>
         </div>                      
         <p th:utext="${formattedContent}" id="format-content"></p>        
     </div>
@@ -112,6 +115,7 @@
 
     <script>
         let utterance = null; 
+        let currentRate = 1;
         function speakChapterContent() {
             if (utterance) {
                 speechSynthesis.cancel();
@@ -122,7 +126,7 @@
             if ('speechSynthesis' in window) {
                 utterance = new SpeechSynthesisUtterance(content);
                 utterance.lang = 'vi-VN'; 
-                utterance.rate = 0.8; 
+                utterance.rate = currentRate; 
                 utterance.pitch = 0.01; 
 
                 window.speechSynthesis.speak(utterance);
@@ -153,6 +157,27 @@
             if ('speechSynthesis' in window && speechSynthesis.speaking) {
                 speechSynthesis.cancel();
                 console.log("Dừng đọc!");
+            }
+        }
+
+        function changeSpeed() {
+            if (currentRate === 1) {
+                currentRate = 1.5;
+                document.getElementById("speedLabel").textContent = "1.5x";
+            } else if (currentRate === 1.5) {
+                currentRate = 2;
+                document.getElementById("speedLabel").textContent = "2x";
+            } else {
+                currentRate = 1;
+                document.getElementById("speedLabel").textContent = "1x";
+            }
+            console.log(`Tốc độ đọc: ${currentRate}x`);
+            if ('speechSynthesis' in window && speechSynthesis.speaking) {
+                speechSynthesis.cancel();  
+                utterance.rate = currentRate;
+                setTimeout(function() {
+                    speakChapterContent();
+                }, 200); 
             }
         }
 

@@ -290,10 +290,17 @@ input[type=radio] {
     margin-right: 70px;
 }
 
+
+
+.notification-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
 .notification-panel {
     display: none;
     position: absolute;
-    top: 30px; /* Chỉnh từ 50px xuống 30px */
+    top: 30px; 
     right: 0;
     width: 320px;
     background-color: white;
@@ -307,14 +314,15 @@ input[type=radio] {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: block;
 }
 
 .notification-panel li {
     padding: 10px;
     border-bottom: 1px solid #eee;
     display: flex;
-    flex-direction: column; /* Thay đổi để cho chữ xuống dòng */
-    align-items: flex-start; /* Căn chữ theo trái */
+    flex-direction: column; 
+    align-items: flex-start; 
 }
 
 .notification-panel li:last-child {
@@ -325,16 +333,32 @@ input[type=radio] {
     text-decoration: none;
     color: #333;
     font-size: 14px;
-    word-wrap: break-word; /* Tự xuống dòng khi quá dài */
-    white-space: normal; /* Cho phép xuống dòng */
+    word-wrap: break-word; 
+    white-space: normal; 
 }
 
 .notification-panel li span {
     font-size: 0.8em;
     color: #666;
-    margin-top: 5px; /* Khoảng cách với message */
+    margin-top: 5px; 
 }
 
 .notification-panel li:hover {
-    background-color: #f1f1f1;
+    background-color: #FFB6C1;
+    border-radius: 5px;
 }
+/*
+#unread-badge {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold; 
+}
+*/

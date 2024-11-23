@@ -28,8 +28,8 @@ function loadNotifications() {
                             time.textContent = notification.elapsedTime;
 
                             item.appendChild(link);
-                            list.appendChild(item);
-                            list.appendChild(time);
+                            item.appendChild(time);
+                            list.appendChild(item);                            
                         }
                     });
 
