@@ -33,6 +33,11 @@
         <div th:replace="left-section :: left-section"></div>
         <div class="right-section">
             <h1>Danh sách truyện</h1>
+            <div style="text-align: right; margin-bottom: 10px;">
+                <button id="updateTagsButton">
+                    Cập nhật truyện
+                </button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -83,6 +88,26 @@
                 console.error('Có lỗi khi cập nhật trạng thái truyện', error);
             });
         }
+    </script>
+    <script>
+        document.getElementById('updateTagsButton').addEventListener('click', () => {
+            fetch('/api/stories/update-tags', {
+                method: 'GET' 
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();  
+                } else {
+                    throw new Error('Cập nhật tag không thành công');
+                }
+            })
+            .then(message => {
+                alert(message); 
+            })
+            .catch(error => {
+                alert('Có lỗi xảy ra: ' + error.message);  
+            });
+        });
     </script>
 </body>
 </html>

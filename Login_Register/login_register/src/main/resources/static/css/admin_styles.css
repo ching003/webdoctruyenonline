@@ -222,3 +222,20 @@
     background-color: #FFB6C1;
     color: white;
 }
+
+.right-section button {
+    background-color: #FFB6C1;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(255,182,193,0.3);
+}
+.right-section button:hover {
+    background-color: #f975b7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255,182,193,0.4);
+}
