@@ -35,7 +35,8 @@
     <div class="chapter-content">
         <h1 class="story-title" th:text="${storyTitle}"></h1>
         <h2 class="chapter-title">
-            <span th:text="${chapter.title}"></span>: <span th:text="${chapter.content}"></span>
+            <span th:text="${chapter.title}"></span><span th:if="${chapter.content}!=''">:</span>
+            <span th:text="${chapter.content}"></span>
         </h2>
         <div class="voice-controls">
             <button class="tts-button" onclick="speakChapterContent()">

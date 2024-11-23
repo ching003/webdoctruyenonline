@@ -1,5 +1,8 @@
 nav{
     background-color:black;
+    box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.464);
+    position: relative;
+    z-index: 9999;
 }
 nav ul{
     display:flex;
@@ -36,9 +39,9 @@ nav ul, li {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 320px; 
+    /*min-width: 320px; */
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 9999;
     right: 0;
 }
 
@@ -77,6 +80,13 @@ nav ul, li {
 .submenu ul li a:hover {
     background-color: #FFB6C1; 
 }
+
+.submenu-special ul {
+    display: block;
+    flex-direction: column; 
+    row-gap: 10px;
+}
+
 .nav-link {
     position: relative;
 }
@@ -88,7 +98,7 @@ nav ul, li {
     background-color: #f9f9f9;
     min-width: 420px; 
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 9999;
     right: 0;
 }
 
@@ -195,6 +205,7 @@ input[type=radio] {
 .dropdown {
     position: relative;
     display: inline-block;
+    z-index: 9998;
 }
 
 .dropdown-content {
@@ -204,22 +215,6 @@ input[type=radio] {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
 }
 
 .dropdown:hover .dropdown-content {

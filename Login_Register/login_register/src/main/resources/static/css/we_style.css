@@ -9,7 +9,7 @@ body{
 }
 
 .slider-product-one {
-    background-color: #f1d8dc;
+    background-color: #FEFAFB;
     padding: 20px 0;
 }
 .slider-product-one-content {
@@ -90,4 +90,60 @@ body{
 }
 .new-updates tr:hover {
     background-color: #f9f9f9;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,500&display=swap');
+
+.collection{
+    height: 85vh;
+    background-image: url('/image/pink-luxury.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: bottom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.collection .content{
+    height: 34rem;
+    width: 25rem;
+    background-color: #1b1f2a;
+    border-radius: .7rem;
+    overflow: hidden;
+}
+
+.content img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom-left-radius: .6rem;
+    border-bottom-right-radius: .6rem;
+}
+
+.text-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.text-content h3{
+    font-size: 1.7rem;
+    font-weight: 500;
+}
+.text-content p{
+    max-width: 22rem;
+    font-size: .8rem;
+    font-weight: 400;
+    text-align: center;
+}
+.btn{
+    background-color: #0099ff;
+    padding: .2rem;
+    border: 2px solid #0099ff;
+    outline: none;
+    font-size: .8rem;
+    border-radius: .5rem;
+    margin: 1rem 0;
+    cursor: pointer;
 }

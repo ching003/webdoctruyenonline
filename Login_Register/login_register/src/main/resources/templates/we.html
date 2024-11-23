@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{../css/we_style.css}">
     <link rel="stylesheet" th:href="@{../css/header.css}">
+    <link rel="stylesheet" th:href="@{../css/we_style.css}">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <title>Truyện hay - Đọc truyện online</title>
     <script>
         function loadContent(page) {
@@ -32,8 +33,53 @@
 <body>
     <div th:replace="header :: header"></div>
 
-    <div id="content">
-    </div>
+    <section class="collection">            
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="content swiper-slide">
+                    <a th:href="@{/story-info/29}">
+                        <img src="image/2023_01_09_14_00_41_1-390x510.png" alt="Truyện ngắn Nam Cao">
+                    </a>
+                    <p>Truyện ngắn Nam Cao</p>
+                </div>
+                <div class="content swiper-slide">
+                    <a th:href="@{/story-info/27}">
+                        <img src="image/b7b3d2be19.jpg" alt="Ám Hà Truyện">
+                    </a>    
+                    <p>Ám Hà Truyện</p>
+                </div>
+                <div class="content swiper-slide">
+                    <a th:href="@{/story-info/30}">
+                        <img src="image/Tay-du-ky-1200x1839.jpg" alt="Tây Du Ký">
+                    </a> 
+                    <p>Tây Du Ký</p>
+                </div>
+                <div class="content swiper-slide">
+                    <a th:href="@{/story-info/35}">
+                        <img src="image/8_-Truyen.jpg" alt="Những cuộc phiêu lưu của Sherlock">
+                    </a> 
+                    <p>Những cuộc phiêu lưu của Sherlock</p>
+                </div>
+                <div class="content swiper-slide">
+                    <img src="image/Picture1585469732771.png">
+                    <p>Ngày xưa, câu chuyện thanh xuân còn dang dở</p>
+                </div>
+                <div class="content swiper-slide">
+                    <img src="image/Bút-kí-1.jpg" alt="">
+                    <p>Bút ký phản công của pháo hôi</p>
+                </div>
+                <div class="content swiper-slide">
+                    <img src="image\1A.jpg" alt="">
+                    <p>Vì em gặp anh</p>
+                </div>
+                <div class="content swiper-slide">
+                    <img src="image/Bút-kí-1.jpg" alt="">
+                    <p>Bút ký phản công của pháo hôi</p>
+                </div>                        
+            </div>
+        </div>
+    </section>
+    
     <section class="slider-product-one">
         <div class="container">
             <div class="one-content">
@@ -91,6 +137,29 @@
     
     <!--search-box-->
     <script th:src="@{../js/search.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      loop:true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 150,
+        modifier: 2.5,
+        slideShadows: true,
+      },
+      autoplay:{
     
+        delay:3000,
+        disableOnInteraction:false,
+      }
+    
+    });
+    </script>
 </body>
 </html>
