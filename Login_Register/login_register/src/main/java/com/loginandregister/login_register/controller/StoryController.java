@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.loginandregister.login_register.dto.ChapterDto;
+import com.loginandregister.login_register.dto.CommentDto;
 import com.loginandregister.login_register.dto.StoryTitleProjection;
 import com.loginandregister.login_register.model.Chapter;
 import com.loginandregister.login_register.model.Notification;
@@ -32,6 +33,7 @@ import com.loginandregister.login_register.model.User;
 import com.loginandregister.login_register.repositories.StoryRepository;
 import com.loginandregister.login_register.repositories.UserRepository;
 import com.loginandregister.login_register.service.ChapterService;
+import com.loginandregister.login_register.service.CommentService;
 import com.loginandregister.login_register.service.CustomUserDetail;
 import com.loginandregister.login_register.service.FavoriteService;
 import com.loginandregister.login_register.service.NotificationService;
@@ -52,6 +54,8 @@ public class StoryController {
     private FavoriteService favoriteService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private CommentService commentService;
     @Autowired
     private ChapterService chapterService;
     private final String UPLOAD_DIR = "src/main/resources/static/image/";
@@ -140,6 +144,16 @@ public class StoryController {
         String categories = story.getCategory();
         List<String> categoryList = Arrays.asList(categories.split(",\\s*"));
         model.addAttribute("categoryList", categoryList);
+        
+        //ds comment
+        List<CommentDto> comments = commentService.getCommentsByStoryId(id);
+        for (CommentDto comment : comments) {
+            if (comment.getUserId() == 1) {
+                comment.setUserName(comment.getUserName() + " (Admin)");
+            }
+        }
+        comments.sort((c1, c2) -> c2.getCreatedDate().compareTo(c1.getCreatedDate()));
+        model.addAttribute("comments", comments);
 
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal().toString())) {
             CustomUserDetail userDetails = (CustomUserDetail) authentication.getPrincipal();

@@ -32,7 +32,7 @@ public class CommentService {
         String username = userRepository.findById(userId)
                                         .map(user -> user.getFullname())
                                         .orElse("Ẩn danh");
-        return new CommentDto(savedComment.getId(), userId, username, savedComment.getStoryId(), savedComment.getContent(), elapsedTime);
+        return new CommentDto(savedComment.getId(), userId, username, savedComment.getStoryId(), savedComment.getContent(), savedComment.getCreatedDate(), elapsedTime);
     }
 
     public List<CommentDto> getCommentsByStoryId(Long storyId) {
@@ -49,6 +49,7 @@ public class CommentService {
                 userName,
                 comment.getStoryId(),
                 comment.getContent(),
+                comment.getCreatedDate(),
                 elapsedTime
             );
         }).collect(Collectors.toList());

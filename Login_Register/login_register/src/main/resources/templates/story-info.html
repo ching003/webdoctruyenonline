@@ -173,15 +173,19 @@
     <section class="comments">
         <h2>Bình Luận</h2>
         <textarea id="comment-input" placeholder="Nhập bình luận của bạn tại đây..."></textarea>
+        <button id="show-login-prompt" class="submit-comment" 
+            th:if="${#authentication.principal == 'anonymousUser'}" 
+            onclick="showLoginPrompt()">Gửi Bình Luận</button>  
         <button id="submit-comment" class="submit-comment" 
             th:attr="data-story-id=${story.id}" 
             th:if="${#authentication.principal != 'anonymousUser'}" 
-            onclick="submitComment(this)">Gửi Bình Luận</button>
-        <button id="show-login-prompt" class="submit-comment" 
-            th:if="${#authentication.principal == 'anonymousUser'}" 
-            onclick="showLoginPrompt()">Gửi Bình Luận</button>        
-        <ul id="comment-list" class="comment-list">
-            <li>Đang tải bình luận...</li>
+            onclick="submitComment(this)">Gửi Bình Luận</button>      
+        <ul id="comment-list">
+            <li th:each="comment : ${comments}">
+                <span th:text="${comment.userName}">Tên</span>: 
+                <span th:text="${comment.content}">Nội dung</span> 
+                <small th:text="${comment.elapsedTime}">Thời gian bình luận</small>
+            </li>
         </ul>
     </section>
 
@@ -281,58 +285,57 @@
 
     <script>
         function submitComment(button) {
-    const storyId = button.getAttribute('data-story-id'); // Lấy ID của truyện từ thuộc tính data-story-id
-    const input = document.getElementById('comment-input');
-    const commentText = input.value.trim();
+            const storyId = button.getAttribute('data-story-id'); 
+            const input = document.getElementById('comment-input');
+            const commentText = input.value.trim();
 
-    if (!storyId) {
-        console.error("Không có ID truyện");
-        return;
-    }
+            if (!storyId) {
+                console.error("Không có ID truyện");
+                return;
+            }
 
-    if (commentText === '') {
-        alert('Vui lòng nhập nội dung bình luận!');
-        return;
-    }
+            if (commentText === '') {
+                alert('Vui lòng nhập nội dung bình luận!');
+                return;
+            }
 
-    // Gửi bình luận qua API
-    fetch('/api/comments', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ content: commentText, storyId: storyId })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Gửi bình luận thất bại!');
+            fetch('/api/comments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ content: commentText, storyId: storyId })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Gửi bình luận thất bại!');
+                }
+                return response.json();
+            })
+            .then(comment => {
+                addCommentToList(comment);
+                input.value = '';
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('Có lỗi xảy ra khi gửi bình luận!');
+            });
         }
-        return response.json();
-    })
-    .then(comment => {
-        addCommentToList(comment);
-        input.value = '';
-    })
-    .catch(error => {
-        console.error('Lỗi:', error);
-        alert('Có lỗi xảy ra khi gửi bình luận!');
-    });
-}
 
-function addCommentToList(comment) {
-    const list = document.getElementById('comment-list');
-    const item = document.createElement('li');
+        function addCommentToList(comment) {
+            const list = document.getElementById('comment-list');
+            const item = document.createElement('li');
 
-    const content = document.createElement('span');
-    content.textContent = `${comment.userName}: ${comment.content}`;
+            const content = document.createElement('span');
+            content.textContent = `${comment.userName}: ${comment.content}`;
 
-    const time = document.createElement('small');
-    time.textContent = ` (${comment.elapsedTime})`;
+            const time = document.createElement('small');
+            time.textContent = ` (${comment.elapsedTime})`;
 
-    item.appendChild(content);
-    item.appendChild(time);
-    list.appendChild(item);
-}
+            item.appendChild(content);
+            item.appendChild(time);
+            list.insertBefore(item, list.firstChild);
+        }
 
     </script>
 

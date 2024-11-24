@@ -263,16 +263,6 @@ body {
     background-color: #3c7db1;
 }
 
-/* Ẩn nút gửi bình luận nếu chưa đăng nhập */
-#show-login-prompt {
-    display: none;
-}
-
-.submit-comment:disabled {
-    background-color: #b0c4de;
-    cursor: not-allowed;
-}
-
 /* Styling cho danh sách bình luận */
 #comment-list {
     margin-top: 20px;

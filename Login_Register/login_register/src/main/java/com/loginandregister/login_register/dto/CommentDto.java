@@ -1,19 +1,23 @@
 package com.loginandregister.login_register.dto;
 
+import java.time.LocalDateTime;
+
 public class CommentDto {
     private Long id;
     private Long userId;
     private String userName; 
     private Long storyId;
     private String content;
+    private LocalDateTime createdDate;
     private String elapsedTime; 
 
-    public CommentDto(Long id, Long userId, String userName, Long storyId, String content, String elapsedTime) {
+    public CommentDto(Long id, Long userId, String userName, Long storyId, String content, LocalDateTime createdDate, String elapsedTime) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
         this.storyId = storyId;
         this.content = content;
+        this.createdDate = createdDate;
         this.elapsedTime = elapsedTime;
     }
     public Long getId() {
@@ -45,6 +49,12 @@ public class CommentDto {
     }
     public void setContent(String content) {
         this.content = content;
+    }
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
     public String getElapsedTime() {
         return elapsedTime;
