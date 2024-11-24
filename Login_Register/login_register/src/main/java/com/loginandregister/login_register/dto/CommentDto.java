@@ -10,13 +10,25 @@ public class CommentDto {
     private String content;
     private LocalDateTime createdDate;
     private String elapsedTime; 
+    private String storyTitle;  
 
+    public CommentDto() {}
+    
     public CommentDto(Long id, Long userId, String userName, Long storyId, String content, LocalDateTime createdDate, String elapsedTime) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
         this.storyId = storyId;
         this.content = content;
+        this.createdDate = createdDate;
+        this.elapsedTime = elapsedTime;
+    }
+
+    public CommentDto(Long id, String content, Long storyId, String storyTitle, LocalDateTime createdDate, String elapsedTime) {
+        this.id = id;
+        this.content = content;
+        this.storyId = storyId;
+        this.storyTitle = storyTitle;
         this.createdDate = createdDate;
         this.elapsedTime = elapsedTime;
     }
@@ -61,5 +73,11 @@ public class CommentDto {
     }
     public void setElapsedTime(String elapsedTime) {
         this.elapsedTime = elapsedTime;
+    }
+    public String getStoryTitle() {
+        return storyTitle;
+    }
+    public void setStoryTitle(String storyTitle) {
+        this.storyTitle = storyTitle;
     }
 }

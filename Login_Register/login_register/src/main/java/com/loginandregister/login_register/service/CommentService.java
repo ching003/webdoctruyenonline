@@ -20,6 +20,8 @@ public class CommentService {
     private UserRepository userRepository;
     @Autowired
     private ChapterService chapterService;
+    @Autowired
+    private StoryService storyService;
     
     public CommentDto saveComment(CommentDto commentDto, Long userId) {
         Comment comment = new Comment();
@@ -53,5 +55,29 @@ public class CommentService {
                 elapsedTime
             );
         }).collect(Collectors.toList());
+    }
+
+    public List<CommentDto> getUserComments(Long userId) {
+        List<Comment> comments = commentRepository.findByUserIdOrderByCreatedDateDesc(userId);
+        return comments.stream()
+                .map(comment -> new CommentDto(
+                        comment.getId(),
+                        comment.getContent(),
+                        comment.getStoryId(),
+                        storyService.getStoryTitleById(comment.getStoryId()),
+                        comment.getCreatedDate(),
+                        chapterService.getTimeElapsed(comment.getCreatedDate())
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public void deleteComment(Long commentId, Long userId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+        
+        if (!comment.getUserId().equals(userId)) {
+            throw new RuntimeException("You are not authorized to delete this comment.");
+        }
+        commentRepository.delete(comment);
     }
 }

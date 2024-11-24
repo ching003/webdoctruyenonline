@@ -221,4 +221,10 @@ public class StoryService {
             saveTagsToDatabase(story);
         }
     }
+
+    public String getStoryTitleById(Long storyId) {
+        return storyRepository.findById(storyId)
+                .map(Story::getTitle)
+                .orElse("Không rõ tiêu đề");
+    }
 }

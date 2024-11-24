@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{../css/we_style.css}">
+    <link rel="stylesheet" th:href="@{../css/header.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{../css/user_styles.css}">
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
+    <script th:src="@{../js/notification.js}"></script>
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+    
+    <div class="profile-container">
+        <div th:replace="left-section-user :: left-section-user"></div>
+        <div class="right-section">
+            <section class="comment-history">
+                <h2>Lịch Sử Comment</h2>
+                <div th:if="${comments.isEmpty()}">
+                    <p>Không có bình luận nào</p>
+                </div>
+                <div th:if="${!comments.isEmpty()}">
+                    <div th:each="comment : ${comments}">
+                        <div class="comment-item">
+                            <p>
+                                <strong>Bạn đã bình luận truyện: <a th:href="@{/story-info/{id}(id=${comment.storyId})}" th:text="${comment.storyTitle}"></a></strong>
+                            </p>
+                            <p>
+                                <span class="comment-content" th:text="${comment.content}"></span>
+                            </p>
+                            <small th:text="${comment.elapsedTime}"></small>
+                            <button class="delete-comment" th:attr="data-id=${comment.id}" onclick="deleteComment(this)">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script th:src="@{../js/search.js}"></script>
+
+    <script>
+        function deleteComment(button) {
+            const commentId = button.getAttribute('data-id');
+            fetch(`/api/comments/${commentId}`, { method: 'DELETE' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Xóa bình luận thất bại!');
+                    }
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error deleting comment:', error);
+                    alert('Không thể xóa bình luận');
+                });
+        }
+    </script>
+</body>
+</html>

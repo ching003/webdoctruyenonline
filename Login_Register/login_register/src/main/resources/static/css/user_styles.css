@@ -227,3 +227,43 @@ body {
     background-color: #FFB6C1;
     color: white;
 }
+
+/*comments*/
+.comment-history {
+    padding: 20px;
+}
+
+.comment-group {
+    margin-bottom: 15px;
+}
+
+.comment-group h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.comment-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+}
+
+.comment-item span {
+    font-size: 14px;
+    color: #666;
+}
+
+.comment-item .comment-content {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+
+.comment-item .delete-comment {
+    font-size: 12px;
+    color: red;
+    cursor: pointer;
+}

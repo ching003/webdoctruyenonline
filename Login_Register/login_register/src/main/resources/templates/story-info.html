@@ -308,7 +308,9 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Gửi bình luận thất bại!');
+                    return response.text().then(errMessage => {
+                        throw new Error(`Gửi bình luận thất bại! Mã lỗi: ${response.status}, Thông báo: ${errMessage}`);
+                    });
                 }
                 return response.json();
             })
