@@ -158,8 +158,10 @@
                 <div class="one-content-items">
                     <ul class="slider-product-one-content">
                         <li class="slider-product-one-content-item" th:each="story : ${completedStories}">
-                            <img th:src="@{${story.coverImage}}" alt="" width="200px">
-                            <p th:text="${story.title}"></p>
+                            <a th:href="@{/story-info/{id}(id=${story.id})}" class="story-link">
+                                <img th:src="@{${story.coverImage}}" alt="" width="200px">
+                                <p th:text="${story.title}"></p>
+                            </a> 
                         </li>
                     </ul>
                 </div>

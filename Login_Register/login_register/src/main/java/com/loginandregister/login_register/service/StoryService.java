@@ -1,6 +1,7 @@
 package com.loginandregister.login_register.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -85,7 +86,7 @@ public class StoryService {
     }
 
     public List<Story> findHotStories() {
-        return storyRepository.findByOrderByViewsDesc(PageRequest.of(0, 10));
+        return storyRepository.findStoriesWithViewsAbove100();
     }
 
     public List<Story> findRecentlyCompletedStories() {
@@ -106,7 +107,19 @@ public class StoryService {
     }
 
     public List<Story> findByOrderByCreatedDateDesc() {
-        return storyRepository.findByOrderByCreatedDateDesc(PageRequest.of(0, 10));
+        LocalDateTime sevenDaysAgo = LocalDateTime.now().minusDays(7);
+        return storyRepository.findStoriesCreatedWithinLastWeek(sevenDaysAgo);
+    }
+
+    public List<Story> getMostCommentedStories() {
+        List<Object[]> results = storyRepository.findMostCommentedStories();
+
+        List<Story> stories = new ArrayList<>();
+        for (Object[] result : results) {
+            Story story = (Story) result[0]; 
+            stories.add(story);
+        }
+        return stories;
     }
 
     public List<Story> findTopByCategory(String category) {

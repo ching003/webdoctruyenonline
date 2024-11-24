@@ -1,5 +1,6 @@
 package com.loginandregister.login_register.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -17,9 +18,17 @@ public interface StoryRepository extends JpaRepository<Story, Long>{
     long countByUser(User user);
 
     //list
-    List<Story> findByOrderByViewsDesc(Pageable pageable);
+    @Query("SELECT s FROM Story s WHERE s.views > 100 ORDER BY s.views DESC")
+    List<Story> findStoriesWithViewsAbove100();
+
     List<Story> findByStatusOrderByCompletedDateDesc(String status, Pageable pageable);
-    List<Story> findByOrderByCreatedDateDesc(Pageable pageable);
+
+    @Query("SELECT s FROM Story s WHERE s.createdDate >= :sevenDaysAgo ORDER BY s.createdDate DESC")
+    List<Story> findStoriesCreatedWithinLastWeek(@Param("sevenDaysAgo") LocalDateTime sevenDaysAgo);
+
+    @Query("SELECT s, COUNT(c) FROM Story s JOIN Comment c on s.id = c.storyId GROUP BY s.id ORDER BY COUNT(c) DESC")
+    List<Object[]> findMostCommentedStories();
+
     List<Story> findByCategoryContainingIgnoreCaseOrderByViewsDesc(String category, Pageable pageable);
 
     //tìm kiếm theo tên 

@@ -1,6 +1,5 @@
 package com.loginandregister.login_register.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +65,7 @@ public class ListController {
 
     @GetMapping("/most-commented")
     public String getMostCommentedStories(Model model) {
-        List<Story> stories = new ArrayList<>();
+        List<Story> stories = storyService.getMostCommentedStories();
         storyService.setLatestChapterForStories(stories); 
         model.addAttribute("stories", stories);
         model.addAttribute("listname", "Bình luận nhiều nhất");

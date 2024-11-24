@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.loginandregister.login_register.dto.ChapterDto;
@@ -40,7 +43,8 @@ public class ChapterService {
     }
 
     public List<ChapterDto> getRecentChaptersWithElapsedTime() {
-        List<Chapter> chapters = chapterRepository.findTop10ByOrderByCreatedDateDesc(); // Lấy 10 chương mới nhất
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Chapter> chapters = chapterRepository.findLatestChaptersOfEachStory(pageable); 
         return chapters.stream().map(chapter -> new ChapterDto(
                 chapter.getId(),
                 chapter.getStory().getTitle(),

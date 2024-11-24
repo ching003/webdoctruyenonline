@@ -137,7 +137,12 @@ public class StoryController {
 
     @GetMapping("/story-info/{id}")
     public String getStoryInfo(@PathVariable Long id, Model model, Authentication authentication, @RequestParam(defaultValue = "0") int page) {
-        Story story = storyService.incrementViews(id); 
+        Story story;
+        if (authentication != null && authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"))) {
+            story = storyRepository.findById(id).orElseThrow(() -> new RuntimeException("Story not found"));
+        } else {
+            story = storyService.incrementViews(id); 
+        }
         String formattedDescription = story.getDescription().replace("\n", "<br>");
         model.addAttribute("formattedDescription", formattedDescription);
         model.addAttribute("story", story); 

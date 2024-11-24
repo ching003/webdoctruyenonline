@@ -3,6 +3,8 @@ package com.loginandregister.login_register.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,4 +30,10 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
     // Lấy chương mới nhất của một truyện
     Chapter findTopByStoryIdOrderByCreatedDateDesc(Long storyId);
+
+    // Lấy chương mới nhất của từng truyện
+    @Query("SELECT c FROM Chapter c WHERE c.id IN (" +
+           "SELECT MAX(ch.id) FROM Chapter ch WHERE ch.story.id = c.story.id GROUP BY ch.story.id) " +
+           "ORDER BY c.createdDate DESC")
+    Page<Chapter> findLatestChaptersOfEachStory(Pageable pageble);
 }
