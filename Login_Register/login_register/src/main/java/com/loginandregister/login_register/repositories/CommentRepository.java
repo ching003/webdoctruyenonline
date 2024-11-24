@@ -10,4 +10,5 @@ import com.loginandregister.login_register.model.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>{
     List<Comment> findByStoryId(long storyId);
+    List<Comment> findByUserIdOrderByCreatedDateDesc(Long userId);
 }

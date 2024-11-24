@@ -1,5 +1,5 @@
 nav{
-    background-color:black;
+    background: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.75));
     box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.464);
     position: relative;
     z-index: 9999;

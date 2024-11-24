@@ -312,31 +312,19 @@
                 }
                 return response.json();
             })
-            .then(comment => {
-                addCommentToList(comment);
-                input.value = '';
+            .then(() => {
+                const buttonForPageLoad = document.querySelector('[data-page][data-story-id]');
+                if (buttonForPageLoad) {
+                    loadPage(buttonForPageLoad); 
+                } else {
+                    window.location.reload(); 
+                }
             })
             .catch(error => {
                 console.error('Lỗi:', error);
                 alert('Có lỗi xảy ra khi gửi bình luận!');
             });
         }
-
-        function addCommentToList(comment) {
-            const list = document.getElementById('comment-list');
-            const item = document.createElement('li');
-
-            const content = document.createElement('span');
-            content.textContent = `${comment.userName}: ${comment.content}`;
-
-            const time = document.createElement('small');
-            time.textContent = ` (${comment.elapsedTime})`;
-
-            item.appendChild(content);
-            item.appendChild(time);
-            list.insertBefore(item, list.firstChild);
-        }
-
     </script>
 
 </body>

@@ -7,9 +7,6 @@ body{
     background-color:	#f3d8dc;
     font-family: Arial, sans-serif;
 }
-nav{
-    background-color:black;
-}
 nav ul{
     display:flex;
 
