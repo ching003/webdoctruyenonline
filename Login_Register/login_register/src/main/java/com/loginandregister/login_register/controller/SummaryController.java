@@ -1,6 +1,5 @@
 package com.loginandregister.login_register.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,8 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/api/summary")
 public class SummaryController {
-    @Value("${openai.api.key}")
-    private String openAiApiKey;
+    
 
     @PostMapping
     public String summarizeContent(String content) {
