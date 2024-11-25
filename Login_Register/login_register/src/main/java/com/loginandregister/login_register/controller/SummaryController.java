@@ -19,7 +19,7 @@ public class SummaryController {
 
     @PostMapping
     public String summarizeContent(String content) {
-    String apiKey = "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";
+    String apiKey = "";
     String endpoint = "https://api.openai.com/v1/engines/davinci/completions";
 
     // Tạo payload
