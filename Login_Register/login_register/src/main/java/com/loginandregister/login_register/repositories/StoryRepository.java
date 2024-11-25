@@ -21,7 +21,7 @@ public interface StoryRepository extends JpaRepository<Story, Long>{
     @Query("SELECT s FROM Story s WHERE s.views > 100 ORDER BY s.views DESC")
     List<Story> findStoriesWithViewsAbove100();
 
-    List<Story> findByStatusOrderByCompletedDateDesc(String status, Pageable pageable);
+    List<Story> findByStatusOrderByCompletedDateDesc(String status);
 
     @Query("SELECT s FROM Story s WHERE s.createdDate >= :sevenDaysAgo ORDER BY s.createdDate DESC")
     List<Story> findStoriesCreatedWithinLastWeek(@Param("sevenDaysAgo") LocalDateTime sevenDaysAgo);

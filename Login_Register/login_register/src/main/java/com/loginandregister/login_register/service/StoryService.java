@@ -90,7 +90,7 @@ public class StoryService {
     }
 
     public List<Story> findRecentlyCompletedStories() {
-        return storyRepository.findByStatusOrderByCompletedDateDesc("completed", PageRequest.of(0, 10));
+        return storyRepository.findByStatusOrderByCompletedDateDesc("completed");
     }
 
     public Story findById(Long id) {

@@ -47,7 +47,44 @@
                 </a>
             </li>
         </ul>
+        <div id="pagination" class="pagination-container">
+            <button th:if="${currentPage > 0}"
+                th:data-page="${currentPage - 1}" 
+                th:data-base-path="${basePath}"
+                onclick="loadPage(this)" 
+                class="pagination-button">
+                Trang trước
+            </button>
+
+            <span class="pagination-item">Trang <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span></span>
+        
+            <button th:if="${currentPage < totalPages - 1}"
+                    th:data-page="${currentPage + 1}" 
+                    th:data-base-path="${basePath}"
+                    onclick="loadPage(this)" 
+                    class="pagination-button">
+                Trang sau
+            </button>
+        </div>
     </main>
+
     <script th:src="@{../js/search.js}"></script>
+
+    <script>
+        function loadPage(button) {
+            localStorage.setItem('scrollPosition', window.scrollY);
+            const page = button.getAttribute('data-page');
+            const basePath = button.getAttribute('data-base-path');
+            window.location.href = `${basePath}?page=${page}`;
+        }
+        window.onload = function() {
+            const savedScrollPosition = localStorage.getItem('scrollPosition');
+            
+            if (savedScrollPosition !== null) {
+                window.scrollTo(0, savedScrollPosition);  
+                localStorage.removeItem('scrollPosition');  
+            }
+        }; 
+    </script>
 </body>
 </html>

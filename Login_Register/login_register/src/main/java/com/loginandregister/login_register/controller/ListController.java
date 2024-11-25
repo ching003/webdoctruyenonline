@@ -19,29 +19,35 @@ public class ListController {
     private StoryService storyService;
 
     @GetMapping("/new")
-    public String getNewStories(Model model) {
+    public String getNewStories(Model model, @RequestParam(defaultValue = "0") int page) {
         List<Story> stories = storyService.findByOrderByCreatedDateDesc();
         storyService.setLatestChapterForStories(stories); 
-        model.addAttribute("stories", stories);
+        //model.addAttribute("stories", stories);
         model.addAttribute("listname", "Truyện mới");
+        model.addAttribute("basePath", "/list/new");
+        addPagination(model, stories, page);
         return "danhsach";
     }
 
     @GetMapping("/hot")
-    public String getHotStories(Model model) {
+    public String getHotStories(Model model, @RequestParam(defaultValue = "0") int page) {
         List<Story> stories = storyService.findHotStories();
         storyService.setLatestChapterForStories(stories); 
-        model.addAttribute("stories", stories);
+        //model.addAttribute("stories", stories);
+        addPagination(model, stories, page);
         model.addAttribute("listname", "Truyện hot");
+        model.addAttribute("basePath", "/list/hot");
         return "danhsach";
     }
 
     @GetMapping("/full")
-    public String getCompletedStories(Model model) {
+    public String getCompletedStories(Model model, @RequestParam(defaultValue = "0") int page) {
         List<Story> stories = storyService.findRecentlyCompletedStories();
         storyService.setLatestChapterForStories(stories); 
-        model.addAttribute("stories", stories);
+        //model.addAttribute("stories", stories);
+        addPagination(model, stories, page);
         model.addAttribute("listname", "Truyện full");
+        model.addAttribute("basePath", "/list/full");
         return "danhsach";
     }
 
@@ -64,11 +70,13 @@ public class ListController {
     }
 
     @GetMapping("/most-commented")
-    public String getMostCommentedStories(Model model) {
+    public String getMostCommentedStories(Model model, @RequestParam(defaultValue = "0") int page) {
         List<Story> stories = storyService.getMostCommentedStories();
         storyService.setLatestChapterForStories(stories); 
-        model.addAttribute("stories", stories);
+        //model.addAttribute("stories", stories);
+        addPagination(model, stories, page);
         model.addAttribute("listname", "Bình luận nhiều nhất");
+        model.addAttribute("basePath", "/list/most-commented");
         return "danhsach";
     }
 
@@ -84,5 +92,19 @@ public class ListController {
         model.addAttribute("stories", filteredStories);
         model.addAttribute("listname", "Danh sách truyện đã lọc");
         return "danhsach";
+    }
+
+    private void addPagination(Model model, List<Story> stories, int page) {
+        int pageSize = 10;  
+        int totalStories = stories.size();  
+        int totalPages = (int) Math.ceil((double) totalStories / pageSize);  
+        int start = page * pageSize;  
+        int end = Math.min(start + pageSize, totalStories); 
+
+        List<Story> subStory = stories.subList(start, end);  
+
+        model.addAttribute("stories", subStory);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
     }
 }
