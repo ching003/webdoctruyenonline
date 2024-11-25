@@ -23,7 +23,7 @@ public class UpdateController {
     public String updateTags() {
         try {
             storyService.updateAllTags(); 
-            return "Cập nhật tag thành công!";
+            return "Cập nhật truyện thành công!";
         } catch (Exception e) {
             e.printStackTrace();
             return "Error: " + e.getMessage();
