@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.loginandregister.login_register.dto.ChapterDto;
 import com.loginandregister.login_register.dto.CommentDto;
@@ -113,7 +114,7 @@ public class StoryController {
             story.setUser(user);
         }
         storyService.save(story);
-        return "redirect:/admin-page";
+        return "add-story";
     }
        
 
@@ -144,6 +145,17 @@ public class StoryController {
             return ResponseEntity.ok("Cập nhật trạng thái thành công");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Truyện không tìm thấy");
+    }
+
+    @PostMapping("/admin/stories/delete/{id}")
+    public String deleteStory(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            storyService.deleteStory(id);  
+            redirectAttributes.addFlashAttribute("message", "Truyện đã được xóa thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi xóa truyện!");
+        }
+        return "redirect:/admin/stories";  
     }
 
     @GetMapping("/story-info/{id}")

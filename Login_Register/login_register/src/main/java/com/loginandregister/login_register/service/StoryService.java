@@ -41,26 +41,14 @@ public class StoryService {
         return storyRepository.findByUser(user, pageable);
     }
     
-    /*bonus
-    public long getStoryCount(User user) {
-        return storyRepository.countByUser(user);
-    }
-    
-    public Story addStory(Story story, User user) {
-        story.setUser(user);
-        story.setCreatedDate(LocalDateTime.now());
-        return storyRepository.save(story);
-    }
-    
-    public void deleteStory(Long id, User user) {
-        Story story = storyRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Story not found"));
-        if (!story.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Not authorized");
+    public void deleteStory(Long id) {
+        Optional<Story> story = storyRepository.findById(id);
+        if (story.isPresent()) {
+            storyRepository.delete(story.get());
+        } else {
+            throw new RuntimeException("Truyện không tồn tại");
         }
-        storyRepository.delete(story);
-    }
-    end bonus*/
+    }    
 
     public void addStory(Story story) {
         storyRepository.save(story);

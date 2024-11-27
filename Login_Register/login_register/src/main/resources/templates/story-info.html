@@ -98,23 +98,26 @@
     </section>
 
     <div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="add-chapter">
-        <h2>Thêm Chương Mới</h2>
-        <form action="/addChapter" method="post">
-            <input type="hidden" name="storyId" th:value="${story.id}"/>
-            <div>
-                <label>Tiêu đề:</label>
-                <input type="text" name="title" required/>
-            </div>
-            <div>
-                <label>Tiêu đề phụ:</label>
-                <input type="text" name="content"/>
-            </div>
-            <div>
-                <label>Nội dung:</label>
-                <textarea name="longContent" required></textarea>
-            </div>
-            <button type="submit">Thêm Chương</button>
-        </form>
+        <button type="button" onclick="toggleForm()">Thêm Chương Mới</button>
+
+        <div id="add-chapter-form" style="display: none;">
+            <form action="/addChapter" method="post">
+                <input type="hidden" name="storyId" th:value="${story.id}"/>
+                <div>
+                    <label>Tiêu đề:</label>
+                    <input type="text" name="title" required/>
+                </div>
+                <div>
+                    <label>Tiêu đề phụ:</label>
+                    <input type="text" name="content"/>
+                </div>
+                <div>
+                    <label>Nội dung:</label>
+                    <textarea name="longContent" required></textarea>
+                </div>
+                <button type="submit">Thêm Chương</button>
+            </form>
+        </div>
     </div>
 
 
@@ -328,6 +331,18 @@
             });
         }
     </script>
+
+<script>
+    //form addChapter
+    function toggleForm() {
+        var form = document.getElementById('add-chapter-form');
+        if (form.style.display === 'none') {
+            form.style.display = 'block';  
+        } else {
+            form.style.display = 'none';  
+        }
+    }
+</script>
 
 </body>
 </html>
