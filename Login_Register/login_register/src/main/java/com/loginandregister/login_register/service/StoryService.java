@@ -10,7 +10,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.loginandregister.login_register.dto.StoryTitleProjection;
@@ -35,9 +37,10 @@ public class StoryService {
     @Autowired
     private ChapterRepository chapterRepository;
     
-    public List<Story> getStoriesByUser(User user) {
-        return storyRepository.findByUser(user);
+    public Page<Story> getStoriesByUser(User user, Pageable pageable) {
+        return storyRepository.findByUser(user, pageable);
     }
+    
     /*bonus
     public long getStoryCount(User user) {
         return storyRepository.countByUser(user);

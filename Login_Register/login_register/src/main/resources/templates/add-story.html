@@ -74,13 +74,13 @@
         <div class="right-section">
             <h1>Thêm truyện mới</h1>
             <form action="/admin/new-story" method="post" enctype="multipart/form-data">
-                <label for="title">Title:</label>
+                <label for="title">Tên truyện:</label>
                 <input type="text" id="title" name="title"><br>
 
-                <label for="author">Author:</label>
+                <label for="author">Tác giả:</label>
                 <input type="text" id="author" name="author"><br>
 
-                <label for="category">Category:</label>
+                <label for="category">Thể loại:</label>
                 <div class="category-container">
                     <input type="text" id="category" name="category" readonly onclick="toggleCategoryList()" placeholder="Chọn thể loại" />
                     <div id="category-list">
@@ -125,10 +125,10 @@
                 </div>
                 <br>
 
-                <label for="description">Description:</label>
+                <label for="description">Văn án:</label>
                 <textarea id="description" name="description"></textarea><br>
 
-                <label for="coverImage">Cover Image:</label>
+                <label for="coverImage">Ảnh bìa:</label>
                 <input type="file" id="coverImage" name="coverImage"><br>
 
                 <button type="submit">Thêm</button>

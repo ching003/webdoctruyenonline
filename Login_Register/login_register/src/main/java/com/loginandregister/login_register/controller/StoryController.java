@@ -9,6 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -114,15 +118,22 @@ public class StoryController {
        
 
     @GetMapping("/admin/stories")
-    public String viewStories(Model model, Principal principal) {
+    public String viewStories(Model model, Principal principal, @RequestParam(defaultValue = "0") int page) {
         User user = userRepository.findByEmail(principal.getName());
-        if (user!= null) {
-            model.addAttribute("stories", storyService.getStoriesByUser(user));
+        if (user != null) {
+            int pageSize = 4; 
+            Pageable pageable = PageRequest.of(page, pageSize, Sort.by("createdDate").descending());
+            Page<Story> storiesPage = storyService.getStoriesByUser(user, pageable);
+
+            model.addAttribute("stories", storiesPage.getContent()); 
+            model.addAttribute("currentPage", page); 
+            model.addAttribute("totalPages", storiesPage.getTotalPages()); 
         } else {
             model.addAttribute("stories", List.of());
         }
         return "story-list";
     }
+
 
     @PostMapping("/updateStoryStatus/{id}")
     public ResponseEntity<String> updateStoryStatus(@PathVariable Long id, @RequestParam String status) {
