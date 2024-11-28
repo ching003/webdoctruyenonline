@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.loginandregister.login_register.dto.CommentDto;
 import com.loginandregister.login_register.model.Story;
@@ -27,7 +28,7 @@ public class FavoriteStoryController {
     private CommentService commentService;
     
     @GetMapping("/user-page/favorite")
-    public String getFavoriteStories(Model model, Authentication authentication) {
+    public String getFavoriteStories(Model model, Authentication authentication, @RequestParam(defaultValue = "0") int page) {
         if(authentication == null || authentication.getPrincipal().equals("anonymousUser")) {
             return "redirect:/login";
         }
@@ -36,8 +37,21 @@ public class FavoriteStoryController {
         List<Long> favoriteStoryIds = favoriteService.getFavoriteStoryIds(userDetails.getId());
         List<Story> favoriteStories = favoriteStoryIds.stream()
             .map(storyId -> storyService.findById(storyId)) 
+            .sorted((s1, s2) -> s2.getCreatedDate().compareTo(s1.getCreatedDate()))
             .collect(Collectors.toList());
-        model.addAttribute("favoriteStories", favoriteStories);
+        
+        int pageSize = 4; 
+        int totalStories = favoriteStories.size();
+        int totalPages = (int) Math.ceil((double) totalStories / pageSize);
+        int start = page * pageSize;
+        int end = Math.min(start + pageSize, totalStories);
+    
+        List<Story> storiesOnPage = favoriteStories.subList(start, end); 
+    
+        model.addAttribute("favoriteStories", storiesOnPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        //model.addAttribute("favoriteStories", favoriteStories);
         return "favorite-story";
     }
     

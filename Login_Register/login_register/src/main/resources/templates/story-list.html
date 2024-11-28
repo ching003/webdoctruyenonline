@@ -153,10 +153,10 @@
             window.location.href = `/admin/stories?page=${page}`;
         } 
         function goToPage(selectElement) {
-            const selectedPage = selectElement.value; // Lấy giá trị trang được chọn
-            const currentPage = selectElement.getAttribute('data-current-page'); // Trang hiện tại
+            const selectedPage = selectElement.value; 
+            const currentPage = selectElement.getAttribute('data-current-page'); 
             if (selectedPage !== currentPage) {
-                window.location.href = `/admin/stories?page=${selectedPage}`; // Chuyển hướng đến trang được chọn
+                window.location.href = `/admin/stories?page=${selectedPage}`; 
             }
         }
     </script>

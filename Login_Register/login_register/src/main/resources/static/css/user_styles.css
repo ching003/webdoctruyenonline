@@ -67,139 +67,6 @@ body {
     padding: 30px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-/* Phần bên phải 
-
-
-.admin-options {
-    margin-bottom: 35px;
-}
-
-.admin-options h3 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 24px;
-    border-bottom: 2px solid #FFB6C1;
-    padding-bottom: 10px;
-}
-
-.admin-options ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-.admin-options ul li a {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #FFB6C1;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    box-shadow: 0 2px 5px rgba(255,182,193,0.3);
-}
-
-.admin-options ul li a:hover {
-    background-color: #FF69B4;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255,182,193,0.4);
-}
-
-/* Bảng danh sách truyện 
-.story-table {
-    margin-top: 30px;
-}
-
-.story-table ul li a {    
-    padding: 12px 25px;
-    background-color: #FFB6C1;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center ;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(255,182,193,0.3);
-}
-
-.story-table table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.story-table th, .story-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.story-table th {
-    background-color: #FFB6C1;
-    color: white;
-    font-weight: bold;
-}
-
-.add-story-section {
-    display: none;
-    margin-top: 30px;
-}
-
-.add-story-section table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.add-story-section td {
-    padding: 15px;
-}
-
-.add-story-section input[type="text"],
-.add-story-section textarea,
-.add-story-section input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.add-story-section textarea {
-    height: 150px;
-    resize: vertical;
-}
-
-.submit-btn {
-    background-color: #FFB6C1;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    box-shadow: 0 2px 5px rgba(255,182,193,0.3);
-}
-
-.submit-btn:hover {
-    background-color: #FF69B4;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255,182,193,0.4);
-}
-
-*/
 
 .profile-header {
     color: #333;
@@ -246,24 +113,161 @@ body {
 .comment-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
     border-bottom: 1px dashed #ccc;
     padding-bottom: 5px;
+    padding-top: 5px;
+    align-items: center;
 }
 
+.comment-item p {
+    max-width: 70%;
+}
 .comment-item span {
     font-size: 14px;
-    color: #666;
+    font-weight: bold;
+    color: #000000;
 }
 
 .comment-item .comment-content {
     font-size: 14px;
     font-weight: bold;
-    color: #000;
+    color: #484848;
 }
 
 .comment-item .delete-comment {
     font-size: 12px;
-    color: red;
     cursor: pointer;
+    height: 35px;
+}
+.right-section h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333;
+    border-bottom: 2px solid #FFB6C1;
+    padding-bottom: 10px;
+}
+.right-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.right-section th,
+.right-section td {
+    padding: 15px;
+    text-align: center;
+    /* Căn giữa nội dung */
+}
+
+.right-section th {
+    background-color: #FFB6C1;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    /* Chữ in hoa để nổi bật */
+}
+
+.right-section tbody tr {
+    border-bottom: 1px solid #ddd;
+    /* Đường viền nhẹ chia cách từng dòng */
+    transition: background-color 0.3s ease;
+}
+
+.right-section tbody tr:hover {
+    background-color: #fef4f6;
+    /* Màu nền nhạt khi rê chuột */
+}
+
+.right-section td {
+    vertical-align: middle;
+    /* Căn giữa nội dung theo chiều dọc */
+}
+
+.right-section td img {
+    width: 100px;
+    height: 140px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.right-section button {
+    background-color: #FFB6C1;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.right-section button:hover {
+    background-color: #f975b7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 182, 193, 0.4);
+}
+.pagination-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    padding: 5px 10px;
+    border-radius: 5px; 
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pagination-container span {
+    color: #333; /* Màu chữ */
+}
+
+.pagination-container select {
+    border: 2px solid #FFB6C1; /* Đặt border với màu sắc đẹp */
+    border-radius: 4px;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px;
+    appearance: none; 
+}
+
+.pagination-container select:focus {
+    outline: none;
+}
+
+.pagination-container select::-ms-expand {
+    display: none; 
+}
+
+.pagination-item,
+.pagination-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pagination-item {
+    background-color: #f0f0f5;
+    border: 1px solid #ddd;
+}
+
+.pagination-item.current-page {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.pagination-button {
+    background-color: #FFB6C1;
+    border: 1px solid #ddd;
+    max-width: 120px;
+}
+
+.pagination-button:hover {
+    background-color: #FF8C82;
 }

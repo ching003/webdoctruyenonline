@@ -42,9 +42,7 @@
                     <div th:each="comment : ${comments}">
                         <div class="comment-item">
                             <p>
-                                <strong>Bạn đã bình luận truyện: <a th:href="@{/story-info/{id}(id=${comment.storyId})}" th:text="${comment.storyTitle}"></a></strong>
-                            </p>
-                            <p>
+                                <span>Bạn đã bình luận truyện: <a th:href="@{/story-info/{id}(id=${comment.storyId})}" th:text="${comment.storyTitle}"></a></span>
                                 <span class="comment-content" th:text="${comment.content}"></span>
                             </p>
                             <small th:text="${comment.elapsedTime}"></small>
