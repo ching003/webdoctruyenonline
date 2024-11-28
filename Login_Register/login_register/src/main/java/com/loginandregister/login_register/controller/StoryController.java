@@ -309,4 +309,29 @@ public class StoryController {
         return "redirect:/story-info/" + storyId; 
     }
 
+    @PostMapping("/editChapter")
+    public String editChapter(@RequestParam Long chapterId,
+                            @RequestParam String title,
+                            @RequestParam(required = false) String content,
+                            @RequestParam String longContent,
+                            RedirectAttributes redirectAttributes) {
+        try {
+            Chapter chapter = chapterService.getChapterById(chapterId);
+            if (chapter != null) {
+                chapter.setTitle(title);
+                chapter.setContent(content);
+                chapter.setLongContent(longContent);
+
+                chapterService.save(chapter); 
+                redirectAttributes.addFlashAttribute("message", "Chỉnh sửa chương thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Không tìm thấy chương!");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi chỉnh sửa chương!");
+        }
+        return "redirect:/chapter/" + chapterId;
+    }
+
+
 }
