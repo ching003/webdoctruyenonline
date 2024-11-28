@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{../css/header.css}">
     <link rel="stylesheet" th:href="@{../css/category.css}">
+    <link rel="stylesheet" th:href="@{../css/header.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Truyện hay - Đọc truyện online</title>
     <script>
@@ -30,7 +30,7 @@
 <body>
     <div th:replace="header :: header"></div>
     <main>
-        <h1 class="title">Truyện <span th:text="${categoryName}"></span></h1>
+        <h1 class="title"><span th:text="${listname}"></span></h1>
         <div th:if="${message}" class="no-story-message">
             <p th:text="${message}">No available story</p>
         </div>
@@ -42,7 +42,7 @@
                     <span class="author" th:text="${story.author}">Tên tác giả</span>
                     <div class="tags" th:if="${story.tags != null and story.tags != ''}">
                         <span th:each="tag : ${story.tagList}" class="tag" th:text="${tag}">Tag</span>
-                    </div>                   
+                    </div> 
                     <div class="chapter" th:text="${story.latestChapterTitle}">Chương mới nhất</div>
                 </a>
             </li>
@@ -67,7 +67,9 @@
             </button>
         </div>
     </main>
+
     <script th:src="@{../js/search.js}"></script>
+
     <script>
         function loadPage(button) {
             localStorage.setItem('scrollPosition', window.scrollY);

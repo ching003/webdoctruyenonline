@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.service.StoryService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/list")
 public class ListController {
@@ -85,13 +87,25 @@ public class ListController {
                                 @RequestParam(value = "chapters", required = false) List<String> chapters,
                                 @RequestParam(value = "sort", required = false) String sort,
                                 @RequestParam(value = "categories", required = false) List<String> categories,
-                                Model model) {
+                                Model model,
+                                HttpServletRequest request,
+                                @RequestParam(defaultValue = "0") int page) {
 
         List<Story> filteredStories = storyService.filterStories(status, chapters, sort, categories);
         if(filteredStories.isEmpty()) model.addAttribute("message", "Không có truyện thỏa mãn yêu cầu!");
-        model.addAttribute("stories", filteredStories);
+        //model.addAttribute("stories", filteredStories);
+        addPagination(model, filteredStories, page);
+        String basePath = request.getRequestURL().toString();
+        String query = request.getQueryString();
+        System.out.println(basePath);
+        System.out.println(query);
+        if (query != null) {
+            query = query.replaceAll("(&page=\\d+)", "");
+            basePath += '?' + query + "&page=" + page;
+        }        
+        model.addAttribute("basePath", basePath);
         model.addAttribute("listname", "Danh sách truyện đã lọc");
-        return "danhsach";
+        return "danhsach2";
     }
 
     private void addPagination(Model model, List<Story> stories, int page) {

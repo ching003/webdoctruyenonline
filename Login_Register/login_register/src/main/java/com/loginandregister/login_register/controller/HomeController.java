@@ -1,6 +1,8 @@
 package com.loginandregister.login_register.controller;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.loginandregister.login_register.dto.ChapterDto;
+import com.loginandregister.login_register.model.Story;
 import com.loginandregister.login_register.service.ChapterService;
 import com.loginandregister.login_register.service.CustomUserDetail;
 import com.loginandregister.login_register.service.StoryService;
@@ -48,7 +51,9 @@ public class HomeController {
     public String home(Model model) {
         
         model.addAttribute("hotStories", storyService.findHotStories());
-        model.addAttribute("completedStories", storyService.findRecentlyCompletedStories());
+        List<Story> completedStories = storyService.findRecentlyCompletedStories();
+        completedStories.sort(Comparator.comparing(Story::getCreatedDate).reversed());
+        model.addAttribute("completedStories", completedStories.stream().limit(12).collect(Collectors.toList()));
 
         List<ChapterDto> recentChapters = chapterService.getRecentChaptersWithElapsedTime();
         model.addAttribute("recentChapters", recentChapters);
