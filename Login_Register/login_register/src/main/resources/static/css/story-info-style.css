@@ -416,3 +416,15 @@ body {
 .login-link:hover {
     background-color: #45a049;
 }
+
+.edit-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    color: #898989;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.edit-icon:hover {
+    color: #fb93a2;
+}

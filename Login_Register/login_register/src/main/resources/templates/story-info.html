@@ -41,11 +41,19 @@
     </div>      
 
     <section class="story-info">
-        <h2>Thông Tin Truyện</h2>
+        <h2>
+            Thông Tin Truyện
+            <button id="editButton" onclick="toggleEditModal()" style="margin-left: 10px; padding: 5px 10px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px;">
+                Chỉnh sửa
+            </button>
+        </h2>
         <div class="story-details">
             <img th:src="@{${story.coverImage}}" alt="Ảnh bìa" class="story-image">
             <div class="info">
-                <p><strong>Tên truyện:</strong> <span th:text="${story.title}"></span></p>
+                <p>
+                    <strong>Tên truyện:</strong> 
+                    <span id="title-display" th:text="${story.title}"></span>
+                </p>
                 <p>
                     <strong>Tác giả:</strong>
                     <a class="author-link" th:href="@{/author/{authorName}(authorName=${story.author})}" th:text="${story.author}"></a>
@@ -93,8 +101,53 @@
 
             </div>
         </div>
-        <h3>Văn Án</h3>
+        <p>
+            <strong>Văn Án</strong>
+        </p>        
         <p class="formattedDescription" th:utext="${formattedDescription}"></p>
+        
+        <!-- Form chỉnh sửa thông tin -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="toggleEditModal()">&times;</span>
+                <h2>Chỉnh sửa thông tin</h2>
+                <form action="/editStory" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="storyId" th:value="${story.id}" />
+        
+                    <div>
+                        <label for="edit-title">Tên truyện:</label>
+                        <input type="text" id="edit-title" name="title" th:value="${story.title}" required />
+                    </div>
+        
+                    <div>
+                        <label for="edit-author">Tác giả:</label>
+                        <input type="text" id="edit-author" name="author" th:value="${story.author}" required />
+                    </div>
+        
+                    <div>
+                        <label for="edit-category">Thể loại:</label>
+                        <input type="text" id="edit-category" name="category" th:value="${story.category}" required />
+                    </div>
+        
+                    <div>
+                        <label for="edit-coverImage">Ảnh bìa:</label>
+                        <input type="file" id="edit-coverImage" name="coverImage">
+                        <div>
+                            <img th:src="${story.coverImage}" alt="Ảnh bìa hiện tại" style="width: 200px; margin-top: 10px;" />
+                        </div>
+                    </div>
+        
+                    <div>
+                        <label for="edit-description">Văn án:</label>
+                        <textarea id="edit-description" name="description" required th:text="${story.description}"></textarea>
+                    </div>
+        
+                    <button type="submit" style="margin-top: 10px; padding: 5px 10px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px;">
+                        Lưu thay đổi
+                    </button>
+                </form>
+            </div>
+        </div>
     </section>
 
     <div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="add-chapter">
@@ -340,6 +393,23 @@
             form.style.display = 'block';  
         } else {
             form.style.display = 'none';  
+        }
+    }
+</script>
+
+<script>
+    function toggleEditModal() {
+        var modal = document.getElementById('editModal');
+        if (modal.style.display === 'block') {
+            modal.style.display = 'none'; 
+        } else {
+            modal.style.display = 'block'; 
+        }
+    }
+    window.onclick = function(event) {
+        var modal = document.getElementById('editModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
         }
     }
 </script>

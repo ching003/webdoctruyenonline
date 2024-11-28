@@ -272,4 +272,41 @@ public class StoryController {
         return storyService.findTitlesByKeyword(query);
     }
 
+    @PostMapping("/editStory")
+    public String editStory(@RequestParam Long storyId,
+                            @RequestParam String title,
+                            @RequestParam String author,
+                            @RequestParam String category,
+                            @RequestParam String description,
+                            @RequestParam(required = false) MultipartFile coverImage,
+                            RedirectAttributes redirectAttributes) {
+        try {
+            Story story = storyService.findById(storyId);
+            if (story != null) {
+                story.setTitle(title);
+                story.setAuthor(author);
+                story.setCategory(category);
+                story.setDescription(description);
+                if (coverImage != null && !coverImage.isEmpty()) {
+                    String fileName = coverImage.getOriginalFilename();
+                    String uploadDir = Paths.get("Login_Register/login_register/src/main/resources/static/image").toAbsolutePath().toString();
+                    File dir = new File(uploadDir);
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    coverImage.transferTo(new File(dir, fileName));
+                    story.setCoverImage("/image/" + fileName); 
+                }
+
+                storyService.save(story); 
+                redirectAttributes.addFlashAttribute("message", "Cập nhật thông tin thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Không tìm thấy truyện!");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi cập nhật thông tin!");
+        }
+        return "redirect:/story-info/" + storyId; 
+    }
+
 }
