@@ -1,3 +1,13 @@
+:root {
+    --theme-color: #f97892;
+    --theme-opacity-color: rgba(249, 120, 146, 0);
+    --blur-0-1-color: #fa869d;
+    --blur-0-2-color: #fba1b3;
+    --blur-1-color: #fbaebe;
+    --blur-2-color: #fdd7de;
+    --blur-3-color: #fef2f4;
+    --link-color: #bd7c89;
+}
 *{
     margin:0;
     padding: 0;
@@ -24,7 +34,7 @@ nav ul, li {
 }
 
 .title{
-    margin-left: 20px;
+    margin-left: 40px;
     margin-top: 25px;
     margin-bottom: 20px;
 }
@@ -45,7 +55,7 @@ nav ul, li {
 }
 
 .story-list {
-    padding: 0 20px;
+    padding: 0 40px;
     list-style: none;
 }
 
@@ -104,8 +114,12 @@ nav ul, li {
     gap: 15px;
     align-items: center;
     justify-content: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
+.story-item:hover {
+    transform: scale(1.03); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+}
 .chapter {
     font-size: 14px;
     color: #666;
