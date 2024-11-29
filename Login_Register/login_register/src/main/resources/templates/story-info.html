@@ -31,6 +31,15 @@
 <body>
     <div th:replace="header :: header"></div>
 
+    <div class="header">
+        <li>
+            <a th:href="@{/}" class="nav-link" tabindex="0">
+                <i class="fas fa-house"></i> Home 
+            </a>
+        </li>
+        <a th:href="@{/story-info/{storyId}(storyId=${story.id})}" class="story-title" th:text="'/ ' + ${story.title}"></a>
+    </div>
+
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLoginModal()">&times;</span>
@@ -39,11 +48,12 @@
             <a href="/login" class="login-link">Đăng nhập</a>
         </div>
     </div>      
-
+<div class="story-comments-container">
+<div class="story-info-col">
     <section class="story-info">
-        <h2>
+        <h2 class="blue-title">
             Thông Tin Truyện
-            <button id="editButton" onclick="toggleEditModal()" style="margin-left: 10px; padding: 5px 10px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px;">
+            <button th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" id="editButton" onclick="toggleEditModal()" style="margin-left: 15px; padding: 8px 12px; background-color: #FFB6C1; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 18px;">
                 Chỉnh sửa
             </button>
         </h2>
@@ -105,10 +115,10 @@
 
             </div>
         </div>
-        <p>
+        <p style="font-size: 20px; margin-bottom: 20px; margin-left: 20px;">
             <strong>Văn Án</strong>
         </p>        
-        <p class="formattedDescription" th:utext="${formattedDescription}"></p>
+        <p class="formattedDescription" style="margin-left: 20px;" th:utext="${formattedDescription}"></p>
         
         <!-- Form chỉnh sửa thông tin -->
         <div id="editModal" class="modal">
@@ -146,7 +156,7 @@
                         <textarea id="edit-description" name="description" required th:text="${story.description}"></textarea>
                     </div>
         
-                    <button type="submit" style="margin-top: 10px; padding: 5px 10px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px;">
+                    <button type="submit">
                         Lưu thay đổi
                     </button>
                 </form>
@@ -179,7 +189,7 @@
 
 
     <section class="chapter-list">
-        <h2>Danh Sách Chương</h2>
+        <h2 class="blue-title">Danh Sách Chương</h2>
 
         <div class="chapters-container">
             <div class="chapter-column">
@@ -229,9 +239,10 @@
         </div>          
 
     </section>
-
+</div>
+<div class="comments-col">
     <section class="comments">
-        <h2>Bình Luận</h2>
+        <h2 class="blue-title">Bình Luận</h2>
         <textarea id="comment-input" placeholder="Nhập bình luận của bạn tại đây..."></textarea>
         <button id="show-login-prompt" class="submit-comment" 
             th:if="${#authentication.principal == 'anonymousUser'}" 
@@ -241,13 +252,19 @@
             th:if="${#authentication.principal != 'anonymousUser'}" 
             onclick="submitComment(this)">Gửi Bình Luận</button>      
         <ul id="comment-list">
-            <li th:each="comment : ${comments}">
-                <span th:text="${comment.userName}">Tên</span>: 
-                <span th:text="${comment.content}">Nội dung</span> 
-                <small th:text="${comment.elapsedTime}">Thời gian bình luận</small>
+            <li th:each="comment : ${comments}" class="comment-item">
+                <div class="comment-header">
+                    <img src="\image\c6e56503cfdd87da299f72dc416023d4.jpg" class="comment-avatar">
+                    <span class="comment-user" th:text="${comment.userName}">Tên</span>
+                    <small class="comment-time" th:text="${comment.elapsedTime}">Thời gian bình luận</small>
+                </div>
+                <div class="comment-content" th:text="${comment.content}">Nội dung</div>
             </li>
         </ul>
+            
     </section>
+</div>
+</div>
 
     <script th:src="@{../js/search.js}"></script>
     

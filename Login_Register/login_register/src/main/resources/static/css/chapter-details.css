@@ -1,3 +1,8 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,8 +14,19 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #f0f0f0;
     border-bottom: 1px solid #ccc;
+    background-color: #FFB6C1;
+    border-radius: 20px;
+    font-size: 16px;
+    width: 95%;
+    margin-top: 20px;
+    margin: 20px auto;
+    font-weight: bold;
+}
+.header a {
+    color: #f5f5f5;
+    margin-right: 20px;
+    text-decoration: none;
 }
 
 .home-icon {
@@ -31,7 +47,13 @@ body {
 }
 
 .chapter-content {
+    flex: 0 0 72%;
+    background-color: #ffffff;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 36px;
+    width: 95%;
 }
 
 .navigation {
@@ -233,4 +255,103 @@ body {
 
 .voice-controls .tts-button:hover {
     background-color: #39863c;
+}
+.modal {
+    display: none; /* Ẩn modal mặc định */
+    position: fixed; /* Định vị cố định */
+    z-index: 1; /* Đưa modal lên trên các phần tử khác */
+    left: 0;
+    top: 0;
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    height: 100%; /* Chiếm toàn bộ chiều cao */
+    overflow: auto; /* Kích hoạt cuộn nếu nội dung dài */
+    background-color: rgb(0, 0, 0); /* Màu nền */
+    background-color: rgba(0, 0, 0, 0.4); /* Màu nền với độ mờ */
+}
+
+/* Modal content */
+.edit-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Căn giữa modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Chiều rộng của modal */
+    max-width: 600px; /* Chiều rộng tối đa */
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+/* Close button */
+.close-button {
+    color: #aaa;
+    float: right; /* Canh phải */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form elements */
+.edit-modal-content div {
+    margin-bottom: 15px;
+}
+
+.edit-modal-content label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.edit-modal-content input[type="text"],
+.edit-modal-content input[type="file"],
+.edit-modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
+}
+
+.edit-modal-content input[type="file"] {
+    padding: 3px; /* Đặt padding nhỏ hơn cho input file */
+}
+
+.edit-modal-content textarea {
+    resize: vertical; /* Cho phép thay đổi kích thước theo chiều dọc */
+    height: 100px; /* Chiều cao ban đầu */
+}
+
+.edit-modal-content button[type="submit"] {
+    background-color: #ff9fae;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.edit-modal-content button[type="submit"]:hover {
+    background-color: #FFB6C1;
+}
+.edit-button {
+    padding: 8px 15px;
+    background-color: #FFB6C1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 85%;
+}
+
+.edit-button:hover {
+    background-color: #fb93a2;
 }

@@ -18,10 +18,12 @@
             </a>
         </li>
         <a th:href="@{/story-info/{storyId}(storyId=${storyId})}" class="story-title" th:text="'/ ' + ${storyTitle}"></a>
-        <span>/</span>
-        <a href="#" class="chapter-title" th:text="${chapter.title}"></a>
+        <a href="#" class="chapter-title" th:text="'/ ' + ${chapter.title}"></a>
     </div>
-
+    <button id="editChapterButton" onclick="openEditModal()" class="edit-button"
+            th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+        Chỉnh sửa
+    </button>
     <div class="navigation">
         <span th:if="${prevChapterId != null}">
             <a th:href="@{/chapter/{id}(id=${prevChapterId})}" class="prev-chapter">Chương trước</a>
@@ -35,7 +37,7 @@
     <div class="chapter-content">
         <h1 class="story-title" th:text="${storyTitle}"></h1>
         <h2 class="chapter-title">
-            <span th:text="${chapter.title}"></span><span th:if="${chapter.content}!=''">:</span>
+            <span th:text="${chapter.title}"></span><span th:if="${chapter.content}!=''">:</span> 
             <span th:text="${chapter.content}"></span>
         </h2>
         <div class="voice-controls">
@@ -53,10 +55,6 @@
             </button>
             <button class="tts-button" onclick="changeSpeed()">
                 Tốc độ: <span id="speedLabel">1x</span>
-            </button>
-            <button id="editChapterButton" onclick="openEditModal()" style="background-color:pink;"
-                    th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-                Chỉnh sửa
             </button>
         </div>                      
         <p th:utext="${formattedContent}" id="format-content"></p>        
@@ -110,7 +108,7 @@
                     <textarea id="edit-longContent" name="longContent" required th:text="${chapter.longContent}"></textarea>
                 </div>
     
-                <button type="submit" style="margin-top: 10px; padding: 5px 10px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px;">
+                <button type="submit">
                     Lưu thay đổi
                 </button>
             </form>
