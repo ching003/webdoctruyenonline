@@ -394,6 +394,8 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
     margin-left: 85%;
+    margin-bottom:20px;
+    font-size: 16px;
 }
 
 .edit-button:hover {
