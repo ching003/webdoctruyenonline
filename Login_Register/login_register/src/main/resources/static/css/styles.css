@@ -191,8 +191,8 @@ input[type=submit] {
 
 .back-to-home {
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 20px;
+    left: 20px;
     color: #ffffff; 
     text-decoration: underline; 
     font-weight: bold;
@@ -201,7 +201,7 @@ input[type=submit] {
 }
 
 .back-to-home:hover {
-    color: #FFB6C1; 
+    color: #f9f229; 
     text-decoration: none; 
 }
 
