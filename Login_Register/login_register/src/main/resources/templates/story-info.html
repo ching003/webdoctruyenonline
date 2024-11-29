@@ -254,8 +254,10 @@
         <ul id="comment-list">
             <li th:each="comment : ${comments}" class="comment-item">
                 <div class="comment-header">
-                    <img src="\image\c6e56503cfdd87da299f72dc416023d4.jpg" class="comment-avatar">
-                    <span class="comment-user" th:text="${comment.userName}">Tên</span>
+                    <a th:href="@{/user/{id}(id=${comment.userId})}">
+                        <img src="\image\c6e56503cfdd87da299f72dc416023d4.jpg" class="comment-avatar">
+                    </a>
+                    <a th:href="@{/user/{id}(id=${comment.userId})}" class="comment-user" th:text="${comment.userName}">Tên</a>
                     <small class="comment-time" th:text="${comment.elapsedTime}">Thời gian bình luận</small>
                 </div>
                 <div class="comment-content" th:text="${comment.content}">Nội dung</div>

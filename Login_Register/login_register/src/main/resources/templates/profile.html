@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{../css/header.css}">
+    <link rel="stylesheet" th:href="@{../css/profile.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Truyện hay - Đọc truyện online</title>
+    <script>
+        function loadContent(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    </script>
+
+    <script th:src="@{../js/notification.js}"></script>
+    
+</head>
+<body>
+
+    <div th:replace="header :: header"></div>
+
+    <header class="profile-header">
+        <div class="profile-cover">
+            <img src="/image/bg.jpg" alt="Cover" class="cover-image">
+        </div>
+        <div class="profile-details">
+            <img src="/image/c6e56503cfdd87da299f72dc416023d4.jpg" class="profile-avatar">
+            <h1 th:text="${user.fullname}">Tên người dùng</h1>
+            <p th:text="'Email: ' + ${user.email}"></p>
+        </div>
+    </header>
+
+    <main class="profile-main">
+        <section class="favorite-stories">
+            <h2 class="blue-title">Truyện yêu thích</h2>
+            <ul class="story-list">
+                <li th:each="story : ${favoriteStories}" class="story-item" th:if="${not #lists.isEmpty(favoriteStories)}">
+                    <a th:href="@{/story-info/{id}(id=${story.id})}">
+                        <img th:src="${story.coverImage}" class="story-image">
+                    </a>
+                    <div class="story-details">
+                        <a th:href="@{/story-info/{id}(id=${story.id})}" class="story-title" th:text="${story.title}">Tên truyện</a>
+                        <p class="story-author" th:text="${story.author}">Tác giả</p>
+                        <p class="story-category" th:text="${story.category}">Thể loại</p>
+                    </div>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(favoriteStories)}" class="no-story-message">Không có truyện nào trong danh sách yêu thích.</p>
+        </section>
+    </main>
+
+    <script th:src="@{../js/search.js}"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.loginandregister.login_register.controller;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,10 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.loginandregister.login_register.dto.UserDto;
+import com.loginandregister.login_register.model.Story;
+import com.loginandregister.login_register.model.User;
+import com.loginandregister.login_register.repositories.UserRepository;
 import com.loginandregister.login_register.service.CustomUserDetail;
+import com.loginandregister.login_register.service.FavoriteService;
+import com.loginandregister.login_register.service.StoryService;
 import com.loginandregister.login_register.service.UserService;
 
 
@@ -25,6 +33,16 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private FavoriteService favoriteService;
+
+    @Autowired
+    private StoryService storyService;
+
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto, Model model){
@@ -84,5 +102,20 @@ public class UserController {
     
     private String obfuscatePassword(String password) {
         return "****";
+    }
+
+    @GetMapping("/user/{userId}")
+    public String getUserProfile(@PathVariable Long userId, Model model) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Long> favoriteStoryIds = favoriteService.getFavoriteStoryIds(userId);
+        List<Story> favoriteStories = favoriteStoryIds.stream()
+            .map(storyId -> storyService.findById(storyId))
+            .collect(Collectors.toList());
+
+        model.addAttribute("user", user);
+        model.addAttribute("favoriteStories", favoriteStories);
+        return "profile";
     }
 }
