@@ -122,6 +122,14 @@ body {
 .comment-item p {
     max-width: 70%;
 }
+.comment-item small {
+    font-size: 12px; 
+    color: #888; 
+    margin-left: auto;
+    padding-right: 15px;
+    padding-bottom: 0;
+    margin-top: auto;
+}
 .comment-item span {
     font-size: 14px;
     font-weight: bold;

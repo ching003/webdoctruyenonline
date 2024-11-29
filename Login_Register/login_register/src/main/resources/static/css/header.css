@@ -21,7 +21,7 @@ nav ul, li {
 }
 
 #search-box {
-    width: 100%; 
+    width: 110%; 
     height: 30px; 
     padding: 10px; 
     font-size: 14px;
@@ -30,7 +30,7 @@ nav ul, li {
 }
 #search-box + i {
     position: absolute;
-    right: 10px; 
+    right: -10px; 
     top: 50%;
     transform: translateY(-50%);
     font-size: 18px;
@@ -91,6 +91,7 @@ nav ul, li {
 .nav-link {
     position: relative;
     text-decoration: none;
+    margin-left: 90px;
 }
 .fas.fa-sort-down {
     margin-left: 7px;
@@ -289,7 +290,9 @@ input[type=radio] {
 .sub {
     margin-right: 70px;
 }
-
+.search-sub {
+    margin-left: 40px;
+}
 
 
 .notification-icon-container {

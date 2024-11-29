@@ -44,6 +44,10 @@ public class StoryService {
     public void deleteStory(Long id) {
         Optional<Story> story = storyRepository.findById(id);
         if (story.isPresent()) {
+            List<Chapter> chapters = chapterRepository.findByStoryId(id);
+            for (Chapter chapter : chapters) {
+                chapterRepository.delete(chapter); 
+            }
             storyRepository.delete(story.get());
         } else {
             throw new RuntimeException("Truyện không tồn tại");

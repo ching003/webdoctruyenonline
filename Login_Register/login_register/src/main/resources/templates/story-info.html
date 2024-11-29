@@ -71,6 +71,10 @@
                     <span th:if="${story.status == 'completed'}">Full</span>
                     <span th:if="${story.status == 'in-progress'}">Đang ra</span>
                 </p> 
+                <p>
+                    <strong>Tổng lượt xem:</strong>
+                    <span th:text="${story.views}"></span>
+                </p>
 
                 <div class="icon-container">
                     <!-- user -->

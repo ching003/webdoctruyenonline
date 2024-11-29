@@ -32,7 +32,7 @@ public class Story {
     private LocalDateTime createdDate, completedDate;
     private int views;
 
-    @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "story", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Chapter> chapters = new ArrayList<>();
 
     @ManyToOne
